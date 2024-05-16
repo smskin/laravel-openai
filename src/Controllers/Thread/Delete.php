@@ -2,10 +2,10 @@
 
 namespace SMSkin\LaravelOpenAi\Controllers\Thread;
 
-use BaseController;
 use Illuminate\Support\Str;
 use OpenAI\Exceptions\ErrorException;
 use OpenAI\Responses\Threads\ThreadDeleteResponse;
+use SMSkin\LaravelOpenAi\Controllers\BaseController;
 use SMSkin\LaravelOpenAi\Exceptions\ThreadNotFound;
 
 class Delete extends BaseController

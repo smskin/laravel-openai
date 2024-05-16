@@ -2,10 +2,10 @@
 
 namespace SMSkin\LaravelOpenAi\Controllers\ThreadRun;
 
-use BaseController;
 use Illuminate\Support\Str;
 use OpenAI\Exceptions\ErrorException;
 use OpenAI\Responses\Threads\Runs\ThreadRunResponse;
+use SMSkin\LaravelOpenAi\Controllers\BaseController;
 use SMSkin\LaravelOpenAi\Exceptions\RunNotFound;
 use SMSkin\LaravelOpenAi\Exceptions\ThreadNotFound;
 

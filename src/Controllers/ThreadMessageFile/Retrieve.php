@@ -2,10 +2,10 @@
 
 namespace SMSkin\LaravelOpenAi\Controllers\ThreadMessageFile;
 
-use BaseController;
 use Illuminate\Support\Str;
 use OpenAI\Exceptions\ErrorException;
 use OpenAI\Responses\Threads\Messages\Files\ThreadMessageFileResponse;
+use SMSkin\LaravelOpenAi\Controllers\BaseController;
 use SMSkin\LaravelOpenAi\Exceptions\MessageFileNotFound;
 use SMSkin\LaravelOpenAi\Exceptions\MessageNotFound;
 use SMSkin\LaravelOpenAi\Exceptions\ThreadNotFound;

@@ -2,9 +2,9 @@
 
 namespace SMSkin\LaravelOpenAi\Controllers\Audio;
 
-use BaseController;
 use Illuminate\Support\Str;
 use OpenAI\Exceptions\ErrorException;
+use SMSkin\LaravelOpenAi\Controllers\BaseController;
 use SMSkin\LaravelOpenAi\Enums\AudioResponseFormatEnum;
 use SMSkin\LaravelOpenAi\Enums\AudioVoiceEnum;
 use SMSkin\LaravelOpenAi\Enums\ModelEnum;

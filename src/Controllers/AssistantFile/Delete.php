@@ -2,10 +2,10 @@
 
 namespace SMSkin\LaravelOpenAi\Controllers\AssistantFile;
 
-use BaseController;
 use Illuminate\Support\Str;
 use OpenAI\Exceptions\ErrorException;
 use OpenAI\Responses\Assistants\Files\AssistantFileDeleteResponse;
+use SMSkin\LaravelOpenAi\Controllers\BaseController;
 use SMSkin\LaravelOpenAi\Exceptions\AssistanceNotFound;
 use SMSkin\LaravelOpenAi\Exceptions\FileNotFound;
 

@@ -2,11 +2,11 @@
 
 namespace SMSkin\LaravelOpenAi\Controllers\Chat;
 
-use BaseController;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use OpenAI\Exceptions\ErrorException;
 use OpenAI\Responses\Chat\CreateResponse;
+use SMSkin\LaravelOpenAi\Controllers\BaseController;
 use SMSkin\LaravelOpenAi\Enums\ModelEnum;
 use SMSkin\LaravelOpenAi\Exceptions\NotValidModel;
 use SMSkin\LaravelOpenAi\Models\ChatMessage;

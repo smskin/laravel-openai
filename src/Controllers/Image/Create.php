@@ -2,10 +2,10 @@
 
 namespace SMSkin\LaravelOpenAi\Controllers\Image;
 
-use BaseController;
 use Illuminate\Support\Str;
 use OpenAI\Exceptions\ErrorException;
 use OpenAI\Responses\Images\CreateResponse;
+use SMSkin\LaravelOpenAi\Controllers\BaseController;
 use SMSkin\LaravelOpenAi\Enums\ImageResponseFormatEnum;
 use SMSkin\LaravelOpenAi\Enums\ImageSizeEnum;
 use SMSkin\LaravelOpenAi\Enums\ImageStyleEnum;

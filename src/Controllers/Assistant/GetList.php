@@ -2,9 +2,9 @@
 
 namespace SMSkin\LaravelOpenAi\Controllers\Assistant;
 
-use BaseController;
 use OpenAI\Exceptions\ErrorException;
 use OpenAI\Responses\Assistants\AssistantListResponse;
+use SMSkin\LaravelOpenAi\Controllers\BaseController;
 
 class GetList extends BaseController
 {

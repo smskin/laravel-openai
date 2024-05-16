@@ -2,10 +2,10 @@
 
 namespace SMSkin\LaravelOpenAi\Controllers\Assistant;
 
-use BaseController;
 use Illuminate\Support\Str;
 use OpenAI\Exceptions\ErrorException;
 use OpenAI\Responses\Assistants\Files\AssistantFileListResponse;
+use SMSkin\LaravelOpenAi\Controllers\BaseController;
 use SMSkin\LaravelOpenAi\Exceptions\AssistanceNotFound;
 
 class ListFiles extends BaseController

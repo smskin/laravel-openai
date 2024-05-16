@@ -1,8 +1,11 @@
 <?php
 
+namespace SMSkin\LaravelOpenAi\Controllers;
+
 use Illuminate\Support\Str;
 use OpenAI\Contracts\ClientContract;
 use OpenAI\Exceptions\ErrorException;
+use RuntimeException;
 use SMSkin\LaravelOpenAi\Exceptions\ApiKeyNotProvided;
 use SMSkin\LaravelOpenAi\Exceptions\IncorrectApiKey;
 

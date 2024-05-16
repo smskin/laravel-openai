@@ -2,11 +2,11 @@
 
 namespace SMSkin\LaravelOpenAi\Controllers\ThreadMessage;
 
-use BaseController;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use OpenAI\Exceptions\ErrorException;
 use OpenAI\Responses\Threads\Messages\ThreadMessageResponse;
+use SMSkin\LaravelOpenAi\Controllers\BaseController;
 use SMSkin\LaravelOpenAi\Enums\RoleEnum;
 use SMSkin\LaravelOpenAi\Exceptions\ThreadNotFound;
 use SMSkin\LaravelOpenAi\Models\Attachment;
