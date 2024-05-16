@@ -13,7 +13,7 @@ interface IAudioModule
      * @throws NotValidModel
      */
     public function speech(
-        ModelEnum               $model,
+        ModelEnum                    $model,
         string                       $input,
         AudioVoiceEnum               $voice,
         AudioResponseFormatEnum|null $responseFormat = null,

@@ -23,12 +23,12 @@ class ChatModule implements IChatModule
      * @throws NotValidModel
      */
     public function create(
-        ModelEnum $model,
-        Collection    $messages,
-        int|null      $frequencyPenalty = null,
-        int|null      $temperature = null,
-        int|null      $presencePenalty = null,
-        int|null      $maxTokens = null,
+        ModelEnum  $model,
+        Collection $messages,
+        int|null   $frequencyPenalty = null,
+        int|null   $temperature = null,
+        int|null   $presencePenalty = null,
+        int|null   $maxTokens = null,
     ): CreateResponse {
         $frequencyPenalty ??= 0;
         $temperature ??= 1;

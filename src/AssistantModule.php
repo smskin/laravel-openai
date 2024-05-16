@@ -41,7 +41,7 @@ class AssistantModule implements IAssistantModule
      * @throws NotValidModel
      */
     public function create(
-        ModelEnum   $model,
+        ModelEnum       $model,
         string|null     $name = null,
         string|null     $description = null,
         string|null     $instructions = null,

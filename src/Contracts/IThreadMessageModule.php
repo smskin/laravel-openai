@@ -16,9 +16,9 @@ interface IThreadMessageModule
      * @throws ThreadNotFound
      */
     public function create(
-        string $threadId,
-        RoleEnum $role,
-        string $content,
+        string          $threadId,
+        RoleEnum        $role,
+        string          $content,
         Collection|null $attachments = null
     ): ThreadMessageResponse;
 
@@ -36,8 +36,8 @@ interface IThreadMessageModule
      * @throws ThreadNotFound
      */
     public function modify(
-        string $threadId,
-        string $messageId,
+        string        $threadId,
+        string        $messageId,
         MetaData|null $metaData = null
     ): ThreadMessageResponse;
 
@@ -46,8 +46,8 @@ interface IThreadMessageModule
      * @throws ThreadNotFound
      */
     public function listFiles(
-        string $threadId,
-        string $messageId,
+        string   $threadId,
+        string   $messageId,
         int|null $limit = null
     ): ThreadMessageFileListResponse;
 }

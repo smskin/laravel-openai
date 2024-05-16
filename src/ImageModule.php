@@ -18,7 +18,7 @@ class ImageModule implements IImageModule
      */
     public function create(
         string                       $prompt,
-        ModelEnum|null          $model = null,
+        ModelEnum|null               $model = null,
         int|null                     $n = null,
         ImageSizeEnum|null           $size = null,
         ImageStyleEnum|null          $style = null,

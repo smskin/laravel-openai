@@ -13,10 +13,10 @@ interface ICompletionModule
      */
     public function create(
         ModelEnum $model,
-        string        $prompt,
-        int|null      $frequencyPenalty = null,
-        int|null      $temperature = null,
-        int|null      $presencePenalty = null,
-        int|null      $maxTokens = null,
+        string    $prompt,
+        int|null  $frequencyPenalty = null,
+        int|null  $temperature = null,
+        int|null  $presencePenalty = null,
+        int|null  $maxTokens = null,
     ): CreateResponse;
 }

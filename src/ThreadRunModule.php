@@ -20,8 +20,8 @@ class ThreadRunModule implements IThreadRunModule
      * @throws AssistanceNotFound
      */
     public function create(
-        string $threadId,
-        string $assistantId,
+        string        $threadId,
+        string        $assistantId,
         MetaData|null $metaData = null
     ): ThreadRunResponse {
         return (new Create($threadId, $assistantId, $metaData))->execute();
@@ -43,8 +43,8 @@ class ThreadRunModule implements IThreadRunModule
      * @throws RunNotFound
      */
     public function modify(
-        string $threadId,
-        string $runId,
+        string        $threadId,
+        string        $runId,
         MetaData|null $metaData = null
     ): ThreadRunResponse {
         return (new Modify($threadId, $runId, $metaData))->execute();

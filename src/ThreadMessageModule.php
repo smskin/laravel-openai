@@ -21,9 +21,9 @@ class ThreadMessageModule implements IThreadMessageModule
      * @throws ThreadNotFound
      */
     public function create(
-        string $threadId,
-        RoleEnum $role,
-        string $content,
+        string          $threadId,
+        RoleEnum        $role,
+        string          $content,
         Collection|null $attachments = null
     ): ThreadMessageResponse {
         return (new Create($threadId, $role, $content, $attachments))->execute();
@@ -45,8 +45,8 @@ class ThreadMessageModule implements IThreadMessageModule
      * @throws ThreadNotFound
      */
     public function modify(
-        string $threadId,
-        string $messageId,
+        string        $threadId,
+        string        $messageId,
         MetaData|null $metaData = null
     ): ThreadMessageResponse {
         return (new Modify($threadId, $messageId, $metaData))->execute();
@@ -57,8 +57,8 @@ class ThreadMessageModule implements IThreadMessageModule
      * @throws ThreadNotFound
      */
     public function listFiles(
-        string $threadId,
-        string $messageId,
+        string   $threadId,
+        string   $messageId,
         int|null $limit = null
     ): ThreadMessageFileListResponse {
         $limit ??= 10;

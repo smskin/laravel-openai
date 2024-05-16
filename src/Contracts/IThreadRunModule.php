@@ -15,8 +15,8 @@ interface IThreadRunModule
      * @throws AssistanceNotFound
      */
     public function create(
-        string $threadId,
-        string $assistantId,
+        string        $threadId,
+        string        $assistantId,
         MetaData|null $metaData = null
     ): ThreadRunResponse;
 
@@ -34,8 +34,8 @@ interface IThreadRunModule
      * @throws RunNotFound
      */
     public function modify(
-        string $threadId,
-        string $runId,
+        string        $threadId,
+        string        $runId,
         MetaData|null $metaData = null
     ): ThreadRunResponse;
 
