@@ -1,14 +1,14 @@
 <?php
 
-namespace SMSkin\LaravelOpenAi\Controllers\Thread;
+namespace SMSkin\LaravelOpenAi\Controllers\ThreadMessage;
 
 use Illuminate\Support\Str;
 use OpenAI\Exceptions\ErrorException;
-use OpenAI\Responses\Threads\Runs\ThreadRunListResponse;
+use OpenAI\Responses\Threads\Messages\ThreadMessageListResponse;
 use SMSkin\LaravelOpenAi\Controllers\BaseController;
 use SMSkin\LaravelOpenAi\Exceptions\ThreadNotFound;
 
-class ListRuns extends BaseController
+class GetList extends BaseController
 {
     public function __construct(
         private readonly string $threadId,
@@ -19,10 +19,10 @@ class ListRuns extends BaseController
     /**
      * @throws ThreadNotFound
      */
-    public function execute(): ThreadRunListResponse
+    public function execute(): ThreadMessageListResponse
     {
         try {
-            return $this->getClient()->threads()->runs()->list($this->threadId, [
+            return $this->getClient()->threads()->messages()->list($this->threadId, [
                 'limit' => $this->limit,
             ]);
         } /** @noinspection PhpRedundantCatchClauseInspection */

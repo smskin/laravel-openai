@@ -6,12 +6,11 @@ use Illuminate\Support\Collection;
 use OpenAI\Responses\Assistants\AssistantDeleteResponse;
 use OpenAI\Responses\Assistants\AssistantListResponse;
 use OpenAI\Responses\Assistants\AssistantResponse;
-use OpenAI\Responses\Assistants\Files\AssistantFileListResponse;
+use SMSkin\LaravelOpenAi\Contracts\IAssistantFileModule;
 use SMSkin\LaravelOpenAi\Contracts\IAssistantModule;
 use SMSkin\LaravelOpenAi\Controllers\Assistant\Create;
 use SMSkin\LaravelOpenAi\Controllers\Assistant\Delete;
 use SMSkin\LaravelOpenAi\Controllers\Assistant\GetList;
-use SMSkin\LaravelOpenAi\Controllers\Assistant\ListFiles;
 use SMSkin\LaravelOpenAi\Controllers\Assistant\Modify;
 use SMSkin\LaravelOpenAi\Controllers\Assistant\Retrieve;
 use SMSkin\LaravelOpenAi\Enums\ModelEnum;
@@ -24,6 +23,7 @@ class AssistantModule implements IAssistantModule
     /**
      * @param int|null $limit
      * @return AssistantListResponse
+     * @throws AssistanceNotFound
      */
     public function getList(int|null $limit = null): AssistantListResponse
     {
@@ -85,12 +85,8 @@ class AssistantModule implements IAssistantModule
         return (new Delete($assistantId))->execute();
     }
 
-    /**
-     * @throws AssistanceNotFound
-     */
-    public function listFiles(string $assistantId, int|null $limit = null): AssistantFileListResponse
+    public function files(): IAssistantFileModule
     {
-        $limit ??= 10;
-        return (new ListFiles($assistantId, $limit))->execute();
+        return app(IAssistantFileModule::class);
     }
 }

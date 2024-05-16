@@ -2,6 +2,7 @@
 
 namespace SMSkin\LaravelOpenAi\Contracts;
 
+use OpenAI\Responses\Threads\Runs\ThreadRunListResponse;
 use OpenAI\Responses\Threads\Runs\ThreadRunResponse;
 use SMSkin\LaravelOpenAi\Exceptions\AssistanceNotFound;
 use SMSkin\LaravelOpenAi\Exceptions\RunNotFound;
@@ -10,6 +11,11 @@ use SMSkin\LaravelOpenAi\Models\MetaData;
 
 interface IThreadRunModule
 {
+    public function getList(
+        string   $threadId,
+        int|null $limit = null
+    ): ThreadRunListResponse;
+
     /**
      * @throws ThreadNotFound
      * @throws AssistanceNotFound

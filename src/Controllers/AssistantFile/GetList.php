@@ -1,6 +1,6 @@
 <?php
 
-namespace SMSkin\LaravelOpenAi\Controllers\Assistant;
+namespace SMSkin\LaravelOpenAi\Controllers\AssistantFile;
 
 use Illuminate\Support\Str;
 use OpenAI\Exceptions\ErrorException;
@@ -8,7 +8,7 @@ use OpenAI\Responses\Assistants\Files\AssistantFileListResponse;
 use SMSkin\LaravelOpenAi\Controllers\BaseController;
 use SMSkin\LaravelOpenAi\Exceptions\AssistanceNotFound;
 
-class ListFiles extends BaseController
+class GetList extends BaseController
 {
     public function __construct(
         private readonly string $assistantId,

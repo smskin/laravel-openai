@@ -4,23 +4,15 @@ namespace SMSkin\LaravelOpenAi\Contracts;
 
 interface IApi
 {
-    public function thread(): IThreadModule;
+    public function threads(): IThreadModule;
 
-    public function threadRun(): IThreadRunModule;
+    public function images(): IImageModule;
 
-    public function threadMessage(): IThreadMessageModule;
+    public function completions(): ICompletionModule;
 
-    public function threadMessageFile(): IThreadMessageFileModule;
+    public function chats(): IChatModule;
 
-    public function image(): IImageModule;
+    public function audios(): IAudioModule;
 
-    public function completion(): ICompletionModule;
-
-    public function chat(): IChatModule;
-
-    public function audio(): IAudioModule;
-
-    public function assistant(): IAssistantModule;
-
-    public function assistantFile(): IAssistantFileModule;
+    public function assistants(): IAssistantModule;
 }

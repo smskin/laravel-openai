@@ -3,7 +3,7 @@
 namespace SMSkin\LaravelOpenAi\Contracts;
 
 use Illuminate\Support\Collection;
-use OpenAI\Responses\Threads\Messages\Files\ThreadMessageFileListResponse;
+use OpenAI\Responses\Threads\Messages\ThreadMessageListResponse;
 use OpenAI\Responses\Threads\Messages\ThreadMessageResponse;
 use SMSkin\LaravelOpenAi\Enums\RoleEnum;
 use SMSkin\LaravelOpenAi\Exceptions\MessageNotFound;
@@ -12,6 +12,14 @@ use SMSkin\LaravelOpenAi\Models\MetaData;
 
 interface IThreadMessageModule
 {
+    /**
+     * @throws ThreadNotFound
+     */
+    public function getList(
+        string   $threadId,
+        int|null $limit = null
+    ): ThreadMessageListResponse;
+
     /**
      * @throws ThreadNotFound
      */
@@ -41,13 +49,5 @@ interface IThreadMessageModule
         MetaData|null $metaData = null
     ): ThreadMessageResponse;
 
-    /**
-     * @throws MessageNotFound
-     * @throws ThreadNotFound
-     */
-    public function listFiles(
-        string   $threadId,
-        string   $messageId,
-        int|null $limit = null
-    ): ThreadMessageFileListResponse;
+    public function files(): IThreadMessageFileModule;
 }

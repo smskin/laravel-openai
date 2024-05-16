@@ -39,22 +39,19 @@
   </file>
   <file src="src/Contracts/IApi.php">
     <PossiblyUnusedMethod>
-      <code><![CDATA[assistant]]></code>
-      <code><![CDATA[assistantFile]]></code>
-      <code><![CDATA[audio]]></code>
-      <code><![CDATA[chat]]></code>
-      <code><![CDATA[completion]]></code>
-      <code><![CDATA[image]]></code>
-      <code><![CDATA[thread]]></code>
-      <code><![CDATA[threadMessage]]></code>
-      <code><![CDATA[threadMessageFile]]></code>
-      <code><![CDATA[threadRun]]></code>
+      <code><![CDATA[assistants]]></code>
+      <code><![CDATA[audios]]></code>
+      <code><![CDATA[chats]]></code>
+      <code><![CDATA[completions]]></code>
+      <code><![CDATA[images]]></code>
+      <code><![CDATA[threads]]></code>
     </PossiblyUnusedMethod>
   </file>
   <file src="src/Contracts/IAssistantFileModule.php">
     <PossiblyUnusedMethod>
       <code><![CDATA[create]]></code>
       <code><![CDATA[delete]]></code>
+      <code><![CDATA[getList]]></code>
       <code><![CDATA[retrieve]]></code>
     </PossiblyUnusedMethod>
   </file>
@@ -66,8 +63,8 @@
     <PossiblyUnusedMethod>
       <code><![CDATA[create]]></code>
       <code><![CDATA[delete]]></code>
+      <code><![CDATA[files]]></code>
       <code><![CDATA[getList]]></code>
-      <code><![CDATA[listFiles]]></code>
       <code><![CDATA[modify]]></code>
       <code><![CDATA[retrieve]]></code>
     </PossiblyUnusedMethod>
@@ -97,13 +94,15 @@
   </file>
   <file src="src/Contracts/IThreadMessageFileModule.php">
     <PossiblyUnusedMethod>
+      <code><![CDATA[getList]]></code>
       <code><![CDATA[retrieve]]></code>
     </PossiblyUnusedMethod>
   </file>
   <file src="src/Contracts/IThreadMessageModule.php">
     <PossiblyUnusedMethod>
       <code><![CDATA[create]]></code>
-      <code><![CDATA[listFiles]]></code>
+      <code><![CDATA[files]]></code>
+      <code><![CDATA[getList]]></code>
       <code><![CDATA[modify]]></code>
       <code><![CDATA[retrieve]]></code>
     </PossiblyUnusedMethod>
@@ -117,16 +116,17 @@
       <code><![CDATA[create]]></code>
       <code><![CDATA[createAndRun]]></code>
       <code><![CDATA[delete]]></code>
-      <code><![CDATA[listMessages]]></code>
-      <code><![CDATA[listRuns]]></code>
+      <code><![CDATA[messages]]></code>
       <code><![CDATA[modify]]></code>
       <code><![CDATA[retrieve]]></code>
+      <code><![CDATA[runs]]></code>
     </PossiblyUnusedMethod>
   </file>
   <file src="src/Contracts/IThreadRunModule.php">
     <PossiblyUnusedMethod>
       <code><![CDATA[cancel]]></code>
       <code><![CDATA[create]]></code>
+      <code><![CDATA[getList]]></code>
       <code><![CDATA[modify]]></code>
       <code><![CDATA[retrieve]]></code>
     </PossiblyUnusedMethod>

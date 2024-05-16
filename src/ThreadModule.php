@@ -3,17 +3,15 @@
 namespace SMSkin\LaravelOpenAi;
 
 use Illuminate\Support\Collection;
-use OpenAI\Responses\Threads\Messages\ThreadMessageListResponse;
-use OpenAI\Responses\Threads\Runs\ThreadRunListResponse;
 use OpenAI\Responses\Threads\Runs\ThreadRunResponse;
 use OpenAI\Responses\Threads\ThreadDeleteResponse;
 use OpenAI\Responses\Threads\ThreadResponse;
+use SMSkin\LaravelOpenAi\Contracts\IThreadMessageModule;
 use SMSkin\LaravelOpenAi\Contracts\IThreadModule;
+use SMSkin\LaravelOpenAi\Contracts\IThreadRunModule;
 use SMSkin\LaravelOpenAi\Controllers\Thread\Create;
 use SMSkin\LaravelOpenAi\Controllers\Thread\CreateAndRun;
 use SMSkin\LaravelOpenAi\Controllers\Thread\Delete;
-use SMSkin\LaravelOpenAi\Controllers\Thread\ListMessages;
-use SMSkin\LaravelOpenAi\Controllers\Thread\ListRuns;
 use SMSkin\LaravelOpenAi\Controllers\Thread\Modify;
 use SMSkin\LaravelOpenAi\Controllers\Thread\Retrieve;
 use SMSkin\LaravelOpenAi\Exceptions\AssistanceNotFound;
@@ -76,25 +74,13 @@ class ThreadModule implements IThreadModule
         return (new Delete($id))->execute();
     }
 
-    /**
-     * @throws ThreadNotFound
-     */
-    public function listMessages(
-        string   $threadId,
-        int|null $limit = null
-    ): ThreadMessageListResponse {
-        $limit ??= 10;
-        return (new ListMessages($threadId, $limit))->execute();
+    public function runs(): IThreadRunModule
+    {
+        return app(IThreadRunModule::class);
     }
 
-    /**
-     * @throws ThreadNotFound
-     */
-    public function listRuns(
-        string   $threadId,
-        int|null $limit = null
-    ): ThreadRunListResponse {
-        $limit ??= 10;
-        return (new ListRuns($threadId, $limit))->execute();
+    public function messages(): IThreadMessageModule
+    {
+        return app(IThreadMessageModule::class);
     }
 }

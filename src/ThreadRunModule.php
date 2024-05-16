@@ -2,10 +2,12 @@
 
 namespace SMSkin\LaravelOpenAi;
 
+use OpenAI\Responses\Threads\Runs\ThreadRunListResponse;
 use OpenAI\Responses\Threads\Runs\ThreadRunResponse;
 use SMSkin\LaravelOpenAi\Contracts\IThreadRunModule;
 use SMSkin\LaravelOpenAi\Controllers\ThreadRun\Cancel;
 use SMSkin\LaravelOpenAi\Controllers\ThreadRun\Create;
+use SMSkin\LaravelOpenAi\Controllers\ThreadRun\GetList;
 use SMSkin\LaravelOpenAi\Controllers\ThreadRun\Modify;
 use SMSkin\LaravelOpenAi\Controllers\ThreadRun\Retrieve;
 use SMSkin\LaravelOpenAi\Exceptions\AssistanceNotFound;
@@ -15,6 +17,17 @@ use SMSkin\LaravelOpenAi\Models\MetaData;
 
 class ThreadRunModule implements IThreadRunModule
 {
+    /**
+     * @throws ThreadNotFound
+     */
+    public function getList(
+        string   $threadId,
+        int|null $limit = null
+    ): ThreadRunListResponse {
+        $limit ??= 10;
+        return (new GetList($threadId, $limit))->execute();
+    }
+
     /**
      * @throws ThreadNotFound
      * @throws AssistanceNotFound

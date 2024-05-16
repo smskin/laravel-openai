@@ -3,8 +3,6 @@
 namespace SMSkin\LaravelOpenAi\Contracts;
 
 use Illuminate\Support\Collection;
-use OpenAI\Responses\Threads\Messages\ThreadMessageListResponse;
-use OpenAI\Responses\Threads\Runs\ThreadRunListResponse;
 use OpenAI\Responses\Threads\Runs\ThreadRunResponse;
 use OpenAI\Responses\Threads\ThreadDeleteResponse;
 use OpenAI\Responses\Threads\ThreadResponse;
@@ -56,19 +54,7 @@ interface IThreadModule
      */
     public function delete(string $id): ThreadDeleteResponse;
 
-    /**
-     * @throws ThreadNotFound
-     */
-    public function listMessages(
-        string   $threadId,
-        int|null $limit = null
-    ): ThreadMessageListResponse;
+    public function runs(): IThreadRunModule;
 
-    /**
-     * @throws ThreadNotFound
-     */
-    public function listRuns(
-        string   $threadId,
-        int|null $limit = null
-    ): ThreadRunListResponse;
+    public function messages(): IThreadMessageModule;
 }

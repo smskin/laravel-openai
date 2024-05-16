@@ -3,16 +3,28 @@
 namespace SMSkin\LaravelOpenAi;
 
 use OpenAI\Responses\Assistants\Files\AssistantFileDeleteResponse;
+use OpenAI\Responses\Assistants\Files\AssistantFileListResponse;
 use OpenAI\Responses\Assistants\Files\AssistantFileResponse;
+use SMSkin\LaravelOpenAi\Contracts\IAssistantFileModule;
 use SMSkin\LaravelOpenAi\Controllers\AssistantFile\Create;
 use SMSkin\LaravelOpenAi\Controllers\AssistantFile\Delete;
+use SMSkin\LaravelOpenAi\Controllers\AssistantFile\GetList;
 use SMSkin\LaravelOpenAi\Controllers\AssistantFile\Retrieve;
 use SMSkin\LaravelOpenAi\Exceptions\AssistanceNotFound;
 use SMSkin\LaravelOpenAi\Exceptions\FileNotFound;
 use SMSkin\LaravelOpenAi\Exceptions\InvalidAssistantConfig;
 
-class AssistantFileModule
+class AssistantFileModule implements IAssistantFileModule
 {
+    /**
+     * @throws AssistanceNotFound
+     */
+    public function getList(string $assistantId, int|null $limit = null): AssistantFileListResponse
+    {
+        $limit ??= 10;
+        return (new GetList($assistantId, $limit))->execute();
+    }
+
     /**
      * @throws InvalidAssistantConfig
      * @throws AssistanceNotFound

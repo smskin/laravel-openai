@@ -1,6 +1,6 @@
 <?php
 
-namespace SMSkin\LaravelOpenAi\Controllers\ThreadMessage;
+namespace SMSkin\LaravelOpenAi\Controllers\ThreadMessageFile;
 
 use Illuminate\Support\Str;
 use OpenAI\Exceptions\ErrorException;
@@ -9,7 +9,7 @@ use SMSkin\LaravelOpenAi\Controllers\BaseController;
 use SMSkin\LaravelOpenAi\Exceptions\MessageNotFound;
 use SMSkin\LaravelOpenAi\Exceptions\ThreadNotFound;
 
-class ListFiles extends BaseController
+class GetList extends BaseController
 {
     public function __construct(
         private readonly string $threadId,

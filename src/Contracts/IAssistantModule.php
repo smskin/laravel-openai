@@ -6,7 +6,6 @@ use Illuminate\Support\Collection;
 use OpenAI\Responses\Assistants\AssistantDeleteResponse;
 use OpenAI\Responses\Assistants\AssistantListResponse;
 use OpenAI\Responses\Assistants\AssistantResponse;
-use OpenAI\Responses\Assistants\Files\AssistantFileListResponse;
 use SMSkin\LaravelOpenAi\Enums\ModelEnum;
 use SMSkin\LaravelOpenAi\Exceptions\AssistanceNotFound;
 use SMSkin\LaravelOpenAi\Exceptions\NotValidModel;
@@ -64,8 +63,5 @@ interface IAssistantModule
      */
     public function delete(string $assistantId): AssistantDeleteResponse;
 
-    /**
-     * @throws AssistanceNotFound
-     */
-    public function listFiles(string $assistantId, int|null $limit = null): AssistantFileListResponse;
+    public function files(): IAssistantFileModule;
 }
