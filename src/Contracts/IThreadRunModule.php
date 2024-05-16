@@ -5,6 +5,7 @@ namespace SMSkin\LaravelOpenAi\Contracts;
 use OpenAI\Responses\Threads\Runs\ThreadRunListResponse;
 use OpenAI\Responses\Threads\Runs\ThreadRunResponse;
 use SMSkin\LaravelOpenAi\Exceptions\AssistanceNotFound;
+use SMSkin\LaravelOpenAi\Exceptions\RunInCompletedState;
 use SMSkin\LaravelOpenAi\Exceptions\RunNotFound;
 use SMSkin\LaravelOpenAi\Exceptions\ThreadNotFound;
 use SMSkin\LaravelOpenAi\Models\MetaData;
@@ -48,6 +49,7 @@ interface IThreadRunModule
     /**
      * @throws ThreadNotFound
      * @throws RunNotFound
+     * @throws RunInCompletedState
      */
     public function cancel(
         string $threadId,

@@ -11,6 +11,7 @@ use SMSkin\LaravelOpenAi\Controllers\ThreadRun\GetList;
 use SMSkin\LaravelOpenAi\Controllers\ThreadRun\Modify;
 use SMSkin\LaravelOpenAi\Controllers\ThreadRun\Retrieve;
 use SMSkin\LaravelOpenAi\Exceptions\AssistanceNotFound;
+use SMSkin\LaravelOpenAi\Exceptions\RunInCompletedState;
 use SMSkin\LaravelOpenAi\Exceptions\RunNotFound;
 use SMSkin\LaravelOpenAi\Exceptions\ThreadNotFound;
 use SMSkin\LaravelOpenAi\Models\MetaData;
@@ -66,6 +67,7 @@ class ThreadRunModule implements IThreadRunModule
     /**
      * @throws ThreadNotFound
      * @throws RunNotFound
+     * @throws RunInCompletedState
      */
     public function cancel(
         string $threadId,

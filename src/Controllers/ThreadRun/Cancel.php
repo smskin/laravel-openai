@@ -6,6 +6,7 @@ use Illuminate\Support\Str;
 use OpenAI\Exceptions\ErrorException;
 use OpenAI\Responses\Threads\Runs\ThreadRunResponse;
 use SMSkin\LaravelOpenAi\Controllers\BaseController;
+use SMSkin\LaravelOpenAi\Exceptions\RunInCompletedState;
 use SMSkin\LaravelOpenAi\Exceptions\RunNotFound;
 use SMSkin\LaravelOpenAi\Exceptions\ThreadNotFound;
 
@@ -20,6 +21,7 @@ class Cancel extends BaseController
     /**
      * @throws ThreadNotFound
      * @throws RunNotFound
+     * @throws RunInCompletedState
      */
     public function execute(): ThreadRunResponse
     {
@@ -35,6 +37,9 @@ class Cancel extends BaseController
             }
             if (Str::contains($exception->getMessage(), 'No run found with id')) {
                 throw new RunNotFound($exception->getMessage(), 500, $exception);
+            }
+            if (Str::contains($exception->getMessage(), 'Cannot cancel run with status \'completed\'')) {
+                throw new RunInCompletedState($exception->getMessage(), 500, $exception);
             }
 
             $this->errorExceptionHandler($exception);
