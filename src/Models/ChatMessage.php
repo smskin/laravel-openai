@@ -3,7 +3,6 @@
 namespace SMSkin\LaravelOpenAi\Models;
 
 use Illuminate\Support\Collection;
-use JetBrains\PhpStorm\ArrayShape;
 use SMSkin\LaravelOpenAi\Enums\RoleEnum;
 
 class ChatMessage
@@ -20,7 +19,6 @@ class ChatMessage
     ) {
     }
 
-    #[ArrayShape(['role' => 'string', 'content' => 'string', 'attachments' => 'array'])]
     public function toArray(): array
     {
         $data = [

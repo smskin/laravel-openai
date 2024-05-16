@@ -27,14 +27,7 @@ class Create extends BaseController
     public function execute(): CreateResponse
     {
         try {
-            return $this->getClient()->completions()->create([
-                'model' => $this->model->value,
-                'prompt' => $this->prompt,
-                'frequency_penalty' => $this->frequencyPenalty,
-                'max_tokens' => $this->maxTokens,
-                'temperature' => $this->temperature,
-                'presence_penalty' => $this->presencePenalty,
-            ]);
+            return $this->getClient()->completions()->create($this->prepareData());
         } /** @noinspection PhpRedundantCatchClauseInspection */
         catch (ErrorException $exception) {
             if (Str::contains($exception->getMessage(), 'You are not allowed to sample from this model')) {
@@ -42,5 +35,20 @@ class Create extends BaseController
             }
             $this->errorExceptionHandler($exception);
         }
+    }
+
+    private function prepareData(): array
+    {
+        $data = [
+            'model' => $this->model->value,
+            'prompt' => $this->prompt,
+            'frequency_penalty' => $this->frequencyPenalty,
+            'temperature' => $this->temperature,
+            'presence_penalty' => $this->presencePenalty,
+        ];
+        if (filled($this->maxTokens)) {
+            $data['max_tokens'] = $this->maxTokens;
+        }
+        return $data;
     }
 }

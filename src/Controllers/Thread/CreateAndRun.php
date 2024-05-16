@@ -26,15 +26,7 @@ class CreateAndRun extends BaseController
     public function execute(): ThreadRunResponse
     {
         try {
-            return $this->getClient()->threads()->createAndRun([
-                'assistant_id' => $this->assistantId,
-                'thread' => [
-                    'metadata' => $this->metaData?->toArray(),
-                    'messages' => $this->messages?->map(static function (ChatMessage $message) {
-                        return $message->toArray();
-                    }),
-                ],
-            ]);
+            return $this->getClient()->threads()->createAndRun($this->prepareData());
         } /** @noinspection PhpRedundantCatchClauseInspection */
         catch (ErrorException $exception) {
             if (Str::contains($exception->getMessage(), 'No assistant found with id')) {
@@ -43,5 +35,22 @@ class CreateAndRun extends BaseController
 
             $this->errorExceptionHandler($exception);
         }
+    }
+
+    private function prepareData(): array
+    {
+        $data = [
+            'assistant_id' => $this->assistantId,
+            'thread' => [],
+        ];
+        if (filled($this->metaData)) {
+            $data['thread']['metadata'] = $this->metaData->toArray();
+        }
+        if (filled($this->messages)) {
+            $data['thread']['messages'] = $this->messages->map(static function (ChatMessage $message) {
+                return $message->toArray();
+            })->toArray();
+        }
+        return $data;
     }
 }

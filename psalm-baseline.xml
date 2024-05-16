@@ -155,14 +155,6 @@
     <PossiblyUnusedMethod>
       <code><![CDATA[__construct]]></code>
     </PossiblyUnusedMethod>
-    <UndefinedAttributeClass>
-      <code><![CDATA[ArrayShape]]></code>
-    </UndefinedAttributeClass>
-  </file>
-  <file src="src/Models/BaseTool.php">
-    <UndefinedAttributeClass>
-      <code><![CDATA[ArrayShape]]></code>
-    </UndefinedAttributeClass>
   </file>
   <file src="src/Models/ChatMessage.php">
     <MissingTemplateParam>
@@ -171,9 +163,6 @@
     <PossiblyUnusedMethod>
       <code><![CDATA[__construct]]></code>
     </PossiblyUnusedMethod>
-    <UndefinedAttributeClass>
-      <code><![CDATA[ArrayShape]]></code>
-    </UndefinedAttributeClass>
   </file>
   <file src="src/Models/CodeInterpreterTool.php">
     <UnusedClass>

@@ -33,13 +33,7 @@ class Create extends BaseController
     public function execute(): ThreadMessageResponse
     {
         try {
-            return $this->getClient()->threads()->messages()->create($this->threadId, [
-                'role' => $this->role->value,
-                'content' => $this->content,
-                'attachments' => $this->attachments->map(static function (Attachment $attachment) {
-                    return $attachment->toArray();
-                }),
-            ]);
+            return $this->getClient()->threads()->messages()->create($this->threadId, $this->prepareData());
         } /** @noinspection PhpRedundantCatchClauseInspection */
         catch (ErrorException $exception) {
             if (Str::contains($exception->getMessage(), 'No thread found with id')) {
@@ -48,5 +42,19 @@ class Create extends BaseController
 
             $this->errorExceptionHandler($exception);
         }
+    }
+
+    private function prepareData(): array
+    {
+        $data = [
+            'role' => $this->role->value,
+            'content' => $this->content,
+        ];
+        if (filled($this->attachments)) {
+            $data['attachments'] = $this->attachments->map(static function (Attachment $attachment) {
+                return $attachment->toArray();
+            })->toArray();
+        }
+        return $data;
     }
 }

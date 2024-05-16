@@ -14,7 +14,7 @@ class ListFiles extends BaseController
     public function __construct(
         private readonly string $threadId,
         private readonly string $messageId,
-        private readonly int|null $limit
+        private readonly int $limit
     ) {
     }
 

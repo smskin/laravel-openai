@@ -29,9 +29,7 @@ class Modify extends BaseController
             return $this->getClient()->threads()->runs()->modify(
                 $this->threadId,
                 $this->runId,
-                [
-                    'metadata' => $this->metaData?->toArray(),
-                ]
+                $this->prepareData()
             );
         } /** @noinspection PhpRedundantCatchClauseInspection */
         catch (ErrorException $exception) {
@@ -44,5 +42,14 @@ class Modify extends BaseController
 
             $this->errorExceptionHandler($exception);
         }
+    }
+
+    private function prepareData(): array
+    {
+        $data = [];
+        if (filled($this->metaData)) {
+            $data['metadata'] = $this->metaData->toArray();
+        }
+        return $data;
     }
 }

@@ -23,9 +23,7 @@ class Modify extends BaseController
     public function execute(): ThreadResponse
     {
         try {
-            return $this->getClient()->threads()->modify($this->id, [
-                'metadata' => $this->metaData?->toArray(),
-            ]);
+            return $this->getClient()->threads()->modify($this->id, $this->prepareData());
         } /** @noinspection PhpRedundantCatchClauseInspection */
         catch (ErrorException $exception) {
             if (Str::contains($exception->getMessage(), 'No thread found with id')) {
@@ -34,5 +32,14 @@ class Modify extends BaseController
 
             $this->errorExceptionHandler($exception);
         }
+    }
+
+    private function prepareData(): array
+    {
+        $data = [];
+        if (filled($this->metaData)) {
+            $data['metadata'] = $this->metaData->toArray();
+        }
+        return $data;
     }
 }

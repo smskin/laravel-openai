@@ -28,10 +28,7 @@ class Create extends BaseController
         try {
             return $this->getClient()->threads()->runs()->create(
                 $this->threadId,
-                [
-                    'assistant_id' => $this->assistantId,
-                    'metadata' => $this->metaData?->toArray(),
-                ]
+                $this->prepareData()
             );
         } /** @noinspection PhpRedundantCatchClauseInspection */
         catch (ErrorException $exception) {
@@ -44,5 +41,16 @@ class Create extends BaseController
 
             $this->errorExceptionHandler($exception);
         }
+    }
+
+    private function prepareData(): array
+    {
+        $data = [
+            'assistant_id' => $this->assistantId,
+        ];
+        if (filled($this->metaData)) {
+            $data['metadata'] = $this->metaData->toArray();
+        }
+        return $data;
     }
 }

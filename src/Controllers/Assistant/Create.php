@@ -35,15 +35,9 @@ class Create extends BaseController
     public function execute(): AssistantResponse
     {
         try {
-            return $this->getClient()->assistants()->create([
-                'model' => $this->model->value,
-                'name' => $this->name,
-                'description' => $this->description,
-                'instructions' => $this->instructions,
-                'tools' => $this->tools?->map(static function (BaseTool $tool) {
-                    return $tool->toArray();
-                }),
-            ]);
+            return $this->getClient()->assistants()->create(
+                $this->prepareData()
+            );
         } /** @noinspection PhpRedundantCatchClauseInspection */
         catch (ErrorException $exception) {
             if (Str::contains($exception->getMessage(), 'cannot be used with the Assistants API')) {
@@ -51,5 +45,27 @@ class Create extends BaseController
             }
             $this->errorExceptionHandler($exception);
         }
+    }
+
+    private function prepareData(): array
+    {
+        $data = [
+            'model' => $this->model->value,
+        ];
+        if (filled($this->name)) {
+            $data['name'] = $this->name;
+        }
+        if (filled($this->description)) {
+            $data['description'] = $this->description;
+        }
+        if (filled($this->instructions)) {
+            $data['instructions'] = $this->instructions;
+        }
+        if (filled($this->tools)) {
+            $data['tools'] = $this->tools->map(static function (BaseTool $tool) {
+                return $tool->toArray();
+            })->toArray();
+        }
+        return $data;
     }
 }

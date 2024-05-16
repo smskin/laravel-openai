@@ -20,15 +20,24 @@ class Create extends BaseController
     public function execute(): ThreadResponse
     {
         try {
-            return $this->getClient()->threads()->create([
-                'metadata' => $this->metaData?->toArray(),
-                'messages' => $this->messages?->map(static function (ChatMessage $message) {
-                    return $message->toArray();
-                }),
-            ]);
+            return $this->getClient()->threads()->create($this->prepareData());
         } /** @noinspection PhpRedundantCatchClauseInspection */
         catch (ErrorException $exception) {
             $this->errorExceptionHandler($exception);
         }
+    }
+
+    private function prepareData(): array
+    {
+        $data = [];
+        if (filled($this->metaData)) {
+            $data['metadata'] = $this->metaData->toArray();
+        }
+        if (filled($this->messages)) {
+            $data['messages'] = $this->messages->map(static function (ChatMessage $message) {
+                return $message->toArray();
+            })->toArray();
+        }
+        return $data;
     }
 }
