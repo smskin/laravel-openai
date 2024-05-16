@@ -1,0 +1,54 @@
+<?php
+
+namespace SMSkin\LaravelOpenAi\Controllers\Assistant;
+
+use BaseController;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
+use OpenAI\Exceptions\ErrorException;
+use OpenAI\Responses\Assistants\AssistantResponse;
+use SMSkin\LaravelOpenAi\Exceptions\AssistanceNotFound;
+use SMSkin\LaravelOpenAi\Models\BaseTool;
+
+class Modify extends BaseController
+{
+    /**
+     * @param string $assistantId
+     * @param string|null $name
+     * @param string|null $description
+     * @param string|null $instructions
+     * @param Collection<BaseTool>|null $tools
+     */
+    public function __construct(
+        private readonly string $assistantId,
+        private readonly string|null $name,
+        private readonly string|null $description,
+        private readonly string|null $instructions,
+        private readonly Collection|null $tools
+    ) {
+    }
+
+    /**
+     * @return AssistantResponse
+     * @throws AssistanceNotFound
+     */
+    public function execute(): AssistantResponse
+    {
+        try {
+            return $this->getClient()->assistants()->modify($this->assistantId, [
+                'name' => $this->name,
+                'description' => $this->description,
+                'instructions' => $this->instructions,
+                'tools' => $this->tools?->map(static function (BaseTool $tool) {
+                    return $tool->toArray();
+                }),
+            ]);
+        } /** @noinspection PhpRedundantCatchClauseInspection */
+        catch (ErrorException $exception) {
+            if (Str::contains($exception->getMessage(), 'No assistant found with id')) {
+                throw new AssistanceNotFound($exception->getMessage(), 500, $exception);
+            }
+            $this->errorExceptionHandler($exception);
+        }
+    }
+}
