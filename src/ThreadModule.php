@@ -94,6 +94,7 @@ class ThreadModule implements IThreadModule
         string   $threadId,
         int|null $limit = null
     ): ThreadRunListResponse {
+        $limit ??= 10;
         return (new ListRuns($threadId, $limit))->execute();
     }
 }
