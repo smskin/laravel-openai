@@ -21,10 +21,6 @@ use SMSkin\LaravelOpenAi\Models\BaseTool;
 
 class AssistantModule implements IAssistantModule
 {
-    /**
-     * @param int|null $limit
-     * @return AssistantListResponse
-     */
     public function getList(int|null $limit = null): AssistantListResponse
     {
         $limit ??= 10;

@@ -9,14 +9,11 @@ use OpenAI\Responses\Assistants\AssistantResponse;
 use SMSkin\LaravelOpenAi\Enums\ModelEnum;
 use SMSkin\LaravelOpenAi\Exceptions\AssistanceNotFound;
 use SMSkin\LaravelOpenAi\Exceptions\NotValidModel;
+use SMSkin\LaravelOpenAi\Exceptions\RetrievalToolNotSupported;
 use SMSkin\LaravelOpenAi\Models\BaseTool;
 
 interface IAssistantModule
 {
-    /**
-     * @param int|null $limit
-     * @return AssistantListResponse
-     */
     public function getList(int|null $limit = null): AssistantListResponse;
 
     /**
@@ -27,6 +24,7 @@ interface IAssistantModule
      * @param Collection<BaseTool>|null $tools
      * @return AssistantResponse
      * @throws NotValidModel
+     * @throws RetrievalToolNotSupported
      */
     public function create(
         ModelEnum       $model,
