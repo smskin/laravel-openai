@@ -2,12 +2,12 @@
 
 namespace SMSkin\LaravelOpenAi\Models;
 
-class FileSearchTool extends BaseTool
+class RetrievalTool extends BaseTool
 {
     public readonly string $type;
 
     public function __construct()
     {
-        $this->type = 'file_search';
+        $this->type = 'retrieval';
     }
 }

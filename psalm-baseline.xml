@@ -156,6 +156,11 @@
       <code><![CDATA[__construct]]></code>
     </PossiblyUnusedMethod>
   </file>
+  <file src="src/Models/BaseTool.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[fromArray]]></code>
+    </PossiblyUnusedMethod>
+  </file>
   <file src="src/Models/ChatMessage.php">
     <MissingTemplateParam>
       <code><![CDATA[Collection<Attachment>|null]]></code>
@@ -169,15 +174,15 @@
       <code><![CDATA[CodeInterpreterTool]]></code>
     </UnusedClass>
   </file>
-  <file src="src/Models/FileSearchTool.php">
-    <UnusedClass>
-      <code><![CDATA[FileSearchTool]]></code>
-    </UnusedClass>
-  </file>
   <file src="src/Models/MetaData.php">
     <PossiblyUnusedMethod>
       <code><![CDATA[__construct]]></code>
     </PossiblyUnusedMethod>
+  </file>
+  <file src="src/Models/RetrievalTool.php">
+    <UnusedClass>
+      <code><![CDATA[RetrievalTool]]></code>
+    </UnusedClass>
   </file>
   <file src="src/Providers/ServiceProvider.php">
     <UnusedClass>
