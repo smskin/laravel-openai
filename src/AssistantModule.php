@@ -16,6 +16,7 @@ use SMSkin\LaravelOpenAi\Controllers\Assistant\Retrieve;
 use SMSkin\LaravelOpenAi\Enums\ModelEnum;
 use SMSkin\LaravelOpenAi\Exceptions\AssistanceNotFound;
 use SMSkin\LaravelOpenAi\Exceptions\NotValidModel;
+use SMSkin\LaravelOpenAi\Exceptions\RetrievalToolNotSupported;
 use SMSkin\LaravelOpenAi\Models\BaseTool;
 
 class AssistantModule implements IAssistantModule
@@ -23,7 +24,6 @@ class AssistantModule implements IAssistantModule
     /**
      * @param int|null $limit
      * @return AssistantListResponse
-     * @throws AssistanceNotFound
      */
     public function getList(int|null $limit = null): AssistantListResponse
     {
@@ -39,6 +39,7 @@ class AssistantModule implements IAssistantModule
      * @param Collection<BaseTool>|null $tools
      * @return AssistantResponse
      * @throws NotValidModel
+     * @throws RetrievalToolNotSupported
      */
     public function create(
         ModelEnum       $model,

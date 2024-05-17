@@ -9,6 +9,7 @@ use OpenAI\Responses\Assistants\AssistantResponse;
 use SMSkin\LaravelOpenAi\Controllers\BaseController;
 use SMSkin\LaravelOpenAi\Enums\ModelEnum;
 use SMSkin\LaravelOpenAi\Exceptions\NotValidModel;
+use SMSkin\LaravelOpenAi\Exceptions\RetrievalToolNotSupported;
 use SMSkin\LaravelOpenAi\Models\BaseTool;
 
 class Create extends BaseController
@@ -26,11 +27,13 @@ class Create extends BaseController
         private readonly string|null $description,
         private readonly string|null $instructions,
         private readonly Collection|null $tools
-    ) {
+    )
+    {
     }
 
     /**
      * @throws NotValidModel
+     * @throws RetrievalToolNotSupported
      */
     public function execute(): AssistantResponse
     {
@@ -40,6 +43,9 @@ class Create extends BaseController
             );
         } /** @noinspection PhpRedundantCatchClauseInspection */
         catch (ErrorException $exception) {
+            if (Str::contains($exception->getMessage(), 'cannot be used with the \'retrieval\' tool')) {
+                throw new RetrievalToolNotSupported($exception->getMessage(), 500, $exception);
+            }
             if (Str::contains($exception->getMessage(), 'cannot be used with the Assistants API')) {
                 throw new NotValidModel($exception->getMessage(), 500, $exception);
             }
