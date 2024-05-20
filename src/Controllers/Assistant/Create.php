@@ -27,8 +27,7 @@ class Create extends BaseController
         private readonly string|null $description,
         private readonly string|null $instructions,
         private readonly Collection|null $tools
-    )
-    {
+    ) {
     }
 
     /**
