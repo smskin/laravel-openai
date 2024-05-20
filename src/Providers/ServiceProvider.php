@@ -95,7 +95,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
                 ->withBaseUri(Config::get('openai.client.base_uri'))
                 ->withHttpClient($client = new HttpClient([]))
                 ->withHttpHeader('OpenAI-Beta', 'assistants=v1')
-                ->withStreamHandler(static fn(RequestInterface $request): ResponseInterface => $client->send($request, [
+                ->withStreamHandler(static fn (RequestInterface $request): ResponseInterface => $client->send($request, [
                     'stream' => true,
                 ]))
                 ->make();
