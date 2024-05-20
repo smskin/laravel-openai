@@ -28,18 +28,5 @@ return [
         'api_key' => env('OPENAI_API_KEY'),
         'organization' => null,
         'base_uri' => 'api.openai.com/v1',
-    ],
-    'mapper' => [
-        IApi::class => Api::class,
-        IThreadModule::class => ThreadModule::class,
-        IThreadRunModule::class => ThreadRunModule::class,
-        IThreadMessageModule::class => ThreadMessageModule::class,
-        IThreadMessageFileModule::class => ThreadMessageFileModule::class,
-        IImageModule::class => ImageModule::class,
-        ICompletionModule::class => CompletionModule::class,
-        IChatModule::class => ChatModule::class,
-        IAudioModule::class => AudioModule::class,
-        IAssistantModule::class => AssistantModule::class,
-        IAssistantFileModule::class => AssistantFileModule::class,
-    ],
+    ]
 ];
