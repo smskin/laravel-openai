@@ -37,6 +37,6 @@ class AudioModule implements IAudioModule
         string|null                  $connection = null,
         string|null                  $queue = null
     ): void {
-        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $model, $input, $voice, $responseFormat, $speed));
+        dispatch(new ExecuteMethodJob($correlationId, self::class, 'speech', $connection, $queue, $model, $input, $voice, $responseFormat, $speed));
     }
 }

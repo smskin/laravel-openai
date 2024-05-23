@@ -60,6 +60,6 @@ class ChatModule implements IChatModule
         string|null $connection = null,
         string|null $queue = null
     ): void {
-        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $model, $messages, $frequencyPenalty, $temperature, $presencePenalty, $maxTokens));
+        dispatch(new ExecuteMethodJob($correlationId, self::class, 'create', $connection, $queue, $model, $messages, $frequencyPenalty, $temperature, $presencePenalty, $maxTokens));
     }
 }

@@ -45,6 +45,6 @@ class ImageModule implements IImageModule
         string|null                  $connection = null,
         string|null                  $queue = null
     ): void {
-        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $prompt, $model, $n, $size, $style, $responseFormat));
+        dispatch(new ExecuteMethodJob($correlationId, self::class, 'create', $connection, $queue, $prompt, $model, $n, $size, $style, $responseFormat));
     }
 }

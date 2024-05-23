@@ -28,7 +28,7 @@ class AssistantFileModule implements IAssistantFileModule
 
     public function getListAsync(string $correlationId, string $assistantId, int|null $limit = null, string|null $connection = null, string|null $queue = null): void
     {
-        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $assistantId, $limit));
+        dispatch(new ExecuteMethodJob($correlationId, self::class, 'getList', $connection, $queue, $assistantId, $limit));
     }
 
     /**
@@ -43,7 +43,7 @@ class AssistantFileModule implements IAssistantFileModule
 
     public function createAsync(string $correlationId, string $assistantId, string $fileId, string|null $connection = null, string|null $queue = null): void
     {
-        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $assistantId, $fileId));
+        dispatch(new ExecuteMethodJob($correlationId, self::class, 'create', $connection, $queue, $assistantId, $fileId));
     }
 
     /**
@@ -57,7 +57,7 @@ class AssistantFileModule implements IAssistantFileModule
 
     public function retrieveAsync(string $correlationId, string $assistantId, string $fileId, string|null $connection = null, string|null $queue = null): void
     {
-        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $assistantId, $fileId));
+        dispatch(new ExecuteMethodJob($correlationId, self::class, 'retrieve', $connection, $queue, $assistantId, $fileId));
     }
 
     /**
@@ -71,6 +71,6 @@ class AssistantFileModule implements IAssistantFileModule
 
     public function deleteAsync(string $correlationId, string $assistantId, string $fileId, string|null $connection = null, string|null $queue = null): void
     {
-        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $assistantId, $fileId));
+        dispatch(new ExecuteMethodJob($correlationId, self::class, 'delete', $connection, $queue, $assistantId, $fileId));
     }
 }

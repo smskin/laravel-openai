@@ -35,7 +35,7 @@ class ThreadMessageFileModule implements IThreadMessageFileModule
         string|null $connection = null,
         string|null $queue = null
     ): void {
-        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $threadId, $messageId, $limit));
+        dispatch(new ExecuteMethodJob($correlationId, self::class, 'getList', $connection, $queue, $threadId, $messageId, $limit));
     }
 
     /**
@@ -59,6 +59,6 @@ class ThreadMessageFileModule implements IThreadMessageFileModule
         string|null $connection = null,
         string|null $queue = null
     ): void {
-        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $threadId, $messageId, $fileId));
+        dispatch(new ExecuteMethodJob($correlationId, self::class, 'retrieve', $connection, $queue, $threadId, $messageId, $fileId));
     }
 }

@@ -37,7 +37,7 @@ class ThreadMessageModule implements IThreadMessageModule
         string|null $connection = null,
         string|null $queue = null
     ): void {
-        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $threadId, $limit));
+        dispatch(new ExecuteMethodJob($correlationId, self::class, 'getList', $connection, $queue, $threadId, $limit));
     }
 
     /**
@@ -61,7 +61,7 @@ class ThreadMessageModule implements IThreadMessageModule
         string|null     $connection = null,
         string|null     $queue = null
     ): void {
-        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $threadId, $role, $content, $attachments));
+        dispatch(new ExecuteMethodJob($correlationId, self::class, 'create', $connection, $queue, $threadId, $role, $content, $attachments));
     }
 
     /**
@@ -82,7 +82,7 @@ class ThreadMessageModule implements IThreadMessageModule
         string|null $connection = null,
         string|null $queue = null
     ): void {
-        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $threadId, $messageId));
+        dispatch(new ExecuteMethodJob($correlationId, self::class, 'retrieve', $connection, $queue, $threadId, $messageId));
     }
 
     /**
@@ -105,7 +105,7 @@ class ThreadMessageModule implements IThreadMessageModule
         string|null   $connection = null,
         string|null   $queue = null
     ): void {
-        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $threadId, $messageId, $metaData));
+        dispatch(new ExecuteMethodJob($correlationId, self::class, 'modify', $connection, $queue, $threadId, $messageId, $metaData));
     }
 
     public function files(): IThreadMessageFileModule

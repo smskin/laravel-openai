@@ -30,7 +30,7 @@ class AssistantModule implements IAssistantModule
 
     public function getListAsync(string $correlationId, int|null $limit = null, string|null $connection = null, string|null $queue = null): void
     {
-        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $limit));
+        dispatch(new ExecuteMethodJob($correlationId, self::class, 'getList', $connection, $queue, $limit));
     }
 
     /**
@@ -73,7 +73,7 @@ class AssistantModule implements IAssistantModule
         string|null     $connection = null,
         string|null     $queue = null
     ): void {
-        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $model, $name, $description, $instructions, $tools));
+        dispatch(new ExecuteMethodJob($correlationId, self::class, 'create', $connection, $queue, $model, $name, $description, $instructions, $tools));
     }
 
     /**
@@ -86,7 +86,7 @@ class AssistantModule implements IAssistantModule
 
     public function retrieveAsync(string $correlationId, string $assistantId, string|null $connection = null, string|null $queue = null): void
     {
-        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $assistantId));
+        dispatch(new ExecuteMethodJob($correlationId, self::class, 'retrieve', $connection, $queue, $assistantId));
     }
 
     /**
@@ -128,7 +128,7 @@ class AssistantModule implements IAssistantModule
         string|null     $connection = null,
         string|null     $queue = null
     ): void {
-        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $assistantId, $name, $description, $instructions, $tools));
+        dispatch(new ExecuteMethodJob($correlationId, self::class, 'modify', $connection, $queue, $assistantId, $name, $description, $instructions, $tools));
     }
 
     /**
@@ -141,7 +141,7 @@ class AssistantModule implements IAssistantModule
 
     public function deleteAsync(string $correlationId, string $assistantId, string|null $connection = null, string|null $queue = null): void
     {
-        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $assistantId));
+        dispatch(new ExecuteMethodJob($correlationId, self::class, 'delete', $connection, $queue, $assistantId));
     }
 
     public function files(): IAssistantFileModule

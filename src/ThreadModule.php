@@ -49,7 +49,7 @@ class ThreadModule implements IThreadModule
         string|null     $connection = null,
         string|null     $queue = null
     ): void {
-        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $messages, $metaData));
+        dispatch(new ExecuteMethodJob($correlationId, self::class, 'create', $connection, $queue, $messages, $metaData));
     }
 
     /**
@@ -84,7 +84,7 @@ class ThreadModule implements IThreadModule
         string|null     $connection = null,
         string|null     $queue = null
     ): void {
-        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $assistantId, $messages, $metaData));
+        dispatch(new ExecuteMethodJob($correlationId, self::class, 'createAndRun', $connection, $queue, $assistantId, $messages, $metaData));
     }
 
     /**
@@ -97,7 +97,7 @@ class ThreadModule implements IThreadModule
 
     public function retrieveAsync(string $correlationId, string $id, string|null $connection = null, string|null $queue = null): void
     {
-        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $id));
+        dispatch(new ExecuteMethodJob($correlationId, self::class, 'retrieve', $connection, $queue, $id));
     }
 
     /**
@@ -117,7 +117,7 @@ class ThreadModule implements IThreadModule
         string|null   $connection = null,
         string|null   $queue = null
     ): void {
-        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $id, $metaData));
+        dispatch(new ExecuteMethodJob($correlationId, self::class, 'modify', $connection, $queue, $id, $metaData));
     }
 
     /**
@@ -130,7 +130,7 @@ class ThreadModule implements IThreadModule
 
     public function deleteAsync(string $correlationId, string $id, string|null $connection = null, string|null $queue = null): void
     {
-        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $id));
+        dispatch(new ExecuteMethodJob($correlationId, self::class, 'delete', $connection, $queue, $id));
     }
 
     public function runs(): IThreadRunModule

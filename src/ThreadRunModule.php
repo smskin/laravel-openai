@@ -37,7 +37,7 @@ class ThreadRunModule implements IThreadRunModule
         string|null $connection = null,
         string|null $queue = null
     ): void {
-        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $threadId, $limit));
+        dispatch(new ExecuteMethodJob($correlationId, self::class, 'getList', $connection, $queue, $threadId, $limit));
     }
 
     /**
@@ -60,7 +60,7 @@ class ThreadRunModule implements IThreadRunModule
         string|null   $connection = null,
         string|null   $queue = null
     ): void {
-        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $threadId, $assistantId, $metaData));
+        dispatch(new ExecuteMethodJob($correlationId, self::class, 'create', $connection, $queue, $threadId, $assistantId, $metaData));
     }
 
     /**
@@ -81,7 +81,7 @@ class ThreadRunModule implements IThreadRunModule
         string|null $connection = null,
         string|null $queue = null
     ): void {
-        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $threadId, $runId));
+        dispatch(new ExecuteMethodJob($correlationId, self::class, 'retrieve', $connection, $queue, $threadId, $runId));
     }
 
     /**
@@ -104,7 +104,7 @@ class ThreadRunModule implements IThreadRunModule
         string|null   $connection = null,
         string|null   $queue = null
     ): void {
-        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $threadId, $runId, $metaData));
+        dispatch(new ExecuteMethodJob($correlationId, self::class, 'modify', $connection, $queue, $threadId, $runId, $metaData));
     }
 
     /**
@@ -126,6 +126,6 @@ class ThreadRunModule implements IThreadRunModule
         string|null $connection = null,
         string|null $queue = null
     ): void {
-        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $threadId, $runId));
+        dispatch(new ExecuteMethodJob($correlationId, self::class, 'cancel', $connection, $queue, $threadId, $runId));
     }
 }
