@@ -8,6 +8,7 @@ use OpenAI\Exceptions\ErrorException;
 use RuntimeException;
 use SMSkin\LaravelOpenAi\Exceptions\ApiKeyNotProvided;
 use SMSkin\LaravelOpenAi\Exceptions\IncorrectApiKey;
+use SMSkin\LaravelOpenAi\Exceptions\NotSupportedRegion;
 
 abstract class BaseController
 {
@@ -23,6 +24,9 @@ abstract class BaseController
         }
         if (Str::contains($exception->getMessage(), 'You didn\'t provide an API key')) {
             throw new ApiKeyNotProvided($exception->getMessage(), 500, $exception);
+        }
+        if (Str::contains($exception->getMessage(), 'Country, region, or territory not supported')) {
+            throw new NotSupportedRegion($exception->getMessage(), 500, $exception);
         }
         throw new RuntimeException($exception->getMessage(), 500, $exception);
     }
