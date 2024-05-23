@@ -9,15 +9,16 @@ use Throwable;
 
 class ERequestFailed
 {
-    use Dispatchable, InteractsWithSockets, CustomSerializesModels;
+    use Dispatchable;
+    use InteractsWithSockets;
+    use CustomSerializesModels;
 
     public function __construct(
         public readonly string $correlationId,
         public readonly string $class,
         public readonly string $method,
         public readonly array $arguments,
-        public readonly Throwable $exception)
-    {
-
+        public readonly Throwable $exception
+    ) {
     }
 }

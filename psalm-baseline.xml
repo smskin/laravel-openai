@@ -1,41 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="5.24.0@462c80e31c34e58cc4f750c656be3927e80e550e">
-  <file src="src/Api.php">
-    <UnusedClass>
-      <code><![CDATA[Api]]></code>
-    </UnusedClass>
-  </file>
-  <file src="src/AssistantFileModule.php">
-    <UnusedClass>
-      <code><![CDATA[AssistantFileModule]]></code>
-    </UnusedClass>
-  </file>
   <file src="src/AssistantModule.php">
     <MissingTemplateParam>
       <code><![CDATA[Collection<BaseTool>|null]]></code>
       <code><![CDATA[Collection<BaseTool>|null]]></code>
     </MissingTemplateParam>
-    <UnusedClass>
-      <code><![CDATA[AssistantModule]]></code>
-    </UnusedClass>
-  </file>
-  <file src="src/AudioModule.php">
-    <UnusedClass>
-      <code><![CDATA[AudioModule]]></code>
-    </UnusedClass>
   </file>
   <file src="src/ChatModule.php">
     <MissingTemplateParam>
       <code><![CDATA[Collection<ChatMessage>]]></code>
     </MissingTemplateParam>
-    <UnusedClass>
-      <code><![CDATA[ChatModule]]></code>
-    </UnusedClass>
-  </file>
-  <file src="src/CompletionModule.php">
-    <UnusedClass>
-      <code><![CDATA[CompletionModule]]></code>
-    </UnusedClass>
   </file>
   <file src="src/Contracts/IApi.php">
     <PossiblyUnusedMethod>
@@ -52,6 +26,7 @@
       <code><![CDATA[create]]></code>
       <code><![CDATA[delete]]></code>
       <code><![CDATA[getList]]></code>
+      <code><![CDATA[getListAsync]]></code>
       <code><![CDATA[retrieve]]></code>
     </PossiblyUnusedMethod>
   </file>
@@ -146,10 +121,28 @@
       <code><![CDATA[Collection<Attachment>|null]]></code>
     </MissingTemplateParam>
   </file>
-  <file src="src/ImageModule.php">
-    <UnusedClass>
-      <code><![CDATA[ImageModule]]></code>
-    </UnusedClass>
+  <file src="src/Events/ERequestCompleted.php">
+    <PossiblyUnusedProperty>
+      <code><![CDATA[$arguments]]></code>
+      <code><![CDATA[$class]]></code>
+      <code><![CDATA[$correlationId]]></code>
+      <code><![CDATA[$method]]></code>
+      <code><![CDATA[$response]]></code>
+    </PossiblyUnusedProperty>
+  </file>
+  <file src="src/Events/ERequestFailed.php">
+    <PossiblyUnusedProperty>
+      <code><![CDATA[$arguments]]></code>
+      <code><![CDATA[$class]]></code>
+      <code><![CDATA[$correlationId]]></code>
+      <code><![CDATA[$exception]]></code>
+      <code><![CDATA[$method]]></code>
+    </PossiblyUnusedProperty>
+  </file>
+  <file src="src/Jobs/ExecuteMethodJob.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[handle]]></code>
+    </PossiblyUnusedMethod>
   </file>
   <file src="src/Models/Attachment.php">
     <PossiblyUnusedMethod>
@@ -189,28 +182,10 @@
       <code><![CDATA[ServiceProvider]]></code>
     </UnusedClass>
   </file>
-  <file src="src/ThreadMessageFileModule.php">
-    <UnusedClass>
-      <code><![CDATA[ThreadMessageFileModule]]></code>
-    </UnusedClass>
-  </file>
-  <file src="src/ThreadMessageModule.php">
-    <UnusedClass>
-      <code><![CDATA[ThreadMessageModule]]></code>
-    </UnusedClass>
-  </file>
   <file src="src/ThreadModule.php">
     <MissingTemplateParam>
       <code><![CDATA[Collection<ChatMessage>|null]]></code>
       <code><![CDATA[Collection<ChatMessage>|null]]></code>
     </MissingTemplateParam>
-    <UnusedClass>
-      <code><![CDATA[ThreadModule]]></code>
-    </UnusedClass>
-  </file>
-  <file src="src/ThreadRunModule.php">
-    <UnusedClass>
-      <code><![CDATA[ThreadRunModule]]></code>
-    </UnusedClass>
   </file>
 </files>

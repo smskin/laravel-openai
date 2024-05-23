@@ -9,15 +9,16 @@ use OpenAI\Contracts\ResponseContract;
 
 class ERequestCompleted
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable;
+    use InteractsWithSockets;
+    use SerializesModels;
 
     public function __construct(
         public readonly string $correlationId,
         public readonly string $class,
         public readonly string $method,
         public readonly array $arguments,
-        public readonly ResponseContract $response)
-    {
-
+        public readonly ResponseContract $response
+    ) {
     }
 }

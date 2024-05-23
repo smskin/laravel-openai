@@ -14,7 +14,10 @@ use Throwable;
 
 class ExecuteMethodJob implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     public array $args;
 
@@ -24,8 +27,9 @@ class ExecuteMethodJob implements ShouldQueue
     public function __construct(
         public readonly string $correlationId,
         public readonly string $class,
-        public readonly string $method, ...$args)
-    {
+        public readonly string $method,
+        ...$args
+    ) {
         $this->args = array_pop($args);
     }
 
@@ -42,7 +46,6 @@ class ExecuteMethodJob implements ShouldQueue
                 $this->args,
                 $response
             ));
-
         } catch (Throwable $exception) {
             event(new ERequestFailed(
                 $this->correlationId,
