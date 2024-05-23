@@ -20,6 +20,14 @@ interface IThreadMessageModule
         int|null $limit = null
     ): ThreadMessageListResponse;
 
+    public function getListAsync(
+        string      $correlationId,
+        string      $threadId,
+        int|null    $limit = null,
+        string|null $connection = null,
+        string|null $queue = null
+    ): void;
+
     /**
      * @throws ThreadNotFound
      */
@@ -30,6 +38,16 @@ interface IThreadMessageModule
         Collection|null $attachments = null
     ): ThreadMessageResponse;
 
+    public function createAsync(
+        string          $correlationId,
+        string          $threadId,
+        RoleEnum        $role,
+        string          $content,
+        Collection|null $attachments = null,
+        string|null     $connection = null,
+        string|null     $queue = null
+    ): void;
+
     /**
      * @throws MessageNotFound
      * @throws ThreadNotFound
@@ -38,6 +56,14 @@ interface IThreadMessageModule
         string $threadId,
         string $messageId
     ): ThreadMessageResponse;
+
+    public function retrieveAsync(
+        string      $correlationId,
+        string      $threadId,
+        string      $messageId,
+        string|null $connection = null,
+        string|null $queue = null
+    ): void;
 
     /**
      * @throws MessageNotFound
@@ -48,6 +74,15 @@ interface IThreadMessageModule
         string        $messageId,
         MetaData|null $metaData = null
     ): ThreadMessageResponse;
+
+    public function modifyAsync(
+        string        $correlationId,
+        string        $threadId,
+        string        $messageId,
+        MetaData|null $metaData = null,
+        string|null   $connection = null,
+        string|null   $queue = null
+    ): void;
 
     public function files(): IThreadMessageFileModule;
 }

@@ -19,4 +19,15 @@ interface IAudioModule
         AudioResponseFormatEnum|null $responseFormat = null,
         int|null                     $speed = null
     ): string;
+
+    public function speechAsync(
+        string                       $correlationId,
+        ModelEnum                    $model,
+        string                       $input,
+        AudioVoiceEnum               $voice,
+        AudioResponseFormatEnum|null $responseFormat = null,
+        int|null                     $speed = null,
+        string|null                  $connection = null,
+        string|null                  $queue = null
+    ): void;
 }

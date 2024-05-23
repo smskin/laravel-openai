@@ -20,6 +20,15 @@ interface IThreadMessageFileModule
         int|null $limit = null
     ): ThreadMessageFileListResponse;
 
+    public function getListAsync(
+        string      $correlationId,
+        string      $threadId,
+        string      $messageId,
+        int|null    $limit = null,
+        string|null $connection = null,
+        string|null $queue = null
+    ): void;
+
     /**
      * @throws MessageNotFound
      * @throws MessageFileNotFound
@@ -30,4 +39,13 @@ interface IThreadMessageFileModule
         string $messageId,
         string $fileId
     ): ThreadMessageFileResponse;
+
+    public function retrieveAsync(
+        string      $correlationId,
+        string      $threadId,
+        string      $messageId,
+        string      $fileId,
+        string|null $connection = null,
+        string|null $queue = null
+    ): void;
 }

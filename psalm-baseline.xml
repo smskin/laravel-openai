@@ -4,10 +4,13 @@
     <MissingTemplateParam>
       <code><![CDATA[Collection<BaseTool>|null]]></code>
       <code><![CDATA[Collection<BaseTool>|null]]></code>
+      <code><![CDATA[Collection<BaseTool>|null]]></code>
+      <code><![CDATA[Collection<BaseTool>|null]]></code>
     </MissingTemplateParam>
   </file>
   <file src="src/ChatModule.php">
     <MissingTemplateParam>
+      <code><![CDATA[Collection<ChatMessage>]]></code>
       <code><![CDATA[Collection<ChatMessage>]]></code>
     </MissingTemplateParam>
   </file>
@@ -24,86 +27,118 @@
   <file src="src/Contracts/IAssistantFileModule.php">
     <PossiblyUnusedMethod>
       <code><![CDATA[create]]></code>
+      <code><![CDATA[createAsync]]></code>
       <code><![CDATA[delete]]></code>
+      <code><![CDATA[deleteAsync]]></code>
       <code><![CDATA[getList]]></code>
       <code><![CDATA[getListAsync]]></code>
       <code><![CDATA[retrieve]]></code>
+      <code><![CDATA[retrieveAsync]]></code>
     </PossiblyUnusedMethod>
   </file>
   <file src="src/Contracts/IAssistantModule.php">
     <MissingTemplateParam>
       <code><![CDATA[Collection<BaseTool>|null]]></code>
       <code><![CDATA[Collection<BaseTool>|null]]></code>
+      <code><![CDATA[Collection<BaseTool>|null]]></code>
+      <code><![CDATA[Collection<BaseTool>|null]]></code>
     </MissingTemplateParam>
     <PossiblyUnusedMethod>
       <code><![CDATA[create]]></code>
+      <code><![CDATA[createAsync]]></code>
       <code><![CDATA[delete]]></code>
+      <code><![CDATA[deleteAsync]]></code>
       <code><![CDATA[files]]></code>
       <code><![CDATA[getList]]></code>
+      <code><![CDATA[getListAsync]]></code>
       <code><![CDATA[modify]]></code>
+      <code><![CDATA[modifyAsync]]></code>
       <code><![CDATA[retrieve]]></code>
+      <code><![CDATA[retrieveAsync]]></code>
     </PossiblyUnusedMethod>
   </file>
   <file src="src/Contracts/IAudioModule.php">
     <PossiblyUnusedMethod>
       <code><![CDATA[speech]]></code>
+      <code><![CDATA[speechAsync]]></code>
     </PossiblyUnusedMethod>
   </file>
   <file src="src/Contracts/IChatModule.php">
     <MissingTemplateParam>
       <code><![CDATA[Collection<ChatMessage>]]></code>
+      <code><![CDATA[Collection<ChatMessage>]]></code>
     </MissingTemplateParam>
     <PossiblyUnusedMethod>
       <code><![CDATA[create]]></code>
+      <code><![CDATA[createAsync]]></code>
     </PossiblyUnusedMethod>
   </file>
   <file src="src/Contracts/ICompletionModule.php">
     <PossiblyUnusedMethod>
       <code><![CDATA[create]]></code>
+      <code><![CDATA[createAsync]]></code>
     </PossiblyUnusedMethod>
   </file>
   <file src="src/Contracts/IImageModule.php">
     <PossiblyUnusedMethod>
       <code><![CDATA[create]]></code>
+      <code><![CDATA[createAsync]]></code>
     </PossiblyUnusedMethod>
   </file>
   <file src="src/Contracts/IThreadMessageFileModule.php">
     <PossiblyUnusedMethod>
       <code><![CDATA[getList]]></code>
+      <code><![CDATA[getListAsync]]></code>
       <code><![CDATA[retrieve]]></code>
+      <code><![CDATA[retrieveAsync]]></code>
     </PossiblyUnusedMethod>
   </file>
   <file src="src/Contracts/IThreadMessageModule.php">
     <PossiblyUnusedMethod>
       <code><![CDATA[create]]></code>
+      <code><![CDATA[createAsync]]></code>
       <code><![CDATA[files]]></code>
       <code><![CDATA[getList]]></code>
+      <code><![CDATA[getListAsync]]></code>
       <code><![CDATA[modify]]></code>
+      <code><![CDATA[modifyAsync]]></code>
       <code><![CDATA[retrieve]]></code>
+      <code><![CDATA[retrieveAsync]]></code>
     </PossiblyUnusedMethod>
   </file>
   <file src="src/Contracts/IThreadModule.php">
     <MissingTemplateParam>
       <code><![CDATA[Collection<ChatMessage>|null]]></code>
       <code><![CDATA[Collection<ChatMessage>|null]]></code>
+      <code><![CDATA[Collection<ChatMessage>|null]]></code>
+      <code><![CDATA[Collection<ChatMessage>|null]]></code>
     </MissingTemplateParam>
     <PossiblyUnusedMethod>
       <code><![CDATA[create]]></code>
       <code><![CDATA[createAndRun]]></code>
+      <code><![CDATA[createAndRunAsync]]></code>
+      <code><![CDATA[createAsync]]></code>
       <code><![CDATA[delete]]></code>
+      <code><![CDATA[deleteAsync]]></code>
       <code><![CDATA[messages]]></code>
       <code><![CDATA[modify]]></code>
+      <code><![CDATA[modifyAsync]]></code>
       <code><![CDATA[retrieve]]></code>
+      <code><![CDATA[retrieveAsync]]></code>
       <code><![CDATA[runs]]></code>
     </PossiblyUnusedMethod>
   </file>
   <file src="src/Contracts/IThreadRunModule.php">
     <PossiblyUnusedMethod>
       <code><![CDATA[cancel]]></code>
+      <code><![CDATA[cancelAsync]]></code>
       <code><![CDATA[create]]></code>
       <code><![CDATA[getList]]></code>
+      <code><![CDATA[getListAsync]]></code>
       <code><![CDATA[modify]]></code>
+      <code><![CDATA[modifyAsync]]></code>
       <code><![CDATA[retrieve]]></code>
+      <code><![CDATA[retrieveAsync]]></code>
     </PossiblyUnusedMethod>
   </file>
   <file src="src/Controllers/Assistant/Create.php">
@@ -186,6 +221,13 @@
     <MissingTemplateParam>
       <code><![CDATA[Collection<ChatMessage>|null]]></code>
       <code><![CDATA[Collection<ChatMessage>|null]]></code>
+      <code><![CDATA[Collection<ChatMessage>|null]]></code>
+      <code><![CDATA[Collection<ChatMessage>|null]]></code>
     </MissingTemplateParam>
+  </file>
+  <file src="src/ThreadRunModule.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[createAsync]]></code>
+    </PossiblyUnusedMethod>
   </file>
 </files>

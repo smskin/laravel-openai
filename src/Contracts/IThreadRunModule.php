@@ -17,6 +17,14 @@ interface IThreadRunModule
         int|null $limit = null
     ): ThreadRunListResponse;
 
+    public function getListAsync(
+        string      $correlationId,
+        string      $threadId,
+        int|null    $limit = null,
+        string|null $connection = null,
+        string|null $queue = null
+    ): void;
+
     /**
      * @throws ThreadNotFound
      * @throws AssistanceNotFound
@@ -36,6 +44,14 @@ interface IThreadRunModule
         string $runId
     ): ThreadRunResponse;
 
+    public function retrieveAsync(
+        string      $correlationId,
+        string      $threadId,
+        string      $runId,
+        string|null $connection = null,
+        string|null $queue = null
+    ): void;
+
     /**
      * @throws ThreadNotFound
      * @throws RunNotFound
@@ -46,6 +62,15 @@ interface IThreadRunModule
         MetaData|null $metaData = null
     ): ThreadRunResponse;
 
+    public function modifyAsync(
+        string        $correlationId,
+        string        $threadId,
+        string        $runId,
+        MetaData|null $metaData = null,
+        string|null   $connection = null,
+        string|null   $queue = null
+    ): void;
+
     /**
      * @throws ThreadNotFound
      * @throws RunNotFound
@@ -55,4 +80,12 @@ interface IThreadRunModule
         string $threadId,
         string $runId
     ): ThreadRunResponse;
+
+    public function cancelAsync(
+        string      $correlationId,
+        string      $threadId,
+        string      $runId,
+        string|null $connection = null,
+        string|null $queue = null
+    ): void;
 }

@@ -24,6 +24,22 @@ interface IThreadModule
     ): ThreadResponse;
 
     /**
+     * @param string $correlationId
+     * @param Collection<ChatMessage>|null $messages
+     * @param MetaData|null $metaData
+     * @param string|null $connection
+     * @param string|null $queue
+     * @return void
+     */
+    public function createAsync(
+        string          $correlationId,
+        Collection|null $messages = null,
+        MetaData|null   $metaData = null,
+        string|null     $connection = null,
+        string|null     $queue = null
+    ): void;
+
+    /**
      * @param string $assistantId
      * @param Collection<ChatMessage>|null $messages
      * @param MetaData|null $metaData
@@ -37,9 +53,29 @@ interface IThreadModule
     ): ThreadRunResponse;
 
     /**
+     * @param string $correlationId
+     * @param string $assistantId
+     * @param Collection<ChatMessage>|null $messages
+     * @param MetaData|null $metaData
+     * @param string|null $connection
+     * @param string|null $queue
+     * @return void
+     */
+    public function createAndRunAsync(
+        string          $correlationId,
+        string          $assistantId,
+        Collection|null $messages = null,
+        MetaData|null   $metaData = null,
+        string|null     $connection = null,
+        string|null     $queue = null
+    ): void;
+
+    /**
      * @throws ThreadNotFound
      */
     public function retrieve(string $id): ThreadResponse;
+
+    public function retrieveAsync(string $correlationId, string $id, string|null $connection = null, string|null $queue = null): void;
 
     /**
      * @throws ThreadNotFound
@@ -49,10 +85,20 @@ interface IThreadModule
         MetaData|null $metaData = null
     ): ThreadResponse;
 
+    public function modifyAsync(
+        string        $correlationId,
+        string        $id,
+        MetaData|null $metaData = null,
+        string|null   $connection = null,
+        string|null   $queue = null
+    ): void;
+
     /**
      * @throws ThreadNotFound
      */
     public function delete(string $id): ThreadDeleteResponse;
+
+    public function deleteAsync(string $correlationId, string $id, string|null $connection = null, string|null $queue = null): void;
 
     public function runs(): IThreadRunModule;
 

@@ -16,7 +16,7 @@ interface IAssistantFileModule
      */
     public function getList(string $assistantId, int|null $limit = null): AssistantFileListResponse;
 
-    public function getListAsync(string $correlationId, string $assistantId, int|null $limit = null);
+    public function getListAsync(string $correlationId, string $assistantId, int|null $limit = null, string|null $connection = null, string|null $queue = null): void;
 
     /**
      * @throws InvalidAssistantConfig
@@ -25,6 +25,7 @@ interface IAssistantFileModule
      */
     public function create(string $assistantId, string $fileId): AssistantFileResponse;
 
+    public function createAsync(string $correlationId, string $assistantId, string $fileId, string|null $connection = null, string|null $queue = null): void;
 
     /**
      * @throws FileNotFound
@@ -32,10 +33,13 @@ interface IAssistantFileModule
      */
     public function retrieve(string $assistantId, string $fileId): AssistantFileResponse;
 
+    public function retrieveAsync(string $correlationId, string $assistantId, string $fileId, string|null $connection = null, string|null $queue = null): void;
 
     /**
      * @throws FileNotFound
      * @throws AssistanceNotFound
      */
     public function delete(string $assistantId, string $fileId): AssistantFileDeleteResponse;
+
+    public function deleteAsync(string $correlationId, string $assistantId, string $fileId, string|null $connection = null, string|null $queue = null): void;
 }

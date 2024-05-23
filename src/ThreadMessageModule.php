@@ -14,6 +14,7 @@ use SMSkin\LaravelOpenAi\Controllers\ThreadMessage\Retrieve;
 use SMSkin\LaravelOpenAi\Enums\RoleEnum;
 use SMSkin\LaravelOpenAi\Exceptions\MessageNotFound;
 use SMSkin\LaravelOpenAi\Exceptions\ThreadNotFound;
+use SMSkin\LaravelOpenAi\Jobs\ExecuteMethodJob;
 use SMSkin\LaravelOpenAi\Models\MetaData;
 
 class ThreadMessageModule implements IThreadMessageModule
@@ -29,6 +30,16 @@ class ThreadMessageModule implements IThreadMessageModule
         return (new GetList($threadId, $limit))->execute();
     }
 
+    public function getListAsync(
+        string      $correlationId,
+        string      $threadId,
+        int|null    $limit = null,
+        string|null $connection = null,
+        string|null $queue = null
+    ): void {
+        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $threadId, $limit));
+    }
+
     /**
      * @throws ThreadNotFound
      */
@@ -39,6 +50,18 @@ class ThreadMessageModule implements IThreadMessageModule
         Collection|null $attachments = null
     ): ThreadMessageResponse {
         return (new Create($threadId, $role, $content, $attachments))->execute();
+    }
+
+    public function createAsync(
+        string          $correlationId,
+        string          $threadId,
+        RoleEnum        $role,
+        string          $content,
+        Collection|null $attachments = null,
+        string|null     $connection = null,
+        string|null     $queue = null
+    ): void {
+        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $threadId, $role, $content, $attachments));
     }
 
     /**
@@ -52,6 +75,16 @@ class ThreadMessageModule implements IThreadMessageModule
         return (new Retrieve($threadId, $messageId))->execute();
     }
 
+    public function retrieveAsync(
+        string      $correlationId,
+        string      $threadId,
+        string      $messageId,
+        string|null $connection = null,
+        string|null $queue = null
+    ): void {
+        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $threadId, $messageId));
+    }
+
     /**
      * @throws MessageNotFound
      * @throws ThreadNotFound
@@ -62,6 +95,17 @@ class ThreadMessageModule implements IThreadMessageModule
         MetaData|null $metaData = null
     ): ThreadMessageResponse {
         return (new Modify($threadId, $messageId, $metaData))->execute();
+    }
+
+    public function modifyAsync(
+        string        $correlationId,
+        string        $threadId,
+        string        $messageId,
+        MetaData|null $metaData = null,
+        string|null   $connection = null,
+        string|null   $queue = null
+    ): void {
+        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $threadId, $messageId, $metaData));
     }
 
     public function files(): IThreadMessageFileModule

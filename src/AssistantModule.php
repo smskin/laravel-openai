@@ -17,6 +17,7 @@ use SMSkin\LaravelOpenAi\Enums\ModelEnum;
 use SMSkin\LaravelOpenAi\Exceptions\AssistanceNotFound;
 use SMSkin\LaravelOpenAi\Exceptions\NotValidModel;
 use SMSkin\LaravelOpenAi\Exceptions\RetrievalToolNotSupported;
+use SMSkin\LaravelOpenAi\Jobs\ExecuteMethodJob;
 use SMSkin\LaravelOpenAi\Models\BaseTool;
 
 class AssistantModule implements IAssistantModule
@@ -25,6 +26,11 @@ class AssistantModule implements IAssistantModule
     {
         $limit ??= 10;
         return (new GetList($limit))->execute();
+    }
+
+    public function getListAsync(string $correlationId, int|null $limit = null, string|null $connection = null, string|null $queue = null): void
+    {
+        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $limit));
     }
 
     /**
@@ -48,11 +54,39 @@ class AssistantModule implements IAssistantModule
     }
 
     /**
+     * @param string $correlationId
+     * @param ModelEnum $model
+     * @param string|null $name
+     * @param string|null $description
+     * @param string|null $instructions
+     * @param Collection<BaseTool>|null $tools
+     * @param string|null $connection
+     * @param string|null $queue
+     */
+    public function createAsync(
+        string          $correlationId,
+        ModelEnum       $model,
+        string|null     $name = null,
+        string|null     $description = null,
+        string|null     $instructions = null,
+        Collection|null $tools = null,
+        string|null     $connection = null,
+        string|null     $queue = null
+    ): void {
+        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $model, $name, $description, $instructions, $tools));
+    }
+
+    /**
      * @throws AssistanceNotFound
      */
     public function retrieve(string $assistantId): AssistantResponse
     {
         return (new Retrieve($assistantId))->execute();
+    }
+
+    public function retrieveAsync(string $correlationId, string $assistantId, string|null $connection = null, string|null $queue = null): void
+    {
+        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $assistantId));
     }
 
     /**
@@ -75,11 +109,39 @@ class AssistantModule implements IAssistantModule
     }
 
     /**
+     * @param string $correlationId
+     * @param string $assistantId
+     * @param string|null $name
+     * @param string|null $description
+     * @param string|null $instructions
+     * @param Collection<BaseTool>|null $tools
+     * @param string|null $connection
+     * @param string|null $queue
+     */
+    public function modifyAsync(
+        string          $correlationId,
+        string          $assistantId,
+        string|null     $name = null,
+        string|null     $description = null,
+        string|null     $instructions = null,
+        Collection|null $tools = null,
+        string|null     $connection = null,
+        string|null     $queue = null
+    ): void {
+        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $assistantId, $name, $description, $instructions, $tools));
+    }
+
+    /**
      * @throws AssistanceNotFound
      */
     public function delete(string $assistantId): AssistantDeleteResponse
     {
         return (new Delete($assistantId))->execute();
+    }
+
+    public function deleteAsync(string $correlationId, string $assistantId, string|null $connection = null, string|null $queue = null): void
+    {
+        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $assistantId));
     }
 
     public function files(): IAssistantFileModule

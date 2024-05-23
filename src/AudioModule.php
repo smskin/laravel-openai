@@ -8,6 +8,7 @@ use SMSkin\LaravelOpenAi\Enums\AudioResponseFormatEnum;
 use SMSkin\LaravelOpenAi\Enums\AudioVoiceEnum;
 use SMSkin\LaravelOpenAi\Enums\ModelEnum;
 use SMSkin\LaravelOpenAi\Exceptions\NotValidModel;
+use SMSkin\LaravelOpenAi\Jobs\ExecuteMethodJob;
 
 class AudioModule implements IAudioModule
 {
@@ -24,5 +25,18 @@ class AudioModule implements IAudioModule
         $responseFormat ??= AudioResponseFormatEnum::mp3;
         $speed ??= 1;
         return (new Speech($model, $input, $voice, $responseFormat, $speed))->execute();
+    }
+
+    public function speechAsync(
+        string                       $correlationId,
+        ModelEnum                    $model,
+        string                       $input,
+        AudioVoiceEnum               $voice,
+        AudioResponseFormatEnum|null $responseFormat = null,
+        int|null                     $speed = null,
+        string|null                  $connection = null,
+        string|null                  $queue = null
+    ): void {
+        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $model, $input, $voice, $responseFormat, $speed));
     }
 }

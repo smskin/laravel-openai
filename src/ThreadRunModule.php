@@ -14,6 +14,7 @@ use SMSkin\LaravelOpenAi\Exceptions\AssistanceNotFound;
 use SMSkin\LaravelOpenAi\Exceptions\RunInCompletedState;
 use SMSkin\LaravelOpenAi\Exceptions\RunNotFound;
 use SMSkin\LaravelOpenAi\Exceptions\ThreadNotFound;
+use SMSkin\LaravelOpenAi\Jobs\ExecuteMethodJob;
 use SMSkin\LaravelOpenAi\Models\MetaData;
 
 class ThreadRunModule implements IThreadRunModule
@@ -29,6 +30,16 @@ class ThreadRunModule implements IThreadRunModule
         return (new GetList($threadId, $limit))->execute();
     }
 
+    public function getListAsync(
+        string      $correlationId,
+        string      $threadId,
+        int|null    $limit = null,
+        string|null $connection = null,
+        string|null $queue = null
+    ): void {
+        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $threadId, $limit));
+    }
+
     /**
      * @throws ThreadNotFound
      * @throws AssistanceNotFound
@@ -41,6 +52,17 @@ class ThreadRunModule implements IThreadRunModule
         return (new Create($threadId, $assistantId, $metaData))->execute();
     }
 
+    public function createAsync(
+        string        $correlationId,
+        string        $threadId,
+        string        $assistantId,
+        MetaData|null $metaData = null,
+        string|null   $connection = null,
+        string|null   $queue = null
+    ): void {
+        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $threadId, $assistantId, $metaData));
+    }
+
     /**
      * @throws ThreadNotFound
      * @throws RunNotFound
@@ -50,6 +72,16 @@ class ThreadRunModule implements IThreadRunModule
         string $runId
     ): ThreadRunResponse {
         return (new Retrieve($threadId, $runId))->execute();
+    }
+
+    public function retrieveAsync(
+        string      $correlationId,
+        string      $threadId,
+        string      $runId,
+        string|null $connection = null,
+        string|null $queue = null
+    ): void {
+        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $threadId, $runId));
     }
 
     /**
@@ -64,6 +96,17 @@ class ThreadRunModule implements IThreadRunModule
         return (new Modify($threadId, $runId, $metaData))->execute();
     }
 
+    public function modifyAsync(
+        string        $correlationId,
+        string        $threadId,
+        string        $runId,
+        MetaData|null $metaData = null,
+        string|null   $connection = null,
+        string|null   $queue = null
+    ): void {
+        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $threadId, $runId, $metaData));
+    }
+
     /**
      * @throws ThreadNotFound
      * @throws RunNotFound
@@ -74,5 +117,15 @@ class ThreadRunModule implements IThreadRunModule
         string $runId
     ): ThreadRunResponse {
         return (new Cancel($threadId, $runId))->execute();
+    }
+
+    public function cancelAsync(
+        string      $correlationId,
+        string      $threadId,
+        string      $runId,
+        string|null $connection = null,
+        string|null $queue = null
+    ): void {
+        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $threadId, $runId));
     }
 }

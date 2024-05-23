@@ -22,4 +22,16 @@ interface IImageModule
         ImageStyleEnum|null          $style = null,
         ImageResponseFormatEnum|null $responseFormat = null
     ): CreateResponse;
+
+    public function createAsync(
+        string                       $correlationId,
+        string                       $prompt,
+        ModelEnum|null               $model = null,
+        int|null                     $n = null,
+        ImageSizeEnum|null           $size = null,
+        ImageStyleEnum|null          $style = null,
+        ImageResponseFormatEnum|null $responseFormat = null,
+        string|null                  $connection = null,
+        string|null                  $queue = null
+    ): void;
 }

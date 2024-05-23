@@ -28,9 +28,13 @@ class ExecuteMethodJob implements ShouldQueue
         public readonly string $correlationId,
         public readonly string $class,
         public readonly string $method,
+        string|null $connection,
+        string|null $queue,
         ...$args
     ) {
-        $this->args = array_pop($args);
+        $this->args = $args;
+        $this->onConnection($connection ?? config('openai.async.connection'));
+        $this->onQueue($queue ?? config('openai.async.queue'));
     }
 
     public function handle(): void

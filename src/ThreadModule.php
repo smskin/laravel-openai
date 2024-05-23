@@ -16,6 +16,7 @@ use SMSkin\LaravelOpenAi\Controllers\Thread\Modify;
 use SMSkin\LaravelOpenAi\Controllers\Thread\Retrieve;
 use SMSkin\LaravelOpenAi\Exceptions\AssistanceNotFound;
 use SMSkin\LaravelOpenAi\Exceptions\ThreadNotFound;
+use SMSkin\LaravelOpenAi\Jobs\ExecuteMethodJob;
 use SMSkin\LaravelOpenAi\Models\ChatMessage;
 use SMSkin\LaravelOpenAi\Models\MetaData;
 
@@ -34,6 +35,24 @@ class ThreadModule implements IThreadModule
     }
 
     /**
+     * @param string $correlationId
+     * @param Collection<ChatMessage>|null $messages
+     * @param MetaData|null $metaData
+     * @param string|null $connection
+     * @param string|null $queue
+     * @return void
+     */
+    public function createAsync(
+        string          $correlationId,
+        Collection|null $messages = null,
+        MetaData|null   $metaData = null,
+        string|null     $connection = null,
+        string|null     $queue = null
+    ): void {
+        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $messages, $metaData));
+    }
+
+    /**
      * @param string $assistantId
      * @param Collection<ChatMessage>|null $messages
      * @param MetaData|null $metaData
@@ -49,11 +68,36 @@ class ThreadModule implements IThreadModule
     }
 
     /**
+     * @param string $correlationId
+     * @param string $assistantId
+     * @param Collection<ChatMessage>|null $messages
+     * @param MetaData|null $metaData
+     * @param string|null $connection
+     * @param string|null $queue
+     * @return void
+     */
+    public function createAndRunAsync(
+        string          $correlationId,
+        string          $assistantId,
+        Collection|null $messages = null,
+        MetaData|null   $metaData = null,
+        string|null     $connection = null,
+        string|null     $queue = null
+    ): void {
+        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $assistantId, $messages, $metaData));
+    }
+
+    /**
      * @throws ThreadNotFound
      */
     public function retrieve(string $id): ThreadResponse
     {
         return (new Retrieve($id))->execute();
+    }
+
+    public function retrieveAsync(string $correlationId, string $id, string|null $connection = null, string|null $queue = null): void
+    {
+        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $id));
     }
 
     /**
@@ -66,12 +110,27 @@ class ThreadModule implements IThreadModule
         return (new Modify($id, $metaData))->execute();
     }
 
+    public function modifyAsync(
+        string        $correlationId,
+        string        $id,
+        MetaData|null $metaData = null,
+        string|null   $connection = null,
+        string|null   $queue = null
+    ): void {
+        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $id, $metaData));
+    }
+
     /**
      * @throws ThreadNotFound
      */
     public function delete(string $id): ThreadDeleteResponse
     {
         return (new Delete($id))->execute();
+    }
+
+    public function deleteAsync(string $correlationId, string $id, string|null $connection = null, string|null $queue = null): void
+    {
+        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $id));
     }
 
     public function runs(): IThreadRunModule

@@ -26,9 +26,9 @@ class AssistantFileModule implements IAssistantFileModule
         return (new GetList($assistantId, $limit))->execute();
     }
 
-    public function getListAsync(string $correlationId, string $assistantId, int|null $limit = null)
+    public function getListAsync(string $correlationId, string $assistantId, int|null $limit = null, string|null $connection = null, string|null $queue = null): void
     {
-        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, -5), $assistantId, $limit));
+        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $assistantId, $limit));
     }
 
     /**
@@ -41,6 +41,11 @@ class AssistantFileModule implements IAssistantFileModule
         return (new Create($assistantId, $fileId))->execute();
     }
 
+    public function createAsync(string $correlationId, string $assistantId, string $fileId, string|null $connection = null, string|null $queue = null): void
+    {
+        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $assistantId, $fileId));
+    }
+
     /**
      * @throws FileNotFound
      * @throws AssistanceNotFound
@@ -50,6 +55,11 @@ class AssistantFileModule implements IAssistantFileModule
         return (new Retrieve($assistantId, $fileId))->execute();
     }
 
+    public function retrieveAsync(string $correlationId, string $assistantId, string $fileId, string|null $connection = null, string|null $queue = null): void
+    {
+        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $assistantId, $fileId));
+    }
+
     /**
      * @throws FileNotFound
      * @throws AssistanceNotFound
@@ -57,5 +67,10 @@ class AssistantFileModule implements IAssistantFileModule
     public function delete(string $assistantId, string $fileId): AssistantFileDeleteResponse
     {
         return (new Delete($assistantId, $fileId))->execute();
+    }
+
+    public function deleteAsync(string $correlationId, string $assistantId, string $fileId, string|null $connection = null, string|null $queue = null): void
+    {
+        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, 0, -5), $connection, $queue, $assistantId, $fileId));
     }
 }
