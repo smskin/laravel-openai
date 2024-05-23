@@ -16,6 +16,8 @@ interface IAssistantFileModule
      */
     public function getList(string $assistantId, int|null $limit = null): AssistantFileListResponse;
 
+    public function getListAsync(string $correlationId, string $assistantId, int|null $limit = null);
+
     /**
      * @throws InvalidAssistantConfig
      * @throws AssistanceNotFound

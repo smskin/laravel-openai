@@ -13,6 +13,7 @@ use SMSkin\LaravelOpenAi\Controllers\AssistantFile\Retrieve;
 use SMSkin\LaravelOpenAi\Exceptions\AssistanceNotFound;
 use SMSkin\LaravelOpenAi\Exceptions\FileNotFound;
 use SMSkin\LaravelOpenAi\Exceptions\InvalidAssistantConfig;
+use SMSkin\LaravelOpenAi\Jobs\ExecuteMethodJob;
 
 class AssistantFileModule implements IAssistantFileModule
 {
@@ -23,6 +24,11 @@ class AssistantFileModule implements IAssistantFileModule
     {
         $limit ??= 10;
         return (new GetList($assistantId, $limit))->execute();
+    }
+
+    public function getListAsync(string $correlationId, string $assistantId, int|null $limit = null)
+    {
+        dispatch(new ExecuteMethodJob($correlationId, self::class, substr(__FUNCTION__, -5), $assistantId, $limit));
     }
 
     /**
