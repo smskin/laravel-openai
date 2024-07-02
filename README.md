@@ -9,7 +9,7 @@ php artisan vendor:publish --provider="SMSkin\LaravelOpenAi\Providers\ServicePro
 A config file will be created ```config/openai.php```
 
 Environments:
-- OPENAI_API_KEY - Ключ доступа к API
+- OPENAI_API_KEY - API key
 - OPENAI_ASYNC_TASK_CONNECTION - connection for queued tasks (default: null)
 - OPENAI_ASYNC_TASK_QUEUE - queue for queued tasks (default: null)
 
