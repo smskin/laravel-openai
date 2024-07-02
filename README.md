@@ -30,14 +30,14 @@ Main class with which you can access modules
 #### \SMSkin\LaravelOpenAi\CompletionModule
 [Base library docs](https://github.com/openai-php/client?tab=readme-ov-file#completions-resource)
 
-### \SMSkin\LaravelOpenAi\ImageModule
+#### \SMSkin\LaravelOpenAi\ImageModule
 [Base library docs](https://github.com/openai-php/client?tab=readme-ov-file#images-resource)
 
-### \SMSkin\LaravelOpenAi\ThreadModule
+#### \SMSkin\LaravelOpenAi\ThreadModule
 [Base library docs](https://github.com/openai-php/client?tab=readme-ov-file#threads-resource)
 
-### \SMSkin\LaravelOpenAi\ThreadMessageModule
+#### \SMSkin\LaravelOpenAi\ThreadMessageModule
 [Base library docs](https://github.com/openai-php/client?tab=readme-ov-file#threads-messages-resource)
 
-### \SMSkin\LaravelOpenAi\ThreadRunModule
+#### \SMSkin\LaravelOpenAi\ThreadRunModule
 [Base library docs](https://github.com/openai-php/client?tab=readme-ov-file#threads-runs-resource)
