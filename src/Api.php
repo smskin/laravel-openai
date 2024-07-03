@@ -7,6 +7,7 @@ use SMSkin\LaravelOpenAi\Contracts\IAssistantModule;
 use SMSkin\LaravelOpenAi\Contracts\IAudioModule;
 use SMSkin\LaravelOpenAi\Contracts\IChatModule;
 use SMSkin\LaravelOpenAi\Contracts\ICompletionModule;
+use SMSkin\LaravelOpenAi\Contracts\IFileModule;
 use SMSkin\LaravelOpenAi\Contracts\IImageModule;
 use SMSkin\LaravelOpenAi\Contracts\IThreadModule;
 
@@ -40,5 +41,10 @@ class Api implements IApi
     public function assistants(): IAssistantModule
     {
         return app(IAssistantModule::class);
+    }
+
+    public function files(): IFileModule
+    {
+        return app(IFileModule::class);
     }
 }

@@ -41,7 +41,7 @@ class CreateAndRun extends BaseController
     {
         $data = [
             'assistant_id' => $this->assistantId,
-            'thread' => [],
+            'thread' => null,
         ];
         if (filled($this->metaData)) {
             $data['thread']['metadata'] = $this->metaData->toArray();

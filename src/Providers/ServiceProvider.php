@@ -20,11 +20,13 @@ use SMSkin\LaravelOpenAi\Contracts\IAssistantModule;
 use SMSkin\LaravelOpenAi\Contracts\IAudioModule;
 use SMSkin\LaravelOpenAi\Contracts\IChatModule;
 use SMSkin\LaravelOpenAi\Contracts\ICompletionModule;
+use SMSkin\LaravelOpenAi\Contracts\IFileModule;
 use SMSkin\LaravelOpenAi\Contracts\IImageModule;
 use SMSkin\LaravelOpenAi\Contracts\IThreadMessageFileModule;
 use SMSkin\LaravelOpenAi\Contracts\IThreadMessageModule;
 use SMSkin\LaravelOpenAi\Contracts\IThreadModule;
 use SMSkin\LaravelOpenAi\Contracts\IThreadRunModule;
+use SMSkin\LaravelOpenAi\FileModule;
 use SMSkin\LaravelOpenAi\ImageModule;
 use SMSkin\LaravelOpenAi\ThreadMessageFileModule;
 use SMSkin\LaravelOpenAi\ThreadMessageModule;
@@ -84,6 +86,9 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         $this->app->singleton(IAssistantFileModule::class, static function () {
             return new AssistantFileModule();
         });
+        $this->app->singleton(IFileModule::class, static function () {
+            return new FileModule();
+        });
     }
 
     private function mapApiClient()
@@ -95,7 +100,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
                 ->withBaseUri(Config::get('openai.client.base_uri'))
                 ->withHttpClient($client = new HttpClient([]))
                 ->withHttpHeader('OpenAI-Beta', 'assistants=v1')
-                ->withStreamHandler(static fn (RequestInterface $request): ResponseInterface => $client->send($request, [
+                ->withStreamHandler(static fn(RequestInterface $request): ResponseInterface => $client->send($request, [
                     'stream' => true,
                 ]))
                 ->make();

@@ -15,4 +15,6 @@ interface IApi
     public function audios(): IAudioModule;
 
     public function assistants(): IAssistantModule;
+
+    public function files(): IFileModule;
 }
