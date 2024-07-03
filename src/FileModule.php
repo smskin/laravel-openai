@@ -17,7 +17,7 @@ class FileModule implements IFileModule
 {
     public function getList(): ListResponse
     {
-        return (new GetList)->execute();
+        return (new GetList())->execute();
     }
 
     public function delete(string $fileId): DeleteResponse
