@@ -17,7 +17,7 @@ class Upload extends BaseController
         try {
             return $this->getClient()->files()->upload([
                 'purpose' => $this->purpose,
-                'file' => $this->resource
+                'file' => $this->resource,
             ]);
         } /** @noinspection PhpRedundantCatchClauseInspection */
         catch (ErrorException $exception) {

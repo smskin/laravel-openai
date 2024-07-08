@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="5.24.0@462c80e31c34e58cc4f750c656be3927e80e550e">
+<files psalm-version="5.25.0@01a8eb06b9e9cc6cfb6a320bf9fb14331919d505">
   <file src="src/AssistantModule.php">
     <MissingTemplateParam>
       <code><![CDATA[Collection<BaseTool>|null]]></code>
@@ -20,6 +20,7 @@
       <code><![CDATA[audios]]></code>
       <code><![CDATA[chats]]></code>
       <code><![CDATA[completions]]></code>
+      <code><![CDATA[files]]></code>
       <code><![CDATA[images]]></code>
       <code><![CDATA[threads]]></code>
     </PossiblyUnusedMethod>
@@ -77,6 +78,15 @@
     <PossiblyUnusedMethod>
       <code><![CDATA[create]]></code>
       <code><![CDATA[createAsync]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/Contracts/IFileModule.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[delete]]></code>
+      <code><![CDATA[download]]></code>
+      <code><![CDATA[getList]]></code>
+      <code><![CDATA[retrieve]]></code>
+      <code><![CDATA[upload]]></code>
     </PossiblyUnusedMethod>
   </file>
   <file src="src/Contracts/IImageModule.php">
