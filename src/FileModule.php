@@ -35,6 +35,9 @@ class FileModule implements IFileModule
         return (new Upload($purpose, $resource))->execute();
     }
 
+    /**
+     * @throws Exceptions\InvalidPurpose
+     */
     public function download(string $fileId): string
     {
         return (new Download($fileId))->execute();

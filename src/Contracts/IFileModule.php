@@ -6,6 +6,7 @@ use OpenAI\Responses\Files\CreateResponse;
 use OpenAI\Responses\Files\DeleteResponse;
 use OpenAI\Responses\Files\ListResponse;
 use OpenAI\Responses\Files\RetrieveResponse;
+use SMSkin\LaravelOpenAi\Exceptions\InvalidPurpose;
 
 interface IFileModule
 {
@@ -17,5 +18,8 @@ interface IFileModule
 
     public function upload(string $purpose, mixed $resource): CreateResponse;
 
+    /**
+     * @throws InvalidPurpose
+     */
     public function download(string $fileId): string;
 }
