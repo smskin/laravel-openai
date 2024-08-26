@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="5.25.0@01a8eb06b9e9cc6cfb6a320bf9fb14331919d505">
+  <file src="src/AssistantFileModule.php">
+    <UndefinedClass>
+      <code><![CDATA[AssistantFileDeleteResponse]]></code>
+      <code><![CDATA[AssistantFileListResponse]]></code>
+      <code><![CDATA[AssistantFileResponse]]></code>
+      <code><![CDATA[AssistantFileResponse]]></code>
+    </UndefinedClass>
+  </file>
   <file src="src/AssistantModule.php">
     <MissingTemplateParam>
       <code><![CDATA[Collection<BaseTool>|null]]></code>
@@ -36,6 +44,12 @@
       <code><![CDATA[retrieve]]></code>
       <code><![CDATA[retrieveAsync]]></code>
     </PossiblyUnusedMethod>
+    <UndefinedClass>
+      <code><![CDATA[AssistantFileDeleteResponse]]></code>
+      <code><![CDATA[AssistantFileListResponse]]></code>
+      <code><![CDATA[AssistantFileResponse]]></code>
+      <code><![CDATA[AssistantFileResponse]]></code>
+    </UndefinedClass>
   </file>
   <file src="src/Contracts/IAssistantModule.php">
     <MissingTemplateParam>
@@ -102,6 +116,10 @@
       <code><![CDATA[retrieve]]></code>
       <code><![CDATA[retrieveAsync]]></code>
     </PossiblyUnusedMethod>
+    <UndefinedClass>
+      <code><![CDATA[ThreadMessageFileListResponse]]></code>
+      <code><![CDATA[ThreadMessageFileResponse]]></code>
+    </UndefinedClass>
   </file>
   <file src="src/Contracts/IThreadMessageModule.php">
     <PossiblyUnusedMethod>
@@ -161,10 +179,44 @@
       <code><![CDATA[Collection<BaseTool>|null]]></code>
     </MissingTemplateParam>
   </file>
+  <file src="src/Controllers/AssistantFile/Create.php">
+    <UndefinedClass>
+      <code><![CDATA[AssistantFileResponse]]></code>
+    </UndefinedClass>
+  </file>
+  <file src="src/Controllers/AssistantFile/Delete.php">
+    <UndefinedClass>
+      <code><![CDATA[AssistantFileDeleteResponse]]></code>
+    </UndefinedClass>
+  </file>
+  <file src="src/Controllers/AssistantFile/GetList.php">
+    <UndefinedClass>
+      <code><![CDATA[AssistantFileListResponse]]></code>
+    </UndefinedClass>
+    <UnusedProperty>
+      <code><![CDATA[$assistantId]]></code>
+      <code><![CDATA[$limit]]></code>
+    </UnusedProperty>
+  </file>
+  <file src="src/Controllers/AssistantFile/Retrieve.php">
+    <UndefinedClass>
+      <code><![CDATA[AssistantFileResponse]]></code>
+    </UndefinedClass>
+  </file>
   <file src="src/Controllers/ThreadMessage/Create.php">
     <MissingTemplateParam>
       <code><![CDATA[Collection<Attachment>|null]]></code>
     </MissingTemplateParam>
+  </file>
+  <file src="src/Controllers/ThreadMessageFile/GetList.php">
+    <UndefinedClass>
+      <code><![CDATA[ThreadMessageFileListResponse]]></code>
+    </UndefinedClass>
+  </file>
+  <file src="src/Controllers/ThreadMessageFile/Retrieve.php">
+    <UndefinedClass>
+      <code><![CDATA[ThreadMessageFileResponse]]></code>
+    </UndefinedClass>
   </file>
   <file src="src/Events/ERequestCompleted.php">
     <PossiblyUnusedProperty>
@@ -226,6 +278,12 @@
     <UnusedClass>
       <code><![CDATA[ServiceProvider]]></code>
     </UnusedClass>
+  </file>
+  <file src="src/ThreadMessageFileModule.php">
+    <UndefinedClass>
+      <code><![CDATA[ThreadMessageFileListResponse]]></code>
+      <code><![CDATA[ThreadMessageFileResponse]]></code>
+    </UndefinedClass>
   </file>
   <file src="src/ThreadModule.php">
     <MissingTemplateParam>
