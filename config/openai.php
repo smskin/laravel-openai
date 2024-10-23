@@ -2,8 +2,6 @@
 
 return [
     'client' => [
-        'api_key' => env('OPENAI_API_KEY'),
-        'organization' => null,
-        'base_uri' => null,
+        'api_key' => env('OPENAI_API_KEY')
     ],
 ];
