@@ -16,12 +16,20 @@ abstract class BaseController
 {
     protected function getClient(): Client
     {
-        return OpenAI::factory()
+        $factory = OpenAI::factory()
             ->withApiKey(Config::get('openai.client.api_key'))
-            ->withOrganization(Config::get('openai.client.organization'))
-            ->withBaseUri(Config::get('openai.client.base_uri'))
-            ->withHttpHeader('OpenAI-Beta', 'assistants=v1')
-            ->make();
+            ->withHttpHeader('OpenAI-Beta', 'assistants=v1');
+
+        $baseUri = Config::get('openai.client.base_uri');
+        if ($baseUri) {
+            $factory->withBaseUri($baseUri);
+        }
+
+        $organization = Config::get('openai.client.organization');
+        if ($organization) {
+            $factory->withOrganization(Config::get('openai.client.organization'));
+        }
+        return $factory->make();
     }
 
     protected function globalExceptionHandler(ErrorException $exception)
