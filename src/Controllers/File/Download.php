@@ -5,27 +5,34 @@ namespace SMSkin\LaravelOpenAi\Controllers\File;
 use Illuminate\Support\Str;
 use OpenAI\Exceptions\ErrorException;
 use SMSkin\LaravelOpenAi\Controllers\BaseController;
-use SMSkin\LaravelOpenAi\Exceptions\InvalidPurpose;
+use SMSkin\LaravelOpenAi\Controllers\File\Traits\RetrieveExceptionHandlerTrait;
+use SMSkin\LaravelOpenAi\Exceptions\NotAllowedToDownload;
+use SMSkin\LaravelOpenAi\Exceptions\NotFound;
 
 class Download extends BaseController
 {
-    public function __construct(private readonly string $fileId)
-    {
+    use RetrieveExceptionHandlerTrait;
+
+    public function __construct(
+        private readonly string $id
+    ) {
     }
 
     /**
-     * @throws InvalidPurpose
+     * @throws NotFound
+     * @throws NotAllowedToDownload
      */
     public function execute(): string
     {
         try {
-            return $this->getClient()->files()->download($this->fileId);
+            return $this->getClient()->files()->download($this->id);
         } /** @noinspection PhpRedundantCatchClauseInspection */
         catch (ErrorException $exception) {
-            if (Str::contains($exception->getMessage(), 'Not allowed to download files of purpose')) {
-                throw new InvalidPurpose($exception->getMessage(), 500, $exception);
+            if (Str::contains($exception->getMessage(), 'Not allowed to download files of purpose:')) {
+                throw new NotAllowedToDownload($exception->getMessage(), 500, $exception);
             }
-            $this->errorExceptionHandler($exception);
+            $this->retrieveExceptionHandler($exception);
+            $this->globalExceptionHandler($exception);
         }
     }
 }

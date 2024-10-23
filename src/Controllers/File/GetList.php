@@ -18,7 +18,7 @@ class GetList extends BaseController
             return $this->getClient()->files()->list();
         } /** @noinspection PhpRedundantCatchClauseInspection */
         catch (ErrorException $exception) {
-            $this->errorExceptionHandler($exception);
+            $this->globalExceptionHandler($exception);
         }
     }
 }

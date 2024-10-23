@@ -2,6 +2,8 @@
 
 namespace SMSkin\LaravelOpenAi\Exceptions;
 
-class ThreadNotFound extends OpenAiException
+use Exception;
+
+class ThreadNotFound extends Exception
 {
 }

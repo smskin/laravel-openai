@@ -2,37 +2,42 @@
 
 namespace SMSkin\LaravelOpenAi\Controllers\Assistant;
 
-use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 use OpenAI\Exceptions\ErrorException;
 use OpenAI\Responses\Assistants\AssistantResponse;
+use SMSkin\LaravelOpenAi\Controllers\Assistant\Traits\CreateExceptionHandlerTrait;
 use SMSkin\LaravelOpenAi\Controllers\BaseController;
 use SMSkin\LaravelOpenAi\Enums\ModelEnum;
-use SMSkin\LaravelOpenAi\Exceptions\NotValidModel;
-use SMSkin\LaravelOpenAi\Exceptions\RetrievalToolNotSupported;
-use SMSkin\LaravelOpenAi\Models\BaseTool;
+use SMSkin\LaravelOpenAi\Enums\ResponseFormatEnum;
+use SMSkin\LaravelOpenAi\Exceptions\InvalidFunctionName;
+use SMSkin\LaravelOpenAi\Exceptions\InvalidModel;
+use SMSkin\LaravelOpenAi\Models\CodeInterpreterToolResource;
+use SMSkin\LaravelOpenAi\Models\FileSearchToolResource;
+use SMSkin\LaravelOpenAi\Models\FunctionToolConfig;
 
 class Create extends BaseController
 {
-    /**
-     * @param ModelEnum $model
-     * @param string|null $name
-     * @param string|null $description
-     * @param string|null $instructions
-     * @param Collection<BaseTool>|null $tools
-     */
+    use CreateExceptionHandlerTrait;
+
     public function __construct(
         private readonly ModelEnum $model,
         private readonly string|null $name,
         private readonly string|null $description,
         private readonly string|null $instructions,
-        private readonly Collection|null $tools
+        private readonly bool|null $codeInterpreterTool,
+        private readonly bool|null $fileSearchTool,
+        private readonly FunctionToolConfig|null $functionTool,
+        private readonly CodeInterpreterToolResource|null $codeInterpreterToolResource,
+        private readonly FileSearchToolResource|null $fileSearchToolResource,
+        private readonly array|null $metadata,
+        private readonly int|null $temperature,
+        private readonly int|null $topP,
+        private readonly ResponseFormatEnum|null $responseFormat
     ) {
     }
 
     /**
-     * @throws NotValidModel
-     * @throws RetrievalToolNotSupported
+     * @throws InvalidModel
+     * @throws InvalidFunctionName
      */
     public function execute(): AssistantResponse
     {
@@ -42,35 +47,59 @@ class Create extends BaseController
             );
         } /** @noinspection PhpRedundantCatchClauseInspection */
         catch (ErrorException $exception) {
-            if (Str::contains($exception->getMessage(), 'cannot be used with the \'retrieval\' tool')) {
-                throw new RetrievalToolNotSupported($exception->getMessage(), 500, $exception);
-            }
-            if (Str::contains($exception->getMessage(), 'cannot be used with the Assistants API')) {
-                throw new NotValidModel($exception->getMessage(), 500, $exception);
-            }
-            $this->errorExceptionHandler($exception);
+            $this->createExceptionHandler($exception);
+            $this->globalExceptionHandler($exception);
         }
     }
 
     private function prepareData(): array
     {
-        $data = [
-            'model' => $this->model->value,
+        $payload = [
+            'model' => $this->model,
         ];
-        if (filled($this->name)) {
-            $data['name'] = $this->name;
+        if ($this->name) {
+            $payload['name'] = $this->name;
         }
-        if (filled($this->description)) {
-            $data['description'] = $this->description;
+        if ($this->description) {
+            $payload['description'] = $this->description;
         }
-        if (filled($this->instructions)) {
-            $data['instructions'] = $this->instructions;
+        if ($this->instructions) {
+            $payload['instructions'] = $this->instructions;
         }
-        if (filled($this->tools)) {
-            $data['tools'] = $this->tools->map(static function (BaseTool $tool) {
-                return $tool->toArray();
-            })->toArray();
+        if ($this->codeInterpreterTool) {
+            $payload['tools'][] = [
+                'type' => 'code_interpreter',
+            ];
         }
-        return $data;
+        if ($this->fileSearchTool) {
+            $payload['tools'][] = [
+                'type' => 'file_search',
+            ];
+        }
+        if ($this->functionTool) {
+            $payload['tools'][] = [
+                'type' => 'function',
+                'function' => $this->functionTool->toArray(),
+            ];
+        }
+        if ($this->codeInterpreterToolResource) {
+            $payload['tool_resources']['code_interpreter'] = $this->codeInterpreterToolResource->toArray();
+        }
+        if ($this->fileSearchToolResource) {
+            $payload['tool_resources']['file_search'] = $this->fileSearchToolResource->toArray();
+        }
+        if ($this->metadata) {
+            $payload['metadata'] = $this->metadata;
+        }
+        if ($this->temperature !== null) {
+            $payload['temperature'] = $this->temperature;
+        }
+        if ($this->topP !== null) {
+            $payload['top_p'] = $this->topP;
+        }
+        if ($this->responseFormat) {
+            $payload['response_format'] = $this->responseFormat->value;
+        }
+        return $payload;
     }
 }

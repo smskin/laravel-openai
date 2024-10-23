@@ -2,8 +2,10 @@
 
 namespace SMSkin\LaravelOpenAi\Controllers;
 
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
-use OpenAI\Contracts\ClientContract;
+use OpenAI;
+use OpenAI\Client;
 use OpenAI\Exceptions\ErrorException;
 use RuntimeException;
 use SMSkin\LaravelOpenAi\Exceptions\ApiKeyNotProvided;
@@ -12,12 +14,17 @@ use SMSkin\LaravelOpenAi\Exceptions\NotSupportedRegion;
 
 abstract class BaseController
 {
-    protected function getClient(): ClientContract
+    protected function getClient(): Client
     {
-        return app(ClientContract::class);
+        return OpenAI::factory()
+            ->withApiKey(Config::get('openai.client.api_key'))
+            ->withOrganization(Config::get('openai.client.organization'))
+            ->withBaseUri(Config::get('openai.client.base_uri'))
+            ->withHttpHeader('OpenAI-Beta', 'assistants=v1')
+            ->make();
     }
 
-    protected function errorExceptionHandler(ErrorException $exception)
+    protected function globalExceptionHandler(ErrorException $exception)
     {
         if (Str::contains($exception->getMessage(), 'Incorrect API key provided')) {
             throw new IncorrectApiKey($exception->getMessage(), 500, $exception);
