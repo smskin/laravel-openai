@@ -12,6 +12,7 @@ use SMSkin\LaravelOpenAi\Controllers\Message\Modify;
 use SMSkin\LaravelOpenAi\Controllers\Message\Retrieve;
 use SMSkin\LaravelOpenAi\Enums\OrderEnum;
 use SMSkin\LaravelOpenAi\Exceptions\NotFound;
+use SMSkin\LaravelOpenAi\Exceptions\RunInProcess;
 use SMSkin\LaravelOpenAi\Exceptions\ThreadNotFound;
 use SMSkin\LaravelOpenAi\Models\Message as MessageModel;
 
@@ -33,6 +34,7 @@ class Message
 
     /**
      * @throws ThreadNotFound
+     * @throws RunInProcess
      */
     public function create(string $threadId, MessageModel $message): ThreadMessageResponse
     {
