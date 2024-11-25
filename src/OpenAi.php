@@ -18,4 +18,14 @@ class OpenAi
     {
         return new File();
     }
+
+    public function completion(): Completion
+    {
+        return new Completion();
+    }
+
+    public function chat(): Chat
+    {
+        return new Chat();
+    }
 }

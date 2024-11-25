@@ -9,6 +9,16 @@
       <code><![CDATA[retrieve]]></code>
     </PossiblyUnusedMethod>
   </file>
+  <file src="src/Chat.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[create]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/Completion.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[create]]></code>
+    </PossiblyUnusedMethod>
+  </file>
   <file src="src/File.php">
     <PossiblyUnusedMethod>
       <code><![CDATA[delete]]></code>
@@ -39,6 +49,11 @@
     <UnusedClass>
       <code><![CDATA[AutoChunkingStrategy]]></code>
     </UnusedClass>
+  </file>
+  <file src="src/Models/ChatMessage.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[__construct]]></code>
+    </PossiblyUnusedMethod>
   </file>
   <file src="src/Models/ChunkingStrategy.php">
     <MissingTemplateParam>
