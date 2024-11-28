@@ -21,6 +21,9 @@ class File
         return (new GetList())->execute();
     }
 
+    /**
+     * @throws Exceptions\InvalidExtension
+     */
     public function upload(mixed $resource, FilePurposeEnum $purpose): CreateResponse
     {
         return (new Upload($resource, $purpose))->execute();

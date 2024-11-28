@@ -2,10 +2,12 @@
 
 namespace SMSkin\LaravelOpenAi\Controllers\File;
 
+use Illuminate\Support\Str;
 use OpenAI\Exceptions\ErrorException;
 use OpenAI\Responses\Files\CreateResponse;
 use SMSkin\LaravelOpenAi\Controllers\BaseController;
 use SMSkin\LaravelOpenAi\Enums\FilePurposeEnum;
+use SMSkin\LaravelOpenAi\Exceptions\InvalidExtension;
 
 class Upload extends BaseController
 {
@@ -15,6 +17,9 @@ class Upload extends BaseController
     ) {
     }
 
+    /**
+     * @throws InvalidExtension
+     */
     public function execute(): CreateResponse
     {
         try {
@@ -24,6 +29,9 @@ class Upload extends BaseController
             ]);
         } /** @noinspection PhpRedundantCatchClauseInspection */
         catch (ErrorException $exception) {
+            if (Str::contains($exception->getMessage(), 'Invalid extension')) {
+                throw new InvalidExtension($exception->getMessage(), 500, $exception);
+            }
             $this->globalExceptionHandler($exception);
         }
     }
