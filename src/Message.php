@@ -35,6 +35,7 @@ class Message
     /**
      * @throws ThreadNotFound
      * @throws RunInProcess
+     * @throws Exceptions\FileNotSupportedForRetrieval
      */
     public function create(string $threadId, MessageModel $message): ThreadMessageResponse
     {
