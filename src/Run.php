@@ -14,6 +14,7 @@ use SMSkin\LaravelOpenAi\Controllers\Run\Retrieve;
 use SMSkin\LaravelOpenAi\Enums\OrderEnum;
 use SMSkin\LaravelOpenAi\Exceptions\InvalidState;
 use SMSkin\LaravelOpenAi\Exceptions\NotFound;
+use SMSkin\LaravelOpenAi\Exceptions\RunInProcess;
 use SMSkin\LaravelOpenAi\Exceptions\ThreadNotFound;
 use SMSkin\LaravelOpenAi\Exceptions\VectorStoreIsExpired;
 
@@ -43,6 +44,7 @@ class Run
     /**
      * @throws ThreadNotFound
      * @throws VectorStoreIsExpired
+     * @throws RunInProcess
      */
     public function createStreamed(string $threadId, Models\Run $run): StreamResponse
     {
