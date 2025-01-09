@@ -18,8 +18,7 @@ class CreateStreamed extends BaseController
     public function __construct(
         private readonly string $threadId,
         private readonly Run $run
-    )
-    {
+    ) {
     }
 
     /**
