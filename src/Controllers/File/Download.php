@@ -4,6 +4,7 @@ namespace SMSkin\LaravelOpenAi\Controllers\File;
 
 use Illuminate\Support\Str;
 use OpenAI\Exceptions\ErrorException;
+use OpenAI\Exceptions\TransporterException;
 use SMSkin\LaravelOpenAi\Controllers\BaseController;
 use SMSkin\LaravelOpenAi\Controllers\File\Traits\RetrieveExceptionHandlerTrait;
 use SMSkin\LaravelOpenAi\Exceptions\NotAllowedToDownload;
@@ -21,6 +22,8 @@ class Download extends BaseController
     /**
      * @throws NotFound
      * @throws NotAllowedToDownload
+     * @throws TransporterException
+     * @noinspection PhpDocRedundantThrowsInspection
      */
     public function execute(): string
     {

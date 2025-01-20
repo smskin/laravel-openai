@@ -2,6 +2,7 @@
 
 namespace SMSkin\LaravelOpenAi;
 
+use OpenAI\Exceptions\TransporterException;
 use OpenAI\Responses\Files\CreateResponse;
 use OpenAI\Responses\Files\DeleteResponse;
 use OpenAI\Responses\Files\ListResponse;
@@ -16,6 +17,9 @@ use SMSkin\LaravelOpenAi\Exceptions\NotFound;
 
 class File
 {
+    /**
+     * @throws TransporterException
+     */
     public function getList(): ListResponse
     {
         return (new GetList())->execute();
@@ -23,6 +27,7 @@ class File
 
     /**
      * @throws Exceptions\InvalidExtension
+     * @throws TransporterException
      */
     public function upload(mixed $resource, FilePurposeEnum $purpose): CreateResponse
     {
@@ -31,6 +36,7 @@ class File
 
     /**
      * @throws NotFound
+     * @throws TransporterException
      */
     public function retrieve(string $id): RetrieveResponse
     {
@@ -39,6 +45,7 @@ class File
 
     /**
      * @throws NotFound
+     * @throws TransporterException
      */
     public function delete(string $id): DeleteResponse
     {
@@ -48,6 +55,7 @@ class File
     /**
      * @throws NotFound
      * @throws Exceptions\NotAllowedToDownload
+     * @throws TransporterException
      */
     public function download(string $id): string
     {

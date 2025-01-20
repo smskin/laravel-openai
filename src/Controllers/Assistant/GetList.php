@@ -3,6 +3,7 @@
 namespace SMSkin\LaravelOpenAi\Controllers\Assistant;
 
 use OpenAI\Exceptions\ErrorException;
+use OpenAI\Exceptions\TransporterException;
 use OpenAI\Responses\Assistants\AssistantListResponse;
 use SMSkin\LaravelOpenAi\Controllers\BaseController;
 use SMSkin\LaravelOpenAi\Enums\OrderEnum;
@@ -17,6 +18,10 @@ class GetList extends BaseController
     ) {
     }
 
+    /**
+     * @throws TransporterException
+     * @noinspection PhpDocRedundantThrowsInspection
+     */
     public function execute(): AssistantListResponse
     {
         try {

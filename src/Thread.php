@@ -2,6 +2,7 @@
 
 namespace SMSkin\LaravelOpenAi;
 
+use OpenAI\Exceptions\TransporterException;
 use OpenAI\Responses\StreamResponse;
 use OpenAI\Responses\Threads\Runs\ThreadRunResponse;
 use OpenAI\Responses\Threads\ThreadDeleteResponse;
@@ -28,12 +29,16 @@ class Thread
      * @throws UnsupportedImageFormat
      * @throws UnsupportedMessageContent
      * @throws UnsupportedRetrievalFile
+     * @throws TransporterException
      */
     public function create(Models\Thread|null $thread): ThreadResponse
     {
         return (new Create($thread))->execute();
     }
 
+    /**
+     * @throws TransporterException
+     */
     public function createAndRun(
         Models\Run $run,
         Models\Thread|null             $thread,
@@ -41,6 +46,9 @@ class Thread
         return (new CreateAndRun($run, $thread))->execute();
     }
 
+    /**
+     * @throws TransporterException
+     */
     public function createAndRunStreamed(
         Models\Run $run,
         Models\Thread|null             $thread,
@@ -50,6 +58,7 @@ class Thread
 
     /**
      * @throws NotFound
+     * @throws TransporterException
      */
     public function retrieve(string $id): ThreadResponse
     {
@@ -58,6 +67,7 @@ class Thread
 
     /**
      * @throws NotFound
+     * @throws TransporterException
      */
     public function modify(
         string                           $id,
@@ -70,6 +80,7 @@ class Thread
 
     /**
      * @throws NotFound
+     * @throws TransporterException
      */
     public function delete(string $id): ThreadDeleteResponse
     {

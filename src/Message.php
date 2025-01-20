@@ -2,6 +2,7 @@
 
 namespace SMSkin\LaravelOpenAi;
 
+use OpenAI\Exceptions\TransporterException;
 use OpenAI\Responses\Threads\Messages\ThreadMessageDeleteResponse;
 use OpenAI\Responses\Threads\Messages\ThreadMessageListResponse;
 use OpenAI\Responses\Threads\Messages\ThreadMessageResponse;
@@ -20,6 +21,7 @@ class Message
 {
     /**
      * @throws ThreadNotFound
+     * @throws TransporterException
      */
     public function getList(
         string         $threadId,
@@ -36,6 +38,7 @@ class Message
      * @throws ThreadNotFound
      * @throws RunInProcess
      * @throws Exceptions\FileNotSupportedForRetrieval
+     * @throws TransporterException
      */
     public function create(string $threadId, MessageModel $message): ThreadMessageResponse
     {
@@ -45,6 +48,7 @@ class Message
     /**
      * @throws ThreadNotFound
      * @throws NotFound
+     * @throws TransporterException
      */
     public function retrieve(string $threadId, string $messageId): ThreadMessageResponse
     {
@@ -54,6 +58,7 @@ class Message
     /**
      * @throws ThreadNotFound
      * @throws NotFound
+     * @throws TransporterException
      */
     public function modify(
         string     $threadId,
@@ -66,6 +71,7 @@ class Message
     /**
      * @throws ThreadNotFound
      * @throws NotFound
+     * @throws TransporterException
      */
     public function delete(string $threadId, string $messageId): ThreadMessageDeleteResponse
     {

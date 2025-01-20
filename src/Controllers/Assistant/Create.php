@@ -3,6 +3,7 @@
 namespace SMSkin\LaravelOpenAi\Controllers\Assistant;
 
 use OpenAI\Exceptions\ErrorException;
+use OpenAI\Exceptions\TransporterException;
 use OpenAI\Responses\Assistants\AssistantResponse;
 use SMSkin\LaravelOpenAi\Controllers\Assistant\Traits\CreateExceptionHandlerTrait;
 use SMSkin\LaravelOpenAi\Controllers\BaseController;
@@ -38,6 +39,8 @@ class Create extends BaseController
     /**
      * @throws InvalidModel
      * @throws InvalidFunctionName
+     * @throws TransporterException
+     * @noinspection PhpDocRedundantThrowsInspection
      */
     public function execute(): AssistantResponse
     {

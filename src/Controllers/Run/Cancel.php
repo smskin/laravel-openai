@@ -4,6 +4,7 @@ namespace SMSkin\LaravelOpenAi\Controllers\Run;
 
 use Illuminate\Support\Str;
 use OpenAI\Exceptions\ErrorException;
+use OpenAI\Exceptions\TransporterException;
 use OpenAI\Responses\Threads\Runs\ThreadRunResponse;
 use SMSkin\LaravelOpenAi\Controllers\BaseController;
 use SMSkin\LaravelOpenAi\Controllers\Run\Traits\GetListExceptionHandlerTrait;
@@ -27,6 +28,8 @@ class Cancel extends BaseController
      * @throws ThreadNotFound
      * @throws InvalidState
      * @throws NotFound
+     * @throws TransporterException
+     * @noinspection PhpDocRedundantThrowsInspection
      */
     public function execute(): ThreadRunResponse
     {

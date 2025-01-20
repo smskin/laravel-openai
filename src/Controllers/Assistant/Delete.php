@@ -3,6 +3,7 @@
 namespace SMSkin\LaravelOpenAi\Controllers\Assistant;
 
 use OpenAI\Exceptions\ErrorException;
+use OpenAI\Exceptions\TransporterException;
 use OpenAI\Responses\Assistants\AssistantDeleteResponse;
 use SMSkin\LaravelOpenAi\Controllers\Assistant\Traits\RetrieveExceptionHandlerTrait;
 use SMSkin\LaravelOpenAi\Controllers\BaseController;
@@ -18,6 +19,8 @@ class Delete extends BaseController
 
     /**
      * @throws NotFound
+     * @throws TransporterException
+     * @noinspection PhpDocRedundantThrowsInspection
      */
     public function execute(): AssistantDeleteResponse
     {

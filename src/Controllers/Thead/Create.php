@@ -4,6 +4,7 @@ namespace SMSkin\LaravelOpenAi\Controllers\Thead;
 
 use Illuminate\Support\Str;
 use OpenAI\Exceptions\ErrorException;
+use OpenAI\Exceptions\TransporterException;
 use OpenAI\Responses\Threads\ThreadResponse;
 use SMSkin\LaravelOpenAi\Controllers\BaseController;
 use SMSkin\LaravelOpenAi\Exceptions\NotFound;
@@ -23,6 +24,8 @@ class Create extends BaseController
      * @throws NotFound
      * @throws UnsupportedMessageContent
      * @throws UnsupportedRetrievalFile
+     * @throws TransporterException
+     * @noinspection PhpDocRedundantThrowsInspection
      */
     public function execute(): ThreadResponse
     {

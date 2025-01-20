@@ -3,6 +3,7 @@
 namespace SMSkin\LaravelOpenAi\Controllers\File;
 
 use OpenAI\Exceptions\ErrorException;
+use OpenAI\Exceptions\TransporterException;
 use OpenAI\Responses\Files\DeleteResponse;
 use SMSkin\LaravelOpenAi\Controllers\BaseController;
 use SMSkin\LaravelOpenAi\Controllers\File\Traits\RetrieveExceptionHandlerTrait;
@@ -19,6 +20,8 @@ class Delete extends BaseController
 
     /**
      * @throws NotFound
+     * @throws TransporterException
+     * @noinspection PhpDocRedundantThrowsInspection
      */
     public function execute(): DeleteResponse
     {

@@ -2,12 +2,16 @@
 
 namespace SMSkin\LaravelOpenAi;
 
+use OpenAI\Exceptions\TransporterException;
 use OpenAI\Responses\Completions\CreateResponse;
 use SMSkin\LaravelOpenAi\Controllers\Completion\Create;
 use SMSkin\LaravelOpenAi\Enums\ModelEnum;
 
 class Completion
 {
+    /**
+     * @throws TransporterException
+     */
     public function create(
         ModelEnum $model,
         string    $prompt,

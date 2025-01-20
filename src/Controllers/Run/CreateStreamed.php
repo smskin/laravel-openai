@@ -3,6 +3,7 @@
 namespace SMSkin\LaravelOpenAi\Controllers\Run;
 
 use OpenAI\Exceptions\ErrorException;
+use OpenAI\Exceptions\TransporterException;
 use OpenAI\Responses\StreamResponse;
 use SMSkin\LaravelOpenAi\Controllers\BaseController;
 use SMSkin\LaravelOpenAi\Controllers\Run\Traits\GetListExceptionHandlerTrait;
@@ -25,6 +26,8 @@ class CreateStreamed extends BaseController
      * @throws ThreadNotFound
      * @throws VectorStoreIsExpired
      * @throws RunInProcess
+     * @throws TransporterException
+     * @noinspection PhpDocRedundantThrowsInspection
      */
     public function execute(): StreamResponse
     {

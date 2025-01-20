@@ -2,6 +2,7 @@
 
 namespace SMSkin\LaravelOpenAi;
 
+use OpenAI\Exceptions\TransporterException;
 use OpenAI\Responses\Assistants\AssistantDeleteResponse;
 use OpenAI\Responses\Assistants\AssistantListResponse;
 use OpenAI\Responses\Assistants\AssistantResponse;
@@ -22,6 +23,9 @@ use SMSkin\LaravelOpenAi\Models\FunctionToolConfig;
 
 class Assistant
 {
+    /**
+     * @throws TransporterException
+     */
     public function getList(
         int|null       $limit = null,
         OrderEnum|null $order = null,
@@ -34,6 +38,7 @@ class Assistant
     /**
      * @throws InvalidModel
      * @throws InvalidFunctionName
+     * @throws TransporterException
      */
     public function create(
         ModelEnum                        $model,
@@ -69,6 +74,7 @@ class Assistant
 
     /**
      * @throws NotFound
+     * @throws TransporterException
      */
     public function retrieve(string $id): AssistantResponse
     {
@@ -79,6 +85,7 @@ class Assistant
      * @throws InvalidModel
      * @throws InvalidFunctionName
      * @throws NotFound
+     * @throws TransporterException
      */
     public function modify(
         string                           $id,
@@ -116,6 +123,7 @@ class Assistant
 
     /**
      * @throws NotFound
+     * @throws TransporterException
      */
     public function delete(string $id): AssistantDeleteResponse
     {

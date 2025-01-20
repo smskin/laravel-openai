@@ -3,6 +3,7 @@
 namespace SMSkin\LaravelOpenAi\Controllers\Chat;
 
 use OpenAI\Exceptions\ErrorException;
+use OpenAI\Exceptions\TransporterException;
 use OpenAI\Responses\Chat\CreateResponse;
 use SMSkin\LaravelOpenAi\Controllers\BaseController;
 use SMSkin\LaravelOpenAi\Enums\ModelEnum;
@@ -34,6 +35,10 @@ class Create extends BaseController
     ) {
     }
 
+    /**
+     * @throws TransporterException
+     * @noinspection PhpDocRedundantThrowsInspection
+     */
     public function execute(): CreateResponse
     {
         try {

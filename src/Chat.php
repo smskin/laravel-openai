@@ -2,6 +2,7 @@
 
 namespace SMSkin\LaravelOpenAi;
 
+use OpenAI\Exceptions\TransporterException;
 use OpenAI\Responses\Chat\CreateResponse;
 use SMSkin\LaravelOpenAi\Controllers\Chat\Create;
 use SMSkin\LaravelOpenAi\Enums\ModelEnum;
@@ -20,6 +21,7 @@ class Chat
      * @param int|null $temperature
      * @param int|null $topP
      * @return CreateResponse
+     * @throws TransporterException
      */
     public function create(
         array     $messages,

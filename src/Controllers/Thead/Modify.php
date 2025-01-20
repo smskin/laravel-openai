@@ -3,6 +3,7 @@
 namespace SMSkin\LaravelOpenAi\Controllers\Thead;
 
 use OpenAI\Exceptions\ErrorException;
+use OpenAI\Exceptions\TransporterException;
 use OpenAI\Responses\Threads\ThreadResponse;
 use SMSkin\LaravelOpenAi\Controllers\BaseController;
 use SMSkin\LaravelOpenAi\Controllers\Thead\Traits\RetrieveExceptionHandlerTrait;
@@ -24,6 +25,8 @@ class Modify extends BaseController
 
     /**
      * @throws NotFound
+     * @throws TransporterException
+     * @noinspection PhpDocRedundantThrowsInspection
      */
     public function execute(): ThreadResponse
     {

@@ -2,11 +2,12 @@
 
 namespace SMSkin\LaravelOpenAi\Controllers;
 
+use GuzzleHttp\RequestOptions;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
-use OpenAI;
 use OpenAI\Client;
 use OpenAI\Exceptions\ErrorException;
+use OpenAI\Factory;
 use RuntimeException;
 use SMSkin\LaravelOpenAi\Exceptions\ApiKeyNotProvided;
 use SMSkin\LaravelOpenAi\Exceptions\IncorrectApiKey;
@@ -16,7 +17,13 @@ abstract class BaseController
 {
     protected function getClient(): Client
     {
-        return OpenAI::client(Config::get('openai.client.api_key'));
+        return (new Factory())
+            ->withApiKey(Config::get('openai.client.api_key'))
+            ->withHttpHeader('OpenAI-Beta', 'assistants=v2')
+            ->withHttpClient(new \GuzzleHttp\Client([
+                RequestOptions::TIMEOUT => Config::get('openai.client.request_timeout', 0),
+            ]))
+            ->make();
     }
 
     protected function globalExceptionHandler(ErrorException $exception)

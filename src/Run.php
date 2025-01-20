@@ -2,6 +2,7 @@
 
 namespace SMSkin\LaravelOpenAi;
 
+use OpenAI\Exceptions\TransporterException;
 use OpenAI\Responses\StreamResponse;
 use OpenAI\Responses\Threads\Runs\ThreadRunListResponse;
 use OpenAI\Responses\Threads\Runs\ThreadRunResponse;
@@ -22,6 +23,7 @@ class Run
 {
     /**
      * @throws ThreadNotFound
+     * @throws TransporterException
      */
     public function getList(
         string         $threadId,
@@ -35,6 +37,7 @@ class Run
 
     /**
      * @throws ThreadNotFound
+     * @throws TransporterException
      */
     public function create(string $threadId, Models\Run $run): ThreadRunResponse
     {
@@ -45,6 +48,7 @@ class Run
      * @throws ThreadNotFound
      * @throws VectorStoreIsExpired
      * @throws RunInProcess
+     * @throws TransporterException
      */
     public function createStreamed(string $threadId, Models\Run $run): StreamResponse
     {
@@ -54,6 +58,7 @@ class Run
     /**
      * @throws ThreadNotFound
      * @throws NotFound
+     * @throws TransporterException
      */
     public function retrieve(string $threadId, string $runId): ThreadRunResponse
     {
@@ -63,6 +68,7 @@ class Run
     /**
      * @throws ThreadNotFound
      * @throws NotFound
+     * @throws TransporterException
      */
     public function modify(string $threadId, string $runId, array|null $metadata = null): ThreadRunResponse
     {
@@ -73,6 +79,7 @@ class Run
      * @throws InvalidState
      * @throws NotFound
      * @throws ThreadNotFound
+     * @throws TransporterException
      */
     public function cancel(string $threadId, string $runId): ThreadRunResponse
     {

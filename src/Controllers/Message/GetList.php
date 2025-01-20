@@ -3,6 +3,7 @@
 namespace SMSkin\LaravelOpenAi\Controllers\Message;
 
 use OpenAI\Exceptions\ErrorException;
+use OpenAI\Exceptions\TransporterException;
 use OpenAI\Responses\Threads\Messages\ThreadMessageListResponse;
 use SMSkin\LaravelOpenAi\Controllers\BaseController;
 use SMSkin\LaravelOpenAi\Controllers\Run\Traits\GetListExceptionHandlerTrait;
@@ -25,6 +26,8 @@ class GetList extends BaseController
 
     /**
      * @throws ThreadNotFound
+     * @throws TransporterException
+     * @noinspection PhpDocRedundantThrowsInspection
      */
     public function execute(): ThreadMessageListResponse
     {

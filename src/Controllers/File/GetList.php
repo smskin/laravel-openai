@@ -3,6 +3,7 @@
 namespace SMSkin\LaravelOpenAi\Controllers\File;
 
 use OpenAI\Exceptions\ErrorException;
+use OpenAI\Exceptions\TransporterException;
 use OpenAI\Responses\Files\ListResponse;
 use SMSkin\LaravelOpenAi\Controllers\BaseController;
 
@@ -12,6 +13,11 @@ class GetList extends BaseController
     {
     }
 
+    /**
+     * @return ListResponse
+     * @throws TransporterException
+     * @noinspection PhpDocRedundantThrowsInspection
+     */
     public function execute(): ListResponse
     {
         try {

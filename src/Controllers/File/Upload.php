@@ -4,6 +4,7 @@ namespace SMSkin\LaravelOpenAi\Controllers\File;
 
 use Illuminate\Support\Str;
 use OpenAI\Exceptions\ErrorException;
+use OpenAI\Exceptions\TransporterException;
 use OpenAI\Responses\Files\CreateResponse;
 use SMSkin\LaravelOpenAi\Controllers\BaseController;
 use SMSkin\LaravelOpenAi\Enums\FilePurposeEnum;
@@ -19,6 +20,8 @@ class Upload extends BaseController
 
     /**
      * @throws InvalidExtension
+     * @throws TransporterException
+     * @noinspection PhpDocRedundantThrowsInspection
      */
     public function execute(): CreateResponse
     {

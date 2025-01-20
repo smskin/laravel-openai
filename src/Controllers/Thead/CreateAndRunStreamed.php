@@ -3,6 +3,7 @@
 namespace SMSkin\LaravelOpenAi\Controllers\Thead;
 
 use OpenAI\Exceptions\ErrorException;
+use OpenAI\Exceptions\TransporterException;
 use OpenAI\Responses\StreamResponse;
 use SMSkin\LaravelOpenAi\Controllers\BaseController;
 use SMSkin\LaravelOpenAi\Models\Run;
@@ -16,6 +17,10 @@ class CreateAndRunStreamed extends BaseController
     ) {
     }
 
+    /**
+     * @throws TransporterException
+     * @noinspection PhpDocRedundantThrowsInspection
+     */
     public function execute(): StreamResponse
     {
         try {
