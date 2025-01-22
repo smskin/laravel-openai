@@ -10,6 +10,7 @@ use SMSkin\LaravelOpenAi\Controllers\Assistant\Traits\RetrieveExceptionHandlerTr
 use SMSkin\LaravelOpenAi\Controllers\BaseController;
 use SMSkin\LaravelOpenAi\Enums\ModelEnum;
 use SMSkin\LaravelOpenAi\Enums\ResponseFormatEnum;
+use SMSkin\LaravelOpenAi\Exceptions\ApiServerHadProcessingError;
 use SMSkin\LaravelOpenAi\Exceptions\InvalidFunctionName;
 use SMSkin\LaravelOpenAi\Exceptions\InvalidModel;
 use SMSkin\LaravelOpenAi\Exceptions\NotFound;
@@ -45,6 +46,8 @@ class Modify extends BaseController
      * @throws InvalidFunctionName
      * @throws NotFound
      * @throws TransporterException
+     * @throws ApiServerHadProcessingError
+     * @throws ErrorException
      * @noinspection PhpDocRedundantThrowsInspection
      */
     public function execute(): AssistantResponse

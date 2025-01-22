@@ -7,6 +7,7 @@ use OpenAI\Exceptions\TransporterException;
 use OpenAI\Responses\Chat\CreateResponse;
 use SMSkin\LaravelOpenAi\Controllers\BaseController;
 use SMSkin\LaravelOpenAi\Enums\ModelEnum;
+use SMSkin\LaravelOpenAi\Exceptions\ApiServerHadProcessingError;
 use SMSkin\LaravelOpenAi\Models\ChatMessage;
 
 class Create extends BaseController
@@ -37,6 +38,8 @@ class Create extends BaseController
 
     /**
      * @throws TransporterException
+     * @throws ApiServerHadProcessingError
+     * @throws ErrorException
      * @noinspection PhpDocRedundantThrowsInspection
      */
     public function execute(): CreateResponse

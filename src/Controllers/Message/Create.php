@@ -7,6 +7,7 @@ use OpenAI\Exceptions\TransporterException;
 use OpenAI\Responses\Threads\Messages\ThreadMessageResponse;
 use SMSkin\LaravelOpenAi\Controllers\BaseController;
 use SMSkin\LaravelOpenAi\Controllers\Run\Traits\GetListExceptionHandlerTrait;
+use SMSkin\LaravelOpenAi\Exceptions\ApiServerHadProcessingError;
 use SMSkin\LaravelOpenAi\Exceptions\FileNotSupportedForRetrieval;
 use SMSkin\LaravelOpenAi\Exceptions\RunInProcess;
 use SMSkin\LaravelOpenAi\Exceptions\ThreadNotFound;
@@ -27,6 +28,8 @@ class Create extends BaseController
      * @throws RunInProcess
      * @throws FileNotSupportedForRetrieval
      * @throws TransporterException
+     * @throws ApiServerHadProcessingError
+     * @throws ErrorException
      * @noinspection PhpDocRedundantThrowsInspection
      */
     public function execute(): ThreadMessageResponse

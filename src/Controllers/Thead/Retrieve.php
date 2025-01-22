@@ -7,6 +7,7 @@ use OpenAI\Exceptions\TransporterException;
 use OpenAI\Responses\Threads\ThreadResponse;
 use SMSkin\LaravelOpenAi\Controllers\BaseController;
 use SMSkin\LaravelOpenAi\Controllers\Thead\Traits\RetrieveExceptionHandlerTrait;
+use SMSkin\LaravelOpenAi\Exceptions\ApiServerHadProcessingError;
 use SMSkin\LaravelOpenAi\Exceptions\NotFound;
 
 class Retrieve extends BaseController
@@ -21,6 +22,8 @@ class Retrieve extends BaseController
     /**
      * @throws NotFound
      * @throws TransporterException
+     * @throws ApiServerHadProcessingError
+     * @throws ErrorException
      * @noinspection PhpDocRedundantThrowsInspection
      */
     public function execute(): ThreadResponse

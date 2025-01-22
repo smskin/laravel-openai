@@ -7,6 +7,7 @@ use OpenAI\Exceptions\ErrorException;
 use OpenAI\Exceptions\TransporterException;
 use SMSkin\LaravelOpenAi\Controllers\BaseController;
 use SMSkin\LaravelOpenAi\Controllers\File\Traits\RetrieveExceptionHandlerTrait;
+use SMSkin\LaravelOpenAi\Exceptions\ApiServerHadProcessingError;
 use SMSkin\LaravelOpenAi\Exceptions\NotAllowedToDownload;
 use SMSkin\LaravelOpenAi\Exceptions\NotFound;
 
@@ -23,6 +24,8 @@ class Download extends BaseController
      * @throws NotFound
      * @throws NotAllowedToDownload
      * @throws TransporterException
+     * @throws ApiServerHadProcessingError
+     * @throws ErrorException
      * @noinspection PhpDocRedundantThrowsInspection
      */
     public function execute(): string

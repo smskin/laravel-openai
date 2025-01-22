@@ -8,6 +8,7 @@ use OpenAI\Exceptions\TransporterException;
 use OpenAI\Responses\Files\CreateResponse;
 use SMSkin\LaravelOpenAi\Controllers\BaseController;
 use SMSkin\LaravelOpenAi\Enums\FilePurposeEnum;
+use SMSkin\LaravelOpenAi\Exceptions\ApiServerHadProcessingError;
 use SMSkin\LaravelOpenAi\Exceptions\InvalidExtension;
 
 class Upload extends BaseController
@@ -21,6 +22,8 @@ class Upload extends BaseController
     /**
      * @throws InvalidExtension
      * @throws TransporterException
+     * @throws ApiServerHadProcessingError
+     * @throws ErrorException
      * @noinspection PhpDocRedundantThrowsInspection
      */
     public function execute(): CreateResponse

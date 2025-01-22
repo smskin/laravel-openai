@@ -7,6 +7,7 @@ use OpenAI\Exceptions\TransporterException;
 use OpenAI\Responses\StreamResponse;
 use SMSkin\LaravelOpenAi\Controllers\BaseController;
 use SMSkin\LaravelOpenAi\Controllers\Run\Traits\GetListExceptionHandlerTrait;
+use SMSkin\LaravelOpenAi\Exceptions\ApiServerHadProcessingError;
 use SMSkin\LaravelOpenAi\Exceptions\RunInProcess;
 use SMSkin\LaravelOpenAi\Exceptions\ThreadNotFound;
 use SMSkin\LaravelOpenAi\Exceptions\VectorStoreIsExpired;
@@ -27,6 +28,8 @@ class CreateStreamed extends BaseController
      * @throws VectorStoreIsExpired
      * @throws RunInProcess
      * @throws TransporterException
+     * @throws ApiServerHadProcessingError
+     * @throws ErrorException
      * @noinspection PhpDocRedundantThrowsInspection
      */
     public function execute(): StreamResponse

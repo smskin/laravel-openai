@@ -8,6 +8,7 @@ use OpenAI\Responses\Threads\Messages\ThreadMessageDeleteResponse;
 use SMSkin\LaravelOpenAi\Controllers\BaseController;
 use SMSkin\LaravelOpenAi\Controllers\Message\Traits\RetrieveExceptionHandlerTrait;
 use SMSkin\LaravelOpenAi\Controllers\Run\Traits\GetListExceptionHandlerTrait;
+use SMSkin\LaravelOpenAi\Exceptions\ApiServerHadProcessingError;
 use SMSkin\LaravelOpenAi\Exceptions\NotFound;
 use SMSkin\LaravelOpenAi\Exceptions\ThreadNotFound;
 
@@ -26,6 +27,8 @@ class Delete extends BaseController
      * @throws ThreadNotFound
      * @throws NotFound
      * @throws TransporterException
+     * @throws ApiServerHadProcessingError
+     * @throws ErrorException
      * @noinspection PhpDocRedundantThrowsInspection
      */
     public function execute(): ThreadMessageDeleteResponse

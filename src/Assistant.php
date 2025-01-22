@@ -2,6 +2,7 @@
 
 namespace SMSkin\LaravelOpenAi;
 
+use OpenAI\Exceptions\ErrorException;
 use OpenAI\Exceptions\TransporterException;
 use OpenAI\Responses\Assistants\AssistantDeleteResponse;
 use OpenAI\Responses\Assistants\AssistantListResponse;
@@ -14,6 +15,7 @@ use SMSkin\LaravelOpenAi\Controllers\Assistant\Retrieve;
 use SMSkin\LaravelOpenAi\Enums\ModelEnum;
 use SMSkin\LaravelOpenAi\Enums\OrderEnum;
 use SMSkin\LaravelOpenAi\Enums\ResponseFormatEnum;
+use SMSkin\LaravelOpenAi\Exceptions\ApiServerHadProcessingError;
 use SMSkin\LaravelOpenAi\Exceptions\InvalidFunctionName;
 use SMSkin\LaravelOpenAi\Exceptions\InvalidModel;
 use SMSkin\LaravelOpenAi\Exceptions\NotFound;
@@ -25,6 +27,8 @@ class Assistant
 {
     /**
      * @throws TransporterException
+     * @throws ApiServerHadProcessingError
+     * @throws ErrorException
      */
     public function getList(
         int|null       $limit = null,
@@ -36,8 +40,10 @@ class Assistant
     }
 
     /**
-     * @throws InvalidModel
+     * @throws ErrorException
+     * @throws ApiServerHadProcessingError
      * @throws InvalidFunctionName
+     * @throws InvalidModel
      * @throws TransporterException
      */
     public function create(
@@ -75,6 +81,8 @@ class Assistant
     /**
      * @throws NotFound
      * @throws TransporterException
+     * @throws ApiServerHadProcessingError
+     * @throws ErrorException
      */
     public function retrieve(string $id): AssistantResponse
     {
@@ -86,6 +94,8 @@ class Assistant
      * @throws InvalidFunctionName
      * @throws NotFound
      * @throws TransporterException
+     * @throws ApiServerHadProcessingError
+     * @throws ErrorException
      */
     public function modify(
         string                           $id,
@@ -124,6 +134,8 @@ class Assistant
     /**
      * @throws NotFound
      * @throws TransporterException
+     * @throws ApiServerHadProcessingError
+     * @throws ErrorException
      */
     public function delete(string $id): AssistantDeleteResponse
     {

@@ -2,15 +2,19 @@
 
 namespace SMSkin\LaravelOpenAi;
 
+use OpenAI\Exceptions\ErrorException;
 use OpenAI\Exceptions\TransporterException;
 use OpenAI\Responses\Completions\CreateResponse;
 use SMSkin\LaravelOpenAi\Controllers\Completion\Create;
 use SMSkin\LaravelOpenAi\Enums\ModelEnum;
+use SMSkin\LaravelOpenAi\Exceptions\ApiServerHadProcessingError;
 
 class Completion
 {
     /**
      * @throws TransporterException
+     * @throws ApiServerHadProcessingError
+     * @throws ErrorException
      */
     public function create(
         ModelEnum $model,

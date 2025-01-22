@@ -7,6 +7,7 @@ use OpenAI\Exceptions\TransporterException;
 use OpenAI\Responses\Assistants\AssistantListResponse;
 use SMSkin\LaravelOpenAi\Controllers\BaseController;
 use SMSkin\LaravelOpenAi\Enums\OrderEnum;
+use SMSkin\LaravelOpenAi\Exceptions\ApiServerHadProcessingError;
 
 class GetList extends BaseController
 {
@@ -20,6 +21,8 @@ class GetList extends BaseController
 
     /**
      * @throws TransporterException
+     * @throws ApiServerHadProcessingError
+     * @throws ErrorException
      * @noinspection PhpDocRedundantThrowsInspection
      */
     public function execute(): AssistantListResponse

@@ -7,6 +7,7 @@ use OpenAI\Exceptions\ErrorException;
 use OpenAI\Exceptions\TransporterException;
 use OpenAI\Responses\Threads\ThreadResponse;
 use SMSkin\LaravelOpenAi\Controllers\BaseController;
+use SMSkin\LaravelOpenAi\Exceptions\ApiServerHadProcessingError;
 use SMSkin\LaravelOpenAi\Exceptions\NotFound;
 use SMSkin\LaravelOpenAi\Exceptions\UnsupportedImageFormat;
 use SMSkin\LaravelOpenAi\Exceptions\UnsupportedMessageContent;
@@ -25,6 +26,8 @@ class Create extends BaseController
      * @throws UnsupportedMessageContent
      * @throws UnsupportedRetrievalFile
      * @throws TransporterException
+     * @throws ApiServerHadProcessingError
+     * @throws ErrorException
      * @noinspection PhpDocRedundantThrowsInspection
      */
     public function execute(): ThreadResponse

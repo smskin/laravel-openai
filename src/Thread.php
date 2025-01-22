@@ -2,6 +2,7 @@
 
 namespace SMSkin\LaravelOpenAi;
 
+use OpenAI\Exceptions\ErrorException;
 use OpenAI\Exceptions\TransporterException;
 use OpenAI\Responses\StreamResponse;
 use OpenAI\Responses\Threads\Runs\ThreadRunResponse;
@@ -13,6 +14,7 @@ use SMSkin\LaravelOpenAi\Controllers\Thead\CreateAndRunStreamed;
 use SMSkin\LaravelOpenAi\Controllers\Thead\Delete;
 use SMSkin\LaravelOpenAi\Controllers\Thead\Modify;
 use SMSkin\LaravelOpenAi\Controllers\Thead\Retrieve;
+use SMSkin\LaravelOpenAi\Exceptions\ApiServerHadProcessingError;
 use SMSkin\LaravelOpenAi\Exceptions\NotFound;
 use SMSkin\LaravelOpenAi\Exceptions\UnsupportedImageFormat;
 use SMSkin\LaravelOpenAi\Exceptions\UnsupportedMessageContent;
@@ -30,6 +32,8 @@ class Thread
      * @throws UnsupportedMessageContent
      * @throws UnsupportedRetrievalFile
      * @throws TransporterException
+     * @throws ApiServerHadProcessingError
+     * @throws ErrorException
      */
     public function create(Models\Thread|null $thread): ThreadResponse
     {
@@ -38,6 +42,8 @@ class Thread
 
     /**
      * @throws TransporterException
+     * @throws ApiServerHadProcessingError
+     * @throws ErrorException
      */
     public function createAndRun(
         Models\Run $run,
@@ -48,6 +54,8 @@ class Thread
 
     /**
      * @throws TransporterException
+     * @throws ApiServerHadProcessingError
+     * @throws ErrorException
      */
     public function createAndRunStreamed(
         Models\Run $run,
@@ -59,6 +67,8 @@ class Thread
     /**
      * @throws NotFound
      * @throws TransporterException
+     * @throws ApiServerHadProcessingError
+     * @throws ErrorException
      */
     public function retrieve(string $id): ThreadResponse
     {
@@ -68,6 +78,8 @@ class Thread
     /**
      * @throws NotFound
      * @throws TransporterException
+     * @throws ApiServerHadProcessingError
+     * @throws ErrorException
      */
     public function modify(
         string                           $id,
@@ -81,6 +93,8 @@ class Thread
     /**
      * @throws NotFound
      * @throws TransporterException
+     * @throws ApiServerHadProcessingError
+     * @throws ErrorException
      */
     public function delete(string $id): ThreadDeleteResponse
     {

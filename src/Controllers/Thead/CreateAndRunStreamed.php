@@ -6,6 +6,7 @@ use OpenAI\Exceptions\ErrorException;
 use OpenAI\Exceptions\TransporterException;
 use OpenAI\Responses\StreamResponse;
 use SMSkin\LaravelOpenAi\Controllers\BaseController;
+use SMSkin\LaravelOpenAi\Exceptions\ApiServerHadProcessingError;
 use SMSkin\LaravelOpenAi\Models\Run;
 use SMSkin\LaravelOpenAi\Models\Thread;
 
@@ -19,6 +20,8 @@ class CreateAndRunStreamed extends BaseController
 
     /**
      * @throws TransporterException
+     * @throws ApiServerHadProcessingError
+     * @throws ErrorException
      * @noinspection PhpDocRedundantThrowsInspection
      */
     public function execute(): StreamResponse

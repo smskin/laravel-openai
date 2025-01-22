@@ -2,10 +2,12 @@
 
 namespace SMSkin\LaravelOpenAi;
 
+use OpenAI\Exceptions\ErrorException;
 use OpenAI\Exceptions\TransporterException;
 use OpenAI\Responses\Chat\CreateResponse;
 use SMSkin\LaravelOpenAi\Controllers\Chat\Create;
 use SMSkin\LaravelOpenAi\Enums\ModelEnum;
+use SMSkin\LaravelOpenAi\Exceptions\ApiServerHadProcessingError;
 use SMSkin\LaravelOpenAi\Models\ChatMessage;
 
 class Chat
@@ -22,6 +24,8 @@ class Chat
      * @param int|null $topP
      * @return CreateResponse
      * @throws TransporterException
+     * @throws ApiServerHadProcessingError
+     * @throws ErrorException
      */
     public function create(
         array     $messages,

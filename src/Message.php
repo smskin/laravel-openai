@@ -2,6 +2,7 @@
 
 namespace SMSkin\LaravelOpenAi;
 
+use OpenAI\Exceptions\ErrorException;
 use OpenAI\Exceptions\TransporterException;
 use OpenAI\Responses\Threads\Messages\ThreadMessageDeleteResponse;
 use OpenAI\Responses\Threads\Messages\ThreadMessageListResponse;
@@ -12,6 +13,8 @@ use SMSkin\LaravelOpenAi\Controllers\Message\GetList;
 use SMSkin\LaravelOpenAi\Controllers\Message\Modify;
 use SMSkin\LaravelOpenAi\Controllers\Message\Retrieve;
 use SMSkin\LaravelOpenAi\Enums\OrderEnum;
+use SMSkin\LaravelOpenAi\Exceptions\ApiServerHadProcessingError;
+use SMSkin\LaravelOpenAi\Exceptions\FileNotSupportedForRetrieval;
 use SMSkin\LaravelOpenAi\Exceptions\NotFound;
 use SMSkin\LaravelOpenAi\Exceptions\RunInProcess;
 use SMSkin\LaravelOpenAi\Exceptions\ThreadNotFound;
@@ -22,6 +25,8 @@ class Message
     /**
      * @throws ThreadNotFound
      * @throws TransporterException
+     * @throws ApiServerHadProcessingError
+     * @throws ErrorException
      */
     public function getList(
         string         $threadId,
@@ -37,8 +42,10 @@ class Message
     /**
      * @throws ThreadNotFound
      * @throws RunInProcess
-     * @throws Exceptions\FileNotSupportedForRetrieval
+     * @throws FileNotSupportedForRetrieval
      * @throws TransporterException
+     * @throws ApiServerHadProcessingError
+     * @throws ErrorException
      */
     public function create(string $threadId, MessageModel $message): ThreadMessageResponse
     {
@@ -49,6 +56,8 @@ class Message
      * @throws ThreadNotFound
      * @throws NotFound
      * @throws TransporterException
+     * @throws ApiServerHadProcessingError
+     * @throws ErrorException
      */
     public function retrieve(string $threadId, string $messageId): ThreadMessageResponse
     {
@@ -59,6 +68,8 @@ class Message
      * @throws ThreadNotFound
      * @throws NotFound
      * @throws TransporterException
+     * @throws ApiServerHadProcessingError
+     * @throws ErrorException
      */
     public function modify(
         string     $threadId,
@@ -72,6 +83,8 @@ class Message
      * @throws ThreadNotFound
      * @throws NotFound
      * @throws TransporterException
+     * @throws ApiServerHadProcessingError
+     * @throws ErrorException
      */
     public function delete(string $threadId, string $messageId): ThreadMessageDeleteResponse
     {
