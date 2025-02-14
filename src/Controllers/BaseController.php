@@ -23,7 +23,7 @@ abstract class BaseController
             ->withHttpClient(new \GuzzleHttp\Client([
                 RequestOptions::TIMEOUT => Config::get('openai.client.client.timeout', 0),
                 RequestOptions::CONNECT_TIMEOUT => Config::get('openai.client.client.connect_timeout', 0),
-                RequestOptions::READ_TIMEOUT => Config::get('openai.client.client.read_timeout', ini_get("default_socket_timeout"))
+                RequestOptions::READ_TIMEOUT => Config::get('openai.client.client.read_timeout', ini_get('default_socket_timeout')),
             ]))
             ->make();
     }

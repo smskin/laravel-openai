@@ -28,4 +28,9 @@ class OpenAi
     {
         return new Chat();
     }
+
+    public function vectorStore(): VectorStore
+    {
+        return new VectorStore();
+    }
 }

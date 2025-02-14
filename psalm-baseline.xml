@@ -195,4 +195,17 @@
       <code><![CDATA[runs]]></code>
     </PossiblyUnusedMethod>
   </file>
+  <file src="src/VectorStore.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[delete]]></code>
+      <code><![CDATA[files]]></code>
+      <code><![CDATA[getList]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/VectorStoreFile.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[delete]]></code>
+      <code><![CDATA[getList]]></code>
+    </PossiblyUnusedMethod>
+  </file>
 </files>
