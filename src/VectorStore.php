@@ -27,6 +27,7 @@ class VectorStore
      * @throws Exceptions\ApiServerHadProcessingError
      * @throws Exceptions\NotFound
      * @throws TransporterException
+     * @throws Exceptions\VectorStoreIsExpired
      */
     public function delete(string $id): VectorStoreDeleteResponse
     {

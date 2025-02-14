@@ -18,6 +18,7 @@ class VectorStoreFile
      * @throws Exceptions\ApiServerHadProcessingError
      * @throws Exceptions\NotFound
      * @throws TransporterException
+     * @throws Exceptions\VectorStoreIsExpired
      */
     public function getList(string $vectorStoreId, int|null $limit = null, OrderEnum|null $order = null, string|null $after = null, string|null $before = null, VectorStoreFileFilter|null $filter = null): VectorStoreFileListResponse
     {
@@ -29,6 +30,7 @@ class VectorStoreFile
      * @throws Exceptions\ApiServerHadProcessingError
      * @throws Exceptions\NotFound
      * @throws TransporterException
+     * @throws Exceptions\VectorStoreIsExpired
      */
     public function delete(string $vectorStoreId, string $fileId): VectorStoreFileDeleteResponse
     {

@@ -2,26 +2,27 @@
 
 namespace SMSkin\LaravelOpenAi\Controllers\VectorStoreFile;
 
-use Illuminate\Support\Str;
 use OpenAI\Exceptions\ErrorException;
 use OpenAI\Exceptions\TransporterException;
 use OpenAI\Responses\VectorStores\Files\VectorStoreFileListResponse;
-use SMSkin\LaravelOpenAi\Controllers\Assistant\Traits\CreateExceptionHandlerTrait;
 use SMSkin\LaravelOpenAi\Controllers\BaseController;
+use SMSkin\LaravelOpenAi\Controllers\VectorStore\Traits\VectorStoreExceptionTrait;
 use SMSkin\LaravelOpenAi\Enums\OrderEnum;
 use SMSkin\LaravelOpenAi\Enums\VectorStoreFileFilter;
 use SMSkin\LaravelOpenAi\Exceptions\ApiServerHadProcessingError;
 use SMSkin\LaravelOpenAi\Exceptions\NotFound;
+use SMSkin\LaravelOpenAi\Exceptions\VectorStoreIsExpired;
 
 class GetList extends BaseController
 {
-    use CreateExceptionHandlerTrait;
+    use VectorStoreExceptionTrait;
 
     /**
      * @throws ErrorException
      * @throws ApiServerHadProcessingError
      * @throws NotFound
      * @throws TransporterException
+     * @throws VectorStoreIsExpired
      * @noinspection PhpDocRedundantThrowsInspection
      */
     public function execute(string $vectorStoreId, int|null $limit, OrderEnum|null $order, string|null $after, string|null $before, VectorStoreFileFilter|null $filter): VectorStoreFileListResponse
@@ -30,12 +31,7 @@ class GetList extends BaseController
             return $this->getClient()->vectorStores()->files()->list($vectorStoreId, $this->prepareData($limit, $order, $after, $before, $filter));
         } /** @noinspection PhpRedundantCatchClauseInspection */
         catch (ErrorException $exception) {
-            if (
-                Str::contains($exception->getMessage(), 'No vector store found with id') ||
-                Str::contains($exception->getMessage(), 'Expected an ID that begins with')
-            ) {
-                throw new NotFound($exception->getMessage(), 500, $exception);
-            }
+            $this->vectorStoreExceptionHandler($exception);
             $this->globalExceptionHandler($exception);
         }
     }
