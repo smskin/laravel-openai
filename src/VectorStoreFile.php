@@ -3,6 +3,7 @@
 namespace SMSkin\LaravelOpenAi;
 
 use OpenAI\Exceptions\ErrorException;
+use OpenAI\Exceptions\TransporterException;
 use OpenAI\Responses\VectorStores\Files\VectorStoreFileDeleteResponse;
 use OpenAI\Responses\VectorStores\Files\VectorStoreFileListResponse;
 use SMSkin\LaravelOpenAi\Controllers\VectorStoreFile\Delete;
@@ -16,6 +17,7 @@ class VectorStoreFile
      * @throws ErrorException
      * @throws Exceptions\ApiServerHadProcessingError
      * @throws Exceptions\NotFound
+     * @throws TransporterException
      */
     public function getList(string $vectorStoreId, int|null $limit = null, OrderEnum|null $order = null, string|null $after = null, string|null $before = null, VectorStoreFileFilter|null $filter = null): VectorStoreFileListResponse
     {
@@ -26,6 +28,7 @@ class VectorStoreFile
      * @throws ErrorException
      * @throws Exceptions\ApiServerHadProcessingError
      * @throws Exceptions\NotFound
+     * @throws TransporterException
      */
     public function delete(string $vectorStoreId, string $fileId): VectorStoreFileDeleteResponse
     {

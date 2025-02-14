@@ -3,6 +3,7 @@
 namespace SMSkin\LaravelOpenAi\Controllers\VectorStore;
 
 use OpenAI\Exceptions\ErrorException;
+use OpenAI\Exceptions\TransporterException;
 use OpenAI\Responses\VectorStores\VectorStoreListResponse;
 use SMSkin\LaravelOpenAi\Controllers\Assistant\Traits\CreateExceptionHandlerTrait;
 use SMSkin\LaravelOpenAi\Controllers\BaseController;
@@ -16,6 +17,8 @@ class GetList extends BaseController
     /**
      * @throws ApiServerHadProcessingError
      * @throws ErrorException
+     * @throws TransporterException
+     * @noinspection PhpDocRedundantThrowsInspection
      */
     public function execute(int|null $limit, OrderEnum|null $order, string|null $after, string|null $before): VectorStoreListResponse
     {

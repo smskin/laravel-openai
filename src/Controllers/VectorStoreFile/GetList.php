@@ -4,6 +4,7 @@ namespace SMSkin\LaravelOpenAi\Controllers\VectorStoreFile;
 
 use Illuminate\Support\Str;
 use OpenAI\Exceptions\ErrorException;
+use OpenAI\Exceptions\TransporterException;
 use OpenAI\Responses\VectorStores\Files\VectorStoreFileListResponse;
 use SMSkin\LaravelOpenAi\Controllers\Assistant\Traits\CreateExceptionHandlerTrait;
 use SMSkin\LaravelOpenAi\Controllers\BaseController;
@@ -20,6 +21,8 @@ class GetList extends BaseController
      * @throws ErrorException
      * @throws ApiServerHadProcessingError
      * @throws NotFound
+     * @throws TransporterException
+     * @noinspection PhpDocRedundantThrowsInspection
      */
     public function execute(string $vectorStoreId, int|null $limit, OrderEnum|null $order, string|null $after, string|null $before, VectorStoreFileFilter|null $filter): VectorStoreFileListResponse
     {

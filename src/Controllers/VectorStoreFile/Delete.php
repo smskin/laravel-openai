@@ -4,6 +4,7 @@ namespace SMSkin\LaravelOpenAi\Controllers\VectorStoreFile;
 
 use Illuminate\Support\Str;
 use OpenAI\Exceptions\ErrorException;
+use OpenAI\Exceptions\TransporterException;
 use OpenAI\Responses\VectorStores\Files\VectorStoreFileDeleteResponse;
 use SMSkin\LaravelOpenAi\Controllers\Assistant\Traits\CreateExceptionHandlerTrait;
 use SMSkin\LaravelOpenAi\Controllers\BaseController;
@@ -18,6 +19,8 @@ class Delete extends BaseController
      * @throws ApiServerHadProcessingError
      * @throws ErrorException
      * @throws NotFound
+     * @throws TransporterException
+     * @noinspection PhpDocRedundantThrowsInspection
      */
     public function execute(string $vectorStoreId, string $fileId): VectorStoreFileDeleteResponse
     {
