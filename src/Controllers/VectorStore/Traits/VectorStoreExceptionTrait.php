@@ -21,7 +21,7 @@ trait VectorStoreExceptionTrait
         ) {
             throw new NotFound($exception->getMessage(), 500, $exception);
         }
-        if (preg_match('/(Vector store \w+ is expired)/i', $exception->getMessage())) {
+        if (preg_match('/(Vector store \'\w+\' has expired)/i', $exception->getMessage())) {
             throw new VectorStoreIsExpired($exception->getMessage(), 500, $exception);
         }
     }
