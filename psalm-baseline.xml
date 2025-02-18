@@ -155,6 +155,11 @@
       <code><![CDATA[Arrayable]]></code>
     </MissingTemplateParam>
   </file>
+  <file src="src/Models/ToolOutput.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[__construct]]></code>
+    </PossiblyUnusedMethod>
+  </file>
   <file src="src/Models/TruncationStrategy.php">
     <MissingTemplateParam>
       <code><![CDATA[Arrayable]]></code>
@@ -174,6 +179,9 @@
     </UnusedClass>
   </file>
   <file src="src/Run.php">
+    <MissingTemplateParam>
+      <code><![CDATA[Collection<ToolOutput>]]></code>
+    </MissingTemplateParam>
     <PossiblyUnusedMethod>
       <code><![CDATA[cancel]]></code>
       <code><![CDATA[create]]></code>
@@ -181,6 +189,7 @@
       <code><![CDATA[getList]]></code>
       <code><![CDATA[modify]]></code>
       <code><![CDATA[retrieve]]></code>
+      <code><![CDATA[submitToolOutputs]]></code>
     </PossiblyUnusedMethod>
   </file>
   <file src="src/Thread.php">

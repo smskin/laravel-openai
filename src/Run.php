@@ -2,6 +2,7 @@
 
 namespace SMSkin\LaravelOpenAi;
 
+use Illuminate\Support\Collection;
 use OpenAI\Exceptions\ErrorException;
 use OpenAI\Exceptions\TransporterException;
 use OpenAI\Responses\StreamResponse;
@@ -13,6 +14,7 @@ use SMSkin\LaravelOpenAi\Controllers\Run\CreateStreamed;
 use SMSkin\LaravelOpenAi\Controllers\Run\GetList;
 use SMSkin\LaravelOpenAi\Controllers\Run\Modify;
 use SMSkin\LaravelOpenAi\Controllers\Run\Retrieve;
+use SMSkin\LaravelOpenAi\Controllers\Run\SubmitToolOutputs;
 use SMSkin\LaravelOpenAi\Enums\OrderEnum;
 use SMSkin\LaravelOpenAi\Exceptions\ApiServerHadProcessingError;
 use SMSkin\LaravelOpenAi\Exceptions\InvalidState;
@@ -20,6 +22,7 @@ use SMSkin\LaravelOpenAi\Exceptions\NotFound;
 use SMSkin\LaravelOpenAi\Exceptions\RunInProcess;
 use SMSkin\LaravelOpenAi\Exceptions\ThreadNotFound;
 use SMSkin\LaravelOpenAi\Exceptions\VectorStoreIsExpired;
+use SMSkin\LaravelOpenAi\Models\ToolOutput;
 
 class Run
 {
@@ -98,5 +101,22 @@ class Run
     public function cancel(string $threadId, string $runId): ThreadRunResponse
     {
         return (new Cancel($threadId, $runId))->execute();
+    }
+
+    /**
+     * @param string $threadId
+     * @param string $runId
+     * @param Collection<ToolOutput> $toolOutputs
+     * @return ThreadRunResponse
+     * @throws ApiServerHadProcessingError
+     * @throws ErrorException
+     * @throws Exceptions\ExpectedToolOutputs
+     * @throws Exceptions\RunIsExpired
+     * @throws ThreadNotFound
+     * @throws TransporterException
+     */
+    public function submitToolOutputs(string $threadId, string $runId, Collection $toolOutputs): ThreadRunResponse
+    {
+        return (new SubmitToolOutputs())->execute($threadId, $runId, $toolOutputs);
     }
 }
