@@ -15,6 +15,7 @@ use SMSkin\LaravelOpenAi\Controllers\Run\GetList;
 use SMSkin\LaravelOpenAi\Controllers\Run\Modify;
 use SMSkin\LaravelOpenAi\Controllers\Run\Retrieve;
 use SMSkin\LaravelOpenAi\Controllers\Run\SubmitToolOutputs;
+use SMSkin\LaravelOpenAi\Controllers\Run\SubmitToolOutputsStreamed;
 use SMSkin\LaravelOpenAi\Enums\OrderEnum;
 use SMSkin\LaravelOpenAi\Exceptions\ApiServerHadProcessingError;
 use SMSkin\LaravelOpenAi\Exceptions\InvalidState;
@@ -118,5 +119,22 @@ class Run
     public function submitToolOutputs(string $threadId, string $runId, Collection $toolOutputs): ThreadRunResponse
     {
         return (new SubmitToolOutputs())->execute($threadId, $runId, $toolOutputs);
+    }
+
+    /**
+     * @param string $threadId
+     * @param string $runId
+     * @param Collection<ToolOutput> $toolOutputs
+     * @return StreamResponse
+     * @throws ApiServerHadProcessingError
+     * @throws ErrorException
+     * @throws Exceptions\ExpectedToolOutputs
+     * @throws Exceptions\RunIsExpired
+     * @throws ThreadNotFound
+     * @throws TransporterException
+     */
+    public function submitToolOutputsStreamed(string $threadId, string $runId, Collection $toolOutputs): StreamResponse
+    {
+        return (new SubmitToolOutputsStreamed())->execute($threadId, $runId, $toolOutputs);
     }
 }

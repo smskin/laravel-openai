@@ -181,6 +181,7 @@
   <file src="src/Run.php">
     <MissingTemplateParam>
       <code><![CDATA[Collection<ToolOutput>]]></code>
+      <code><![CDATA[Collection<ToolOutput>]]></code>
     </MissingTemplateParam>
     <PossiblyUnusedMethod>
       <code><![CDATA[cancel]]></code>
@@ -190,6 +191,7 @@
       <code><![CDATA[modify]]></code>
       <code><![CDATA[retrieve]]></code>
       <code><![CDATA[submitToolOutputs]]></code>
+      <code><![CDATA[submitToolOutputsStreamed]]></code>
     </PossiblyUnusedMethod>
   </file>
   <file src="src/Thread.php">
