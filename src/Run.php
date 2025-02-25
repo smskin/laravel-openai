@@ -44,10 +44,13 @@ class Run
     }
 
     /**
-     * @throws ThreadNotFound
-     * @throws TransporterException
      * @throws ApiServerHadProcessingError
      * @throws ErrorException
+     * @throws Exceptions\AssistantNotFound
+     * @throws RunInProcess
+     * @throws ThreadNotFound
+     * @throws TransporterException
+     * @throws VectorStoreIsExpired
      */
     public function create(string $threadId, Models\Run $run): ThreadRunResponse
     {
@@ -61,6 +64,7 @@ class Run
      * @throws TransporterException
      * @throws ApiServerHadProcessingError
      * @throws ErrorException
+     * @throws Exceptions\AssistantNotFound
      */
     public function createStreamed(string $threadId, Models\Run $run): StreamResponse
     {
