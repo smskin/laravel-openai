@@ -17,6 +17,16 @@ class GetList extends BaseController
 {
     use VectorStoreExceptionTrait;
 
+    public function __construct(
+        private readonly string $vectorStoreId,
+        private readonly int|null $limit,
+        private readonly OrderEnum|null $order,
+        private readonly string|null $after,
+        private readonly string|null $before,
+        private readonly VectorStoreFileFilter|null $filter
+    ) {
+    }
+
     /**
      * @throws ErrorException
      * @throws ApiServerHadProcessingError
@@ -25,10 +35,10 @@ class GetList extends BaseController
      * @throws VectorStoreIsExpired
      * @noinspection PhpDocRedundantThrowsInspection
      */
-    public function execute(string $vectorStoreId, int|null $limit, OrderEnum|null $order, string|null $after, string|null $before, VectorStoreFileFilter|null $filter): VectorStoreFileListResponse
+    public function execute(): VectorStoreFileListResponse
     {
         try {
-            return $this->getClient()->vectorStores()->files()->list($vectorStoreId, $this->prepareData($limit, $order, $after, $before, $filter));
+            return $this->getClient()->vectorStores()->files()->list($this->vectorStoreId, $this->prepareData());
         } /** @noinspection PhpRedundantCatchClauseInspection */
         catch (ErrorException $exception) {
             $this->vectorStoreExceptionHandler($exception);
@@ -36,23 +46,23 @@ class GetList extends BaseController
         }
     }
 
-    private function prepareData(int|null $limit, OrderEnum|null $order, string|null $after, string|null $before, VectorStoreFileFilter|null $filter): array
+    private function prepareData(): array
     {
         $data = [];
-        if (filled($limit)) {
-            $data['limit'] = $limit;
+        if (filled($this->limit)) {
+            $data['limit'] = $this->limit;
         }
-        if (filled($order)) {
-            $data['order'] = $order->value;
+        if (filled($this->order)) {
+            $data['order'] = $this->order->value;
         }
-        if (filled($after)) {
-            $data['after'] = $after;
+        if (filled($this->after)) {
+            $data['after'] = $this->after;
         }
-        if (filled($before)) {
-            $data['before'] = $before;
+        if (filled($this->before)) {
+            $data['before'] = $this->before;
         }
-        if (filled($filter)) {
-            $data['filter'] = $filter->value;
+        if (filled($this->filter)) {
+            $data['filter'] = $this->filter->value;
         }
         return $data;
     }

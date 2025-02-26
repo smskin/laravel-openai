@@ -122,7 +122,7 @@ class Run
      */
     public function submitToolOutputs(string $threadId, string $runId, Collection $toolOutputs): ThreadRunResponse
     {
-        return (new SubmitToolOutputs())->execute($threadId, $runId, $toolOutputs);
+        return (new SubmitToolOutputs($threadId, $runId, $toolOutputs))->execute();
     }
 
     /**
@@ -139,6 +139,6 @@ class Run
      */
     public function submitToolOutputsStreamed(string $threadId, string $runId, Collection $toolOutputs): StreamResponse
     {
-        return (new SubmitToolOutputsStreamed())->execute($threadId, $runId, $toolOutputs);
+        return (new SubmitToolOutputsStreamed($threadId, $runId, $toolOutputs))->execute();
     }
 }

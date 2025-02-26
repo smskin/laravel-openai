@@ -15,6 +15,10 @@ class Delete extends BaseController
 {
     use VectorStoreExceptionTrait;
 
+    public function __construct(private readonly string $id)
+    {
+    }
+
     /**
      * @throws ErrorException
      * @throws ApiServerHadProcessingError
@@ -23,10 +27,10 @@ class Delete extends BaseController
      * @throws VectorStoreIsExpired
      * @noinspection PhpDocRedundantThrowsInspection
      */
-    public function execute(string $id): VectorStoreDeleteResponse
+    public function execute(): VectorStoreDeleteResponse
     {
         try {
-            return $this->getClient()->vectorStores()->delete($id);
+            return $this->getClient()->vectorStores()->delete($this->id);
         } /** @noinspection PhpRedundantCatchClauseInspection */
         catch (ErrorException $exception) {
             $this->vectorStoreExceptionHandler($exception);

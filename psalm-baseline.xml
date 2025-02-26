@@ -19,6 +19,16 @@
       <code><![CDATA[create]]></code>
     </PossiblyUnusedMethod>
   </file>
+  <file src="src/Controllers/Run/SubmitToolOutputs.php">
+    <MissingTemplateParam>
+      <code><![CDATA[Collection<ToolOutput>]]></code>
+    </MissingTemplateParam>
+  </file>
+  <file src="src/Controllers/Run/SubmitToolOutputsStreamed.php">
+    <MissingTemplateParam>
+      <code><![CDATA[Collection<ToolOutput>]]></code>
+    </MissingTemplateParam>
+  </file>
   <file src="src/File.php">
     <PossiblyUnusedMethod>
       <code><![CDATA[delete]]></code>
