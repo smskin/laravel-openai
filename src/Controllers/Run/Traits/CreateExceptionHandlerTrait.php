@@ -17,7 +17,10 @@ trait CreateExceptionHandlerTrait
      */
     private function createExceptionHandler(ErrorException $exception): void
     {
-        if (Str::contains($exception->getMessage(), 'No assistant found with id')) {
+        if (
+            preg_match('/(Invalid \'assistant_id\': \'\w+\'\. Expected an ID that begins with \'asst\')/i', $exception->getMessage()) ||
+            Str::contains($exception->getMessage(), 'No assistant found with id')
+        ) {
             throw new AssistantNotFound($exception->getMessage(), 500, $exception);
         }
         if (preg_match('/(Thread \w+ already has an active run \w+)/i', $exception->getMessage())) {
