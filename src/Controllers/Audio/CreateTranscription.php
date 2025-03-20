@@ -31,7 +31,7 @@ class CreateTranscription extends BaseController
     {
         $payload = [
             'file' => $file,
-            'model' => $model->value
+            'model' => $model->value,
         ];
 
         if ($language) {
