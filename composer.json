@@ -1,5 +1,5 @@
 {
-    "name": "smskin/laravel-opeai",
+    "name": "smskin/laravel-openai",
     "description": "OpenAI API wrapper for laravel projects",
     "license": "MIT",
     "type": "library",
