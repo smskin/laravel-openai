@@ -2,6 +2,6 @@ This library is based on the official PHP OpenAI library [openai-php/client](htt
 
 ### Installation
 ```text
-composer require smskin/laravel-opeai
+composer require smskin/laravel-openai
 php artisan vendor:publish --provider="SMSkin\LaravelOpenAi\Providers\ServiceProvider"
 ```
