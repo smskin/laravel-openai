@@ -40,7 +40,7 @@ class Run
         string|null    $after = null,
         string|null    $before = null,
     ): ThreadRunListResponse {
-        return (new GetList($threadId, $limit, $order, $after, $before))->execute();
+        return (new GetList())->execute($threadId, $limit, $order, $after, $before);
     }
 
     /**
@@ -54,7 +54,7 @@ class Run
      */
     public function create(string $threadId, Models\Run $run): ThreadRunResponse
     {
-        return (new Create($threadId, $run))->execute();
+        return (new Create())->execute($threadId, $run);
     }
 
     /**
@@ -68,7 +68,7 @@ class Run
      */
     public function createStreamed(string $threadId, Models\Run $run): StreamResponse
     {
-        return (new CreateStreamed($threadId, $run))->execute();
+        return (new CreateStreamed())->execute($threadId, $run);
     }
 
     /**
@@ -80,7 +80,7 @@ class Run
      */
     public function retrieve(string $threadId, string $runId): ThreadRunResponse
     {
-        return (new Retrieve($threadId, $runId))->execute();
+        return (new Retrieve())->execute($threadId, $runId);
     }
 
     /**
@@ -92,7 +92,7 @@ class Run
      */
     public function modify(string $threadId, string $runId, array|null $metadata = null): ThreadRunResponse
     {
-        return (new Modify($threadId, $runId, $metadata))->execute();
+        return (new Modify())->execute($threadId, $runId, $metadata);
     }
 
     /**
@@ -105,7 +105,7 @@ class Run
      */
     public function cancel(string $threadId, string $runId): ThreadRunResponse
     {
-        return (new Cancel($threadId, $runId))->execute();
+        return (new Cancel())->execute($threadId, $runId);
     }
 
     /**
@@ -122,7 +122,7 @@ class Run
      */
     public function submitToolOutputs(string $threadId, string $runId, Collection $toolOutputs): ThreadRunResponse
     {
-        return (new SubmitToolOutputs($threadId, $runId, $toolOutputs))->execute();
+        return (new SubmitToolOutputs())->execute($threadId, $runId, $toolOutputs);
     }
 
     /**
@@ -139,6 +139,6 @@ class Run
      */
     public function submitToolOutputsStreamed(string $threadId, string $runId, Collection $toolOutputs): StreamResponse
     {
-        return (new SubmitToolOutputsStreamed($threadId, $runId, $toolOutputs))->execute();
+        return (new SubmitToolOutputsStreamed())->execute($threadId, $runId, $toolOutputs);
     }
 }

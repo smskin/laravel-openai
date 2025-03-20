@@ -28,6 +28,6 @@ class Completion
         int|null  $temperature = null,
         int|null  $topP = null
     ): CreateResponse {
-        return (new Create($model, $prompt, $bestOf, $echo, $frequencyPenalty, $maxTokens, $n, $presencePenalty, $temperature, $topP))->execute();
+        return (new Create())->execute($model, $prompt, $bestOf, $echo, $frequencyPenalty, $maxTokens, $n, $presencePenalty, $temperature, $topP);
     }
 }

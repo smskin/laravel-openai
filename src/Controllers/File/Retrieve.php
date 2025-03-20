@@ -14,11 +14,6 @@ class Retrieve extends BaseController
 {
     use RetrieveExceptionHandlerTrait;
 
-    public function __construct(
-        private readonly string $id
-    ) {
-    }
-
     /**
      * @throws NotFound
      * @throws TransporterException
@@ -26,10 +21,10 @@ class Retrieve extends BaseController
      * @throws ErrorException
      * @noinspection PhpDocRedundantThrowsInspection
      */
-    public function execute(): RetrieveResponse
+    public function execute(string $id): RetrieveResponse
     {
         try {
-            return $this->getClient()->files()->retrieve($this->id);
+            return $this->getClient()->files()->retrieve($id);
         } /** @noinspection PhpRedundantCatchClauseInspection */
         catch (ErrorException $exception) {
             $this->retrieveExceptionHandler($exception);

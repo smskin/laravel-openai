@@ -16,14 +16,6 @@ class Modify extends BaseController
 {
     use RetrieveExceptionHandlerTrait;
 
-    public function __construct(
-        private readonly string $id,
-        private readonly CodeInterpreterToolResource|null $codeInterpreterToolResource,
-        private readonly FileSearchToolResource|null $fileSearchToolResource,
-        private readonly array|null $metadata,
-    ) {
-    }
-
     /**
      * @throws NotFound
      * @throws TransporterException
@@ -31,12 +23,16 @@ class Modify extends BaseController
      * @throws ErrorException
      * @noinspection PhpDocRedundantThrowsInspection
      */
-    public function execute(): ThreadResponse
-    {
+    public function execute(
+        string                           $id,
+        CodeInterpreterToolResource|null $codeInterpreterToolResource,
+        FileSearchToolResource|null      $fileSearchToolResource,
+        array|null                       $metadata
+    ): ThreadResponse {
         try {
             return $this->getClient()->threads()->modify(
-                $this->id,
-                $this->prepareData()
+                $id,
+                $this->prepareData($codeInterpreterToolResource, $fileSearchToolResource, $metadata)
             );
         } /** @noinspection PhpRedundantCatchClauseInspection */
         catch (ErrorException $exception) {
@@ -45,17 +41,20 @@ class Modify extends BaseController
         }
     }
 
-    private function prepareData(): array
-    {
+    private function prepareData(
+        CodeInterpreterToolResource|null $codeInterpreterToolResource,
+        FileSearchToolResource|null      $fileSearchToolResource,
+        array|null                       $metadata
+    ): array {
         $payload = [];
-        if ($this->codeInterpreterToolResource) {
-            $payload['tool_resources']['code_interpreter'] = $this->codeInterpreterToolResource->toArray();
+        if ($codeInterpreterToolResource) {
+            $payload['tool_resources']['code_interpreter'] = $codeInterpreterToolResource->toArray();
         }
-        if ($this->fileSearchToolResource) {
-            $payload['tool_resources']['file_search'] = $this->fileSearchToolResource->toArray();
+        if ($fileSearchToolResource) {
+            $payload['tool_resources']['file_search'] = $fileSearchToolResource->toArray();
         }
-        if ($this->metadata) {
-            $payload['metadata'] = $this->metadata;
+        if ($metadata) {
+            $payload['metadata'] = $metadata;
         }
         return $payload;
     }

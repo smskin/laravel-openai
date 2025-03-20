@@ -36,7 +36,7 @@ class Message
         string|null    $before = null,
         string|null    $runId = null
     ): ThreadMessageListResponse {
-        return (new GetList($threadId, $limit, $order, $after, $before, $runId))->execute();
+        return (new GetList())->execute($threadId, $limit, $order, $after, $before, $runId);
     }
 
     /**
@@ -49,7 +49,7 @@ class Message
      */
     public function create(string $threadId, MessageModel $message): ThreadMessageResponse
     {
-        return (new Create($threadId, $message))->execute();
+        return (new Create())->execute($threadId, $message);
     }
 
     /**
@@ -61,7 +61,7 @@ class Message
      */
     public function retrieve(string $threadId, string $messageId): ThreadMessageResponse
     {
-        return (new Retrieve($threadId, $messageId))->execute();
+        return (new Retrieve())->execute($threadId, $messageId);
     }
 
     /**
@@ -76,7 +76,7 @@ class Message
         string     $messageId,
         array|null $metadata = null
     ): ThreadMessageResponse {
-        return (new Modify($threadId, $messageId, $metadata))->execute();
+        return (new Modify())->execute($threadId, $messageId, $metadata);
     }
 
     /**
@@ -88,6 +88,6 @@ class Message
      */
     public function delete(string $threadId, string $messageId): ThreadMessageDeleteResponse
     {
-        return (new Delete($threadId, $messageId))->execute();
+        return (new Delete())->execute($threadId, $messageId);
     }
 }

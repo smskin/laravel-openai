@@ -15,11 +15,6 @@ class Download extends BaseController
 {
     use RetrieveExceptionHandlerTrait;
 
-    public function __construct(
-        private readonly string $id
-    ) {
-    }
-
     /**
      * @throws NotFound
      * @throws NotAllowedToDownload
@@ -28,10 +23,10 @@ class Download extends BaseController
      * @throws ErrorException
      * @noinspection PhpDocRedundantThrowsInspection
      */
-    public function execute(): string
+    public function execute(string $id): string
     {
         try {
-            return $this->getClient()->files()->download($this->id);
+            return $this->getClient()->files()->download($id);
         } /** @noinspection PhpRedundantCatchClauseInspection */
         catch (ErrorException $exception) {
             if (Str::contains($exception->getMessage(), 'Not allowed to download files of purpose:')) {

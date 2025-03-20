@@ -15,15 +15,6 @@ class GetList extends BaseController
 {
     use GetListExceptionHandlerTrait;
 
-    public function __construct(
-        private readonly string $threadId,
-        private readonly int|null $limit,
-        private readonly OrderEnum|null $order,
-        private readonly string|null $after,
-        private readonly string|null $before,
-    ) {
-    }
-
     /**
      * @throws ThreadNotFound
      * @throws TransporterException
@@ -31,12 +22,22 @@ class GetList extends BaseController
      * @throws ErrorException
      * @noinspection PhpDocRedundantThrowsInspection
      */
-    public function execute(): ThreadRunListResponse
-    {
+    public function execute(
+        string         $threadId,
+        int|null       $limit,
+        OrderEnum|null $order,
+        string|null    $after,
+        string|null    $before
+    ): ThreadRunListResponse {
         try {
             return $this->getClient()->threads()->runs()->list(
-                $this->threadId,
-                $this->prepareParams()
+                $threadId,
+                $this->prepareParams(
+                    $limit,
+                    $order,
+                    $after,
+                    $before
+                )
             );
         } /** @noinspection PhpRedundantCatchClauseInspection */
         catch (ErrorException $exception) {
@@ -45,20 +46,24 @@ class GetList extends BaseController
         }
     }
 
-    private function prepareParams(): array
-    {
+    private function prepareParams(
+        int|null       $limit,
+        OrderEnum|null $order,
+        string|null    $after,
+        string|null    $before
+    ): array {
         $payload = [];
-        if ($this->limit !== null) {
-            $payload['limit'] = $this->limit;
+        if ($limit !== null) {
+            $payload['limit'] = $limit;
         }
-        if ($this->order) {
-            $payload['order'] = $this->order->value;
+        if ($order) {
+            $payload['order'] = $order->value;
         }
-        if ($this->after !== null) {
-            $payload['after'] = $this->after;
+        if ($after !== null) {
+            $payload['after'] = $after;
         }
-        if ($this->before !== null) {
-            $payload['before'] = $this->before;
+        if ($before !== null) {
+            $payload['before'] = $before;
         }
         return $payload;
     }

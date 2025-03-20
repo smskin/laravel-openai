@@ -9,6 +9,11 @@
       <code><![CDATA[retrieve]]></code>
     </PossiblyUnusedMethod>
   </file>
+  <file src="src/Audio.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[transcribe]]></code>
+    </PossiblyUnusedMethod>
+  </file>
   <file src="src/Chat.php">
     <PossiblyUnusedMethod>
       <code><![CDATA[create]]></code>
@@ -18,16 +23,6 @@
     <PossiblyUnusedMethod>
       <code><![CDATA[create]]></code>
     </PossiblyUnusedMethod>
-  </file>
-  <file src="src/Controllers/Run/SubmitToolOutputs.php">
-    <MissingTemplateParam>
-      <code><![CDATA[Collection<ToolOutput>]]></code>
-    </MissingTemplateParam>
-  </file>
-  <file src="src/Controllers/Run/SubmitToolOutputsStreamed.php">
-    <MissingTemplateParam>
-      <code><![CDATA[Collection<ToolOutput>]]></code>
-    </MissingTemplateParam>
   </file>
   <file src="src/File.php">
     <PossiblyUnusedMethod>

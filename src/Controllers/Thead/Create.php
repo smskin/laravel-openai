@@ -16,10 +16,6 @@ use SMSkin\LaravelOpenAi\Models\UnsupportedRetrievalFile;
 
 class Create extends BaseController
 {
-    public function __construct(private readonly Thread|null $thread)
-    {
-    }
-
     /**
      * @throws UnsupportedImageFormat
      * @throws NotFound
@@ -30,11 +26,11 @@ class Create extends BaseController
      * @throws ErrorException
      * @noinspection PhpDocRedundantThrowsInspection
      */
-    public function execute(): ThreadResponse
+    public function execute(Thread|null $thread): ThreadResponse
     {
         try {
             return $this->getClient()->threads()->create(
-                $this->thread ? $this->thread->toArray() : []
+                $thread ? $thread->toArray() : []
             );
         } /** @noinspection PhpRedundantCatchClauseInspection */
         catch (ErrorException $exception) {

@@ -17,13 +17,6 @@ class Modify extends BaseController
     use GetListExceptionHandlerTrait;
     use RetrieveExceptionHandlerTrait;
 
-    public function __construct(
-        private readonly string $threadId,
-        private readonly string $messageId,
-        private readonly array|null $metadata
-    ) {
-    }
-
     /**
      * @throws ThreadNotFound
      * @throws NotFound
@@ -32,13 +25,13 @@ class Modify extends BaseController
      * @throws ErrorException
      * @noinspection PhpDocRedundantThrowsInspection
      */
-    public function execute(): ThreadMessageResponse
+    public function execute(string $threadId, string $messageId, array|null $metadata): ThreadMessageResponse
     {
         try {
             return $this->getClient()->threads()->messages()->modify(
-                $this->threadId,
-                $this->messageId,
-                $this->prepareData()
+                $threadId,
+                $messageId,
+                $this->prepareData($metadata)
             );
         } /** @noinspection PhpRedundantCatchClauseInspection */
         catch (ErrorException $exception) {
@@ -48,11 +41,12 @@ class Modify extends BaseController
         }
     }
 
-    private function prepareData(): array
-    {
+    private function prepareData(
+        array|null $metadata
+    ): array {
         $payload = [];
-        if ($this->metadata) {
-            $payload['metadata'] = $this->metadata;
+        if ($metadata) {
+            $payload['metadata'] = $metadata;
         }
         return $payload;
     }

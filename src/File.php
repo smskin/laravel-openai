@@ -39,7 +39,7 @@ class File
      */
     public function upload(mixed $resource, FilePurposeEnum $purpose): CreateResponse
     {
-        return (new Upload($resource, $purpose))->execute();
+        return (new Upload())->execute($resource, $purpose);
     }
 
     /**
@@ -50,7 +50,7 @@ class File
      */
     public function retrieve(string $id): RetrieveResponse
     {
-        return (new Retrieve($id))->execute();
+        return (new Retrieve())->execute($id);
     }
 
     /**
@@ -61,7 +61,7 @@ class File
      */
     public function delete(string $id): DeleteResponse
     {
-        return (new Delete($id))->execute();
+        return (new Delete())->execute($id);
     }
 
     /**
@@ -73,6 +73,6 @@ class File
      */
     public function download(string $id): string
     {
-        return (new Download($id))->execute();
+        return (new Download())->execute($id);
     }
 }

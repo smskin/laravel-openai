@@ -17,12 +17,6 @@ class Retrieve extends BaseController
     use GetListExceptionHandlerTrait;
     use RetrieveExceptionHandlerTrait;
 
-    public function __construct(
-        private readonly string $threadId,
-        private readonly string $runId
-    ) {
-    }
-
     /**
      * @throws ThreadNotFound
      * @throws NotFound
@@ -31,13 +25,10 @@ class Retrieve extends BaseController
      * @throws ErrorException
      * @noinspection PhpDocRedundantThrowsInspection
      */
-    public function execute(): ThreadRunResponse
+    public function execute(string $threadId, string $runId): ThreadRunResponse
     {
         try {
-            return $this->getClient()->threads()->runs()->retrieve(
-                $this->threadId,
-                $this->runId
-            );
+            return $this->getClient()->threads()->runs()->retrieve($threadId, $runId);
         } /** @noinspection PhpRedundantCatchClauseInspection */
         catch (ErrorException $exception) {
             $this->retrieveExceptionHandler($exception);

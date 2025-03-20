@@ -16,10 +16,6 @@ class Delete extends BaseController
 {
     use VectorStoreExceptionTrait;
 
-    public function __construct(private readonly string $vectorStoreId, private readonly string $fileId)
-    {
-    }
-
     /**
      * @throws ApiServerHadProcessingError
      * @throws ErrorException
@@ -28,10 +24,10 @@ class Delete extends BaseController
      * @throws VectorStoreIsExpired
      * @noinspection PhpDocRedundantThrowsInspection
      */
-    public function execute(): VectorStoreFileDeleteResponse
+    public function execute(string $vectorStoreId, string $fileId): VectorStoreFileDeleteResponse
     {
         try {
-            return $this->getClient()->vectorStores()->files()->delete($this->vectorStoreId, $this->fileId);
+            return $this->getClient()->vectorStores()->files()->delete($vectorStoreId, $fileId);
         } /** @noinspection PhpRedundantCatchClauseInspection */
         catch (ErrorException $exception) {
             if (Str::contains($exception->getMessage(), 'No file found with id')) {

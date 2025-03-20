@@ -20,18 +20,6 @@ class SubmitToolOutputsStreamed extends BaseController
     use GetListExceptionHandlerTrait;
 
     /**
-     * @param string $threadId
-     * @param string $runId
-     * @param Collection<ToolOutput> $toolOutputs
-     */
-    public function __construct(
-        private readonly string $threadId,
-        private readonly string $runId,
-        private readonly Collection $toolOutputs
-    ) {
-    }
-
-    /**
      * @throws ThreadNotFound
      * @throws TransporterException
      * @throws ApiServerHadProcessingError
@@ -40,11 +28,11 @@ class SubmitToolOutputsStreamed extends BaseController
      * @throws RunIsExpired
      * @noinspection PhpDocRedundantThrowsInspection
      */
-    public function execute(): StreamResponse
+    public function execute(string $threadId, string $runId, Collection $toolOutputs): StreamResponse
     {
         try {
-            return $this->getClient()->threads()->runs()->submitToolOutputsStreamed($this->threadId, $this->runId, [
-                'tool_outputs' => $this->toolOutputs->map(static function (ToolOutput $output) {
+            return $this->getClient()->threads()->runs()->submitToolOutputsStreamed($threadId, $runId, [
+                'tool_outputs' => $toolOutputs->map(static function (ToolOutput $output) {
                     $data = [
                         'tool_call_id' => $output->toolCallId,
                     ];

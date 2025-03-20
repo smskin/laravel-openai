@@ -36,7 +36,7 @@ class Assistant
         string|null    $after = null,
         string|null    $before = null,
     ): AssistantListResponse {
-        return (new GetList($limit, $order, $after, $before))->execute();
+        return (new GetList())->execute($limit, $order, $after, $before);
     }
 
     /**
@@ -61,21 +61,7 @@ class Assistant
         int|null                         $topP = null,
         ResponseFormatEnum|null          $responseFormat = null
     ): AssistantResponse {
-        return (new Create(
-            $model,
-            $name,
-            $description,
-            $instructions,
-            $codeInterpreterTool,
-            $fileSearchTool,
-            $functionTool,
-            $codeInterpreterToolResource,
-            $fileSearchToolResource,
-            $metadata,
-            $temperature,
-            $topP,
-            $responseFormat
-        ))->execute();
+        return (new Create())->execute($model, $name, $description, $instructions, $codeInterpreterTool, $fileSearchTool, $functionTool, $codeInterpreterToolResource, $fileSearchToolResource, $metadata, $temperature, $topP, $responseFormat);
     }
 
     /**
@@ -86,7 +72,7 @@ class Assistant
      */
     public function retrieve(string $id): AssistantResponse
     {
-        return (new Retrieve($id))->execute();
+        return (new Retrieve())->execute($id);
     }
 
     /**
@@ -113,22 +99,7 @@ class Assistant
         int|null                         $topP = null,
         ResponseFormatEnum|null          $responseFormat = null
     ): AssistantResponse {
-        return (new Modify(
-            $id,
-            $model,
-            $name,
-            $description,
-            $instructions,
-            $codeInterpreterTool,
-            $fileSearchTool,
-            $functionTool,
-            $codeInterpreterToolResource,
-            $fileSearchToolResource,
-            $metadata,
-            $temperature,
-            $topP,
-            $responseFormat
-        ))->execute();
+        return (new Modify())->execute($id, $model, $name, $description, $instructions, $codeInterpreterTool, $fileSearchTool, $functionTool, $codeInterpreterToolResource, $fileSearchToolResource, $metadata, $temperature, $topP, $responseFormat);
     }
 
     /**
@@ -139,6 +110,6 @@ class Assistant
      */
     public function delete(string $id): AssistantDeleteResponse
     {
-        return (new Delete($id))->execute();
+        return (new Delete())->execute($id);
     }
 }
