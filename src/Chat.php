@@ -38,6 +38,6 @@ class Chat
         int|null  $temperature = null,
         int|null  $topP = null
     ): CreateResponse {
-        return (new Create($messages, $model, $store, $frequencyPenalty, $maxCompletionTokens, $n, $presencePenalty, $temperature, $topP))->execute();
+        return (new Create())->execute($messages, $model, $store, $frequencyPenalty, $maxCompletionTokens, $n, $presencePenalty, $temperature, $topP);
     }
 }

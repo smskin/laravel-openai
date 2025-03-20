@@ -16,6 +16,6 @@ class Audio
      */
     public function transcribe(string $filePath, ModelEnum $model, LanguageEnum|null $language = null, string|null $prompt = null, int|null $temperature = null): TranscriptionResponse
     {
-        return (new CreateTranscription)->execute(fopen($filePath, 'r'), $model, $language, $prompt, $temperature);
+        return (new CreateTranscription())->execute(fopen($filePath, 'r'), $model, $language, $prompt, $temperature);
     }
 }

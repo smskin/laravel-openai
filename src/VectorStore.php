@@ -19,7 +19,7 @@ class VectorStore
      */
     public function getList(int|null $limit = null, OrderEnum|null $order = null, string|null $after = null, string|null $before = null): VectorStoreListResponse
     {
-        return (new GetList($limit, $order, $after, $before))->execute();
+        return (new GetList())->execute($limit, $order, $after, $before);
     }
 
     /**
@@ -31,7 +31,7 @@ class VectorStore
      */
     public function delete(string $id): VectorStoreDeleteResponse
     {
-        return (new Delete($id))->execute();
+        return (new Delete())->execute($id);
     }
 
     public function files(): VectorStoreFile

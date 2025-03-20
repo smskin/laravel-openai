@@ -14,10 +14,6 @@ class Retrieve extends BaseController
 {
     use RetrieveExceptionHandlerTrait;
 
-    public function __construct(private readonly string $id)
-    {
-    }
-
     /**
      * @throws NotFound
      * @throws TransporterException
@@ -25,12 +21,10 @@ class Retrieve extends BaseController
      * @throws ErrorException
      * @noinspection PhpDocRedundantThrowsInspection
      */
-    public function execute(): AssistantResponse
+    public function execute(string $id): AssistantResponse
     {
         try {
-            return $this->getClient()->assistants()->retrieve(
-                $this->id
-            );
+            return $this->getClient()->assistants()->retrieve($id);
         } /** @noinspection PhpRedundantCatchClauseInspection */
         catch (ErrorException $exception) {
             $this->retrieveExceptionHandler($exception);

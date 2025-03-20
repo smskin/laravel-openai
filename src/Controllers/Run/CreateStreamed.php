@@ -20,12 +20,6 @@ class CreateStreamed extends BaseController
     use CreateExceptionHandlerTrait;
     use GetListExceptionHandlerTrait;
 
-    public function __construct(
-        private readonly string $threadId,
-        private readonly Run $run
-    ) {
-    }
-
     /**
      * @throws ThreadNotFound
      * @throws VectorStoreIsExpired
@@ -36,12 +30,12 @@ class CreateStreamed extends BaseController
      * @throws AssistantNotFound
      * @noinspection PhpDocRedundantThrowsInspection
      */
-    public function execute(): StreamResponse
+    public function execute(string $threadId, Run $run): StreamResponse
     {
         try {
             return $this->getClient()->threads()->runs()->createStreamed(
-                $this->threadId,
-                $this->run->toArray()
+                $threadId,
+                $run->toArray()
             );
         } /** @noinspection PhpRedundantCatchClauseInspection */
         catch (ErrorException $exception) {

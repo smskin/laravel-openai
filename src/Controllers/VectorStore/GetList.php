@@ -14,25 +14,17 @@ class GetList extends BaseController
 {
     use CreateExceptionHandlerTrait;
 
-    public function __construct(
-        private readonly int|null $limit,
-        private readonly OrderEnum|null $order,
-        private readonly string|null $after,
-        private readonly string|null $before
-    ) {
-    }
-
     /**
      * @throws ApiServerHadProcessingError
      * @throws ErrorException
      * @throws TransporterException
      * @noinspection PhpDocRedundantThrowsInspection
      */
-    public function execute(): VectorStoreListResponse
+    public function execute(int|null $limit, OrderEnum|null $order, string|null $after, string|null $before): VectorStoreListResponse
     {
         try {
             return $this->getClient()->vectorStores()->list(
-                $this->prepareData()
+                $this->prepareData($limit, $order, $after, $before)
             );
         } /** @noinspection PhpRedundantCatchClauseInspection */
         catch (ErrorException $exception) {
@@ -40,20 +32,20 @@ class GetList extends BaseController
         }
     }
 
-    private function prepareData(): array
+    private function prepareData(int|null $limit, OrderEnum|null $order, string|null $after, string|null $before): array
     {
         $data = [];
-        if (filled($this->limit)) {
-            $data['limit'] = $this->limit;
+        if (filled($limit)) {
+            $data['limit'] = $limit;
         }
-        if (filled($this->order)) {
-            $data['order'] = $this->order->value;
+        if (filled($order)) {
+            $data['order'] = $order->value;
         }
-        if (filled($this->after)) {
-            $data['after'] = $this->after;
+        if (filled($after)) {
+            $data['after'] = $after;
         }
-        if (filled($this->before)) {
-            $data['before'] = $this->before;
+        if (filled($before)) {
+            $data['before'] = $before;
         }
         return $data;
     }

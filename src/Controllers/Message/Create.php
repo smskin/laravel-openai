@@ -11,17 +11,11 @@ use SMSkin\LaravelOpenAi\Exceptions\ApiServerHadProcessingError;
 use SMSkin\LaravelOpenAi\Exceptions\FileNotSupportedForRetrieval;
 use SMSkin\LaravelOpenAi\Exceptions\RunInProcess;
 use SMSkin\LaravelOpenAi\Exceptions\ThreadNotFound;
-use SMSkin\LaravelOpenAi\Models\Message;
+use SMSkin\LaravelOpenAi\Models\Message as MessageModel;
 
 class Create extends BaseController
 {
     use GetListExceptionHandlerTrait;
-
-    public function __construct(
-        private readonly string $threadId,
-        private readonly Message $message
-    ) {
-    }
 
     /**
      * @throws ThreadNotFound
@@ -32,12 +26,12 @@ class Create extends BaseController
      * @throws ErrorException
      * @noinspection PhpDocRedundantThrowsInspection
      */
-    public function execute(): ThreadMessageResponse
+    public function execute(string $threadId, MessageModel $message): ThreadMessageResponse
     {
         try {
             return $this->getClient()->threads()->messages()->create(
-                $this->threadId,
-                $this->message->toArray()
+                $threadId,
+                $message->toArray()
             );
         } /** @noinspection PhpRedundantCatchClauseInspection */
         catch (ErrorException $exception) {

@@ -20,12 +20,6 @@ class Create extends BaseController
     use GetListExceptionHandlerTrait;
     use CreateExceptionHandlerTrait;
 
-    public function __construct(
-        private readonly string $threadId,
-        private readonly Run $run
-    ) {
-    }
-
     /**
      * @throws ThreadNotFound
      * @throws TransporterException
@@ -36,12 +30,12 @@ class Create extends BaseController
      * @throws VectorStoreIsExpired
      * @noinspection PhpDocRedundantThrowsInspection
      */
-    public function execute(): ThreadRunResponse
+    public function execute(string $threadId, Run $run): ThreadRunResponse
     {
         try {
             return $this->getClient()->threads()->runs()->create(
-                $this->threadId,
-                $this->run->toArray()
+                $threadId,
+                $run->toArray()
             );
         } /** @noinspection PhpRedundantCatchClauseInspection */
         catch (ErrorException $exception) {

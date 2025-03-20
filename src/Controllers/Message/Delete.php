@@ -17,12 +17,6 @@ class Delete extends BaseController
     use GetListExceptionHandlerTrait;
     use RetrieveExceptionHandlerTrait;
 
-    public function __construct(
-        private readonly string $threadId,
-        private readonly string $messageId
-    ) {
-    }
-
     /**
      * @throws ThreadNotFound
      * @throws NotFound
@@ -31,10 +25,10 @@ class Delete extends BaseController
      * @throws ErrorException
      * @noinspection PhpDocRedundantThrowsInspection
      */
-    public function execute(): ThreadMessageDeleteResponse
+    public function execute(string $threadId, string $messageId): ThreadMessageDeleteResponse
     {
         try {
-            return $this->getClient()->threads()->messages()->delete($this->threadId, $this->messageId);
+            return $this->getClient()->threads()->messages()->delete($threadId, $messageId);
         } /** @noinspection PhpRedundantCatchClauseInspection */
         catch (ErrorException $exception) {
             $this->retrieveExceptionHandler($exception);

@@ -11,31 +11,27 @@ use SMSkin\LaravelOpenAi\Exceptions\ApiServerHadProcessingError;
 
 class Create extends BaseController
 {
-    public function __construct(
-        private readonly ModelEnum $model,
-        private readonly string $prompt,
-        private readonly int|null $bestOf,
-        private readonly bool|null $echo,
-        private readonly int|null $frequencyPenalty,
-        private readonly int|null $maxTokens,
-        private readonly int|null $n,
-        private readonly int|null $presencePenalty,
-        private readonly int|null $temperature,
-        private readonly int|null $topP
-    ) {
-    }
-
     /**
      * @throws TransporterException
      * @throws ApiServerHadProcessingError
      * @throws ErrorException
      * @noinspection PhpDocRedundantThrowsInspection
      */
-    public function execute(): CreateResponse
-    {
+    public function execute(
+        ModelEnum $model,
+        string    $prompt,
+        int|null  $bestOf,
+        bool|null $echo,
+        int|null  $frequencyPenalty,
+        int|null  $maxTokens,
+        int|null  $n,
+        int|null  $presencePenalty,
+        int|null  $temperature,
+        int|null  $topP
+    ): CreateResponse {
         try {
             return $this->getClient()->completions()->create(
-                $this->prepareData()
+                $this->prepareData($model, $prompt, $bestOf, $echo, $frequencyPenalty, $maxTokens, $n, $presencePenalty, $temperature, $topP)
             );
         } /** @noinspection PhpRedundantCatchClauseInspection */
         catch (ErrorException $exception) {
@@ -43,35 +39,43 @@ class Create extends BaseController
         }
     }
 
-    private function prepareData(): array
-    {
-        $payload = [
-            'model' => $this->model,
-            'prompt' => $this->prompt,
-        ];
-        if ($this->bestOf !== null) {
-            $payload['best_of'] = $this->bestOf;
+    private function prepareData(
+        ModelEnum $model,
+        string    $prompt,
+        int|null  $bestOf,
+        bool|null $echo,
+        int|null  $frequencyPenalty,
+        int|null  $maxTokens,
+        int|null  $n,
+        int|null  $presencePenalty,
+        int|null  $temperature,
+        int|null  $topP
+    ): array {
+        $payload = compact('model', 'prompt');
+
+        if ($bestOf !== null) {
+            $payload['best_of'] = $bestOf;
         }
-        if ($this->echo !== null) {
-            $payload['echo'] = $this->echo;
+        if ($echo !== null) {
+            $payload['echo'] = $echo;
         }
-        if ($this->frequencyPenalty !== null) {
-            $payload['frequency_penalty'] = $this->frequencyPenalty;
+        if ($frequencyPenalty !== null) {
+            $payload['frequency_penalty'] = $frequencyPenalty;
         }
-        if ($this->maxTokens !== null) {
-            $payload['max_tokens'] = $this->maxTokens;
+        if ($maxTokens !== null) {
+            $payload['max_tokens'] = $maxTokens;
         }
-        if ($this->n !== null) {
-            $payload['n'] = $this->n;
+        if ($n !== null) {
+            $payload['n'] = $n;
         }
-        if ($this->presencePenalty !== null) {
-            $payload['presence_penalty'] = $this->presencePenalty;
+        if ($presencePenalty !== null) {
+            $payload['presence_penalty'] = $presencePenalty;
         }
-        if ($this->temperature !== null) {
-            $payload['temperature'] = $this->temperature;
+        if ($temperature !== null) {
+            $payload['temperature'] = $temperature;
         }
-        if ($this->topP !== null) {
-            $payload['top_p'] = $this->topP;
+        if ($topP !== null) {
+            $payload['top_p'] = $topP;
         }
         return $payload;
     }

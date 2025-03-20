@@ -22,31 +22,26 @@ class Create extends BaseController
      * @param int|null $presencePenalty
      * @param int|null $temperature
      * @param int|null $topP
-     */
-    public function __construct(
-        private readonly array $messages,
-        private readonly ModelEnum $model,
-        private readonly bool|null $store,
-        private readonly int|null $frequencyPenalty,
-        private readonly int|null $maxCompletionTokens,
-        private readonly int|null $n,
-        private readonly int|null $presencePenalty,
-        private readonly int|null $temperature,
-        private readonly int|null $topP,
-    ) {
-    }
-
-    /**
-     * @throws TransporterException
+     * @return CreateResponse
      * @throws ApiServerHadProcessingError
      * @throws ErrorException
+     * @throws TransporterException
      * @noinspection PhpDocRedundantThrowsInspection
      */
-    public function execute(): CreateResponse
-    {
+    public function execute(
+        array     $messages,
+        ModelEnum $model,
+        bool|null $store,
+        int|null  $frequencyPenalty,
+        int|null  $maxCompletionTokens,
+        int|null  $n,
+        int|null  $presencePenalty,
+        int|null  $temperature,
+        int|null  $topP
+    ): CreateResponse {
         try {
             return $this->getClient()->chat()->create(
-                $this->prepareData()
+                $this->prepareData($messages, $model, $store, $frequencyPenalty, $maxCompletionTokens, $n, $presencePenalty, $temperature, $topP)
             );
         } /** @noinspection PhpRedundantCatchClauseInspection */
         catch (ErrorException $exception) {
@@ -54,37 +49,46 @@ class Create extends BaseController
         }
     }
 
-    private function prepareData(): array
-    {
+    private function prepareData(
+        array     $messages,
+        ModelEnum $model,
+        bool|null $store,
+        int|null  $frequencyPenalty,
+        int|null  $maxCompletionTokens,
+        int|null  $n,
+        int|null  $presencePenalty,
+        int|null  $temperature,
+        int|null  $topP
+    ): array {
         $payload = [
-            'messages' => collect($this->messages)->map(static function (ChatMessage $message) {
+            'messages' => collect($messages)->map(static function (ChatMessage $message) {
                 return [
                     'role' => $message->role->value,
                     'content' => $message->content,
                 ];
             }),
-            'model' => $this->model->value,
+            'model' => $model->value,
         ];
-        if ($this->store !== null) {
-            $payload['store'] = $this->store;
+        if ($store !== null) {
+            $payload['store'] = $store;
         }
-        if ($this->frequencyPenalty !== null) {
-            $payload['frequency_penalty'] = $this->frequencyPenalty;
+        if ($frequencyPenalty !== null) {
+            $payload['frequency_penalty'] = $frequencyPenalty;
         }
-        if ($this->maxCompletionTokens !== null) {
-            $payload['max_completion_tokens'] = $this->maxCompletionTokens;
+        if ($maxCompletionTokens !== null) {
+            $payload['max_completion_tokens'] = $maxCompletionTokens;
         }
-        if ($this->n !== null) {
-            $payload['n'] = $this->n;
+        if ($n !== null) {
+            $payload['n'] = $n;
         }
-        if ($this->presencePenalty !== null) {
-            $payload['presence_penalty'] = $this->presencePenalty;
+        if ($presencePenalty !== null) {
+            $payload['presence_penalty'] = $presencePenalty;
         }
-        if ($this->temperature !== null) {
-            $payload['temperature'] = $this->temperature;
+        if ($temperature !== null) {
+            $payload['temperature'] = $temperature;
         }
-        if ($this->topP !== null) {
-            $payload['top_p'] = $this->topP;
+        if ($topP !== null) {
+            $payload['top_p'] = $topP;
         }
         return $payload;
     }

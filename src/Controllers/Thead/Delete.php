@@ -14,11 +14,6 @@ class Delete extends BaseController
 {
     use RetrieveExceptionHandlerTrait;
 
-    public function __construct(
-        private readonly string $id,
-    ) {
-    }
-
     /**
      * @throws NotFound
      * @throws TransporterException
@@ -26,12 +21,10 @@ class Delete extends BaseController
      * @throws ErrorException
      * @noinspection PhpDocRedundantThrowsInspection
      */
-    public function execute(): ThreadDeleteResponse
+    public function execute(string $id): ThreadDeleteResponse
     {
         try {
-            return $this->getClient()->threads()->delete(
-                $this->id
-            );
+            return $this->getClient()->threads()->delete($id);
         } /** @noinspection PhpRedundantCatchClauseInspection */
         catch (ErrorException $exception) {
             $this->retrieveExceptionHandler($exception);

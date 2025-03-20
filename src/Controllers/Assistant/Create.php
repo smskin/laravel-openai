@@ -20,23 +20,6 @@ class Create extends BaseController
 {
     use CreateExceptionHandlerTrait;
 
-    public function __construct(
-        private readonly ModelEnum $model,
-        private readonly string|null $name,
-        private readonly string|null $description,
-        private readonly string|null $instructions,
-        private readonly bool|null $codeInterpreterTool,
-        private readonly bool|null $fileSearchTool,
-        private readonly FunctionToolConfig|null $functionTool,
-        private readonly CodeInterpreterToolResource|null $codeInterpreterToolResource,
-        private readonly FileSearchToolResource|null $fileSearchToolResource,
-        private readonly array|null $metadata,
-        private readonly int|null $temperature,
-        private readonly int|null $topP,
-        private readonly ResponseFormatEnum|null $responseFormat
-    ) {
-    }
-
     /**
      * @throws InvalidModel
      * @throws InvalidFunctionName
@@ -45,11 +28,24 @@ class Create extends BaseController
      * @throws ErrorException
      * @noinspection PhpDocRedundantThrowsInspection
      */
-    public function execute(): AssistantResponse
-    {
+    public function execute(
+        ModelEnum                        $model,
+        string|null                      $name,
+        string|null                      $description,
+        string|null                      $instructions,
+        bool|null                        $codeInterpreterTool,
+        bool|null                        $fileSearchTool,
+        FunctionToolConfig|null          $functionTool,
+        CodeInterpreterToolResource|null $codeInterpreterToolResource,
+        FileSearchToolResource|null      $fileSearchToolResource,
+        array|null                       $metadata,
+        int|null                         $temperature,
+        int|null                         $topP,
+        ResponseFormatEnum|null          $responseFormat
+    ): AssistantResponse {
         try {
             return $this->getClient()->assistants()->create(
-                $this->prepareData()
+                $this->prepareData($model, $name, $description, $instructions, $codeInterpreterTool, $fileSearchTool, $functionTool, $codeInterpreterToolResource, $fileSearchToolResource, $metadata, $temperature, $topP, $responseFormat)
             );
         } /** @noinspection PhpRedundantCatchClauseInspection */
         catch (ErrorException $exception) {
@@ -58,53 +54,65 @@ class Create extends BaseController
         }
     }
 
-    private function prepareData(): array
-    {
-        $payload = [
-            'model' => $this->model,
-        ];
-        if ($this->name) {
-            $payload['name'] = $this->name;
+    private function prepareData(
+        ModelEnum                        $model,
+        string|null                      $name,
+        string|null                      $description,
+        string|null                      $instructions,
+        bool|null                        $codeInterpreterTool,
+        bool|null                        $fileSearchTool,
+        FunctionToolConfig|null          $functionTool,
+        CodeInterpreterToolResource|null $codeInterpreterToolResource,
+        FileSearchToolResource|null      $fileSearchToolResource,
+        array|null                       $metadata,
+        int|null                         $temperature,
+        int|null                         $topP,
+        ResponseFormatEnum|null          $responseFormat
+    ): array {
+        $payload = compact('model');
+
+        if ($name) {
+            $payload['name'] = $name;
         }
-        if ($this->description) {
-            $payload['description'] = $this->description;
+        if ($description) {
+            $payload['description'] = $description;
         }
-        if ($this->instructions) {
-            $payload['instructions'] = $this->instructions;
+        if ($instructions) {
+            $payload['instructions'] = $instructions;
         }
-        if ($this->codeInterpreterTool) {
+        if ($codeInterpreterTool) {
             $payload['tools'][] = [
                 'type' => 'code_interpreter',
             ];
         }
-        if ($this->fileSearchTool) {
+        if ($fileSearchTool) {
             $payload['tools'][] = [
                 'type' => 'file_search',
             ];
         }
-        if ($this->functionTool) {
+        if ($functionTool) {
             $payload['tools'][] = [
                 'type' => 'function',
-                'function' => $this->functionTool->toArray(),
+                'function' => $functionTool->toArray(),
             ];
         }
-        if ($this->codeInterpreterToolResource) {
-            $payload['tool_resources']['code_interpreter'] = $this->codeInterpreterToolResource->toArray();
+        if ($codeInterpreterToolResource) {
+            $payload['tool_resources']['code_interpreter'] = $codeInterpreterToolResource->toArray();
         }
-        if ($this->fileSearchToolResource) {
-            $payload['tool_resources']['file_search'] = $this->fileSearchToolResource->toArray();
+        if ($fileSearchToolResource) {
+            $payload['tool_resources']['file_search'] = $fileSearchToolResource->toArray();
         }
-        if ($this->metadata) {
-            $payload['metadata'] = $this->metadata;
+        if ($metadata) {
+            $payload['metadata'] = $metadata;
         }
-        if ($this->temperature !== null) {
-            $payload['temperature'] = $this->temperature;
+        if ($temperature !== null) {
+            $payload['temperature'] = $temperature;
         }
-        if ($this->topP !== null) {
-            $payload['top_p'] = $this->topP;
+        if ($topP !== null) {
+            $payload['top_p'] = $topP;
         }
-        if ($this->responseFormat) {
-            $payload['response_format'] = $this->responseFormat->value;
+        if ($responseFormat) {
+            $payload['response_format'] = $responseFormat->value;
         }
         return $payload;
     }

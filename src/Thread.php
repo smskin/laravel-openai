@@ -37,7 +37,7 @@ class Thread
      */
     public function create(Models\Thread|null $thread): ThreadResponse
     {
-        return (new Create($thread))->execute();
+        return (new Create())->execute($thread);
     }
 
     /**
@@ -49,7 +49,7 @@ class Thread
         Models\Run $run,
         Models\Thread|null             $thread,
     ): ThreadRunResponse {
-        return (new CreateAndRun($run, $thread))->execute();
+        return (new CreateAndRun())->execute($run, $thread);
     }
 
     /**
@@ -61,7 +61,7 @@ class Thread
         Models\Run $run,
         Models\Thread|null             $thread,
     ): StreamResponse {
-        return (new CreateAndRunStreamed($run, $thread))->execute();
+        return (new CreateAndRunStreamed())->execute($run, $thread);
     }
 
     /**
@@ -72,7 +72,7 @@ class Thread
      */
     public function retrieve(string $id): ThreadResponse
     {
-        return (new Retrieve($id))->execute();
+        return (new Retrieve())->execute($id);
     }
 
     /**
@@ -87,7 +87,7 @@ class Thread
         FileSearchToolResource|null      $fileSearchToolResource = null,
         array|null                       $metadata = null
     ): ThreadResponse {
-        return (new Modify($id, $codeInterpreterToolResource, $fileSearchToolResource, $metadata))->execute();
+        return (new Modify())->execute($id, $codeInterpreterToolResource, $fileSearchToolResource, $metadata);
     }
 
     /**
@@ -98,7 +98,7 @@ class Thread
      */
     public function delete(string $id): ThreadDeleteResponse
     {
-        return (new Delete($id))->execute();
+        return (new Delete())->execute($id);
     }
 
     public function runs(): Run

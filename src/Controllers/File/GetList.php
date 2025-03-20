@@ -10,10 +10,6 @@ use SMSkin\LaravelOpenAi\Exceptions\ApiServerHadProcessingError;
 
 class GetList extends BaseController
 {
-    public function __construct()
-    {
-    }
-
     /**
      * @return ListResponse
      * @throws TransporterException

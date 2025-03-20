@@ -19,12 +19,6 @@ class Cancel extends BaseController
     use GetListExceptionHandlerTrait;
     use RetrieveExceptionHandlerTrait;
 
-    public function __construct(
-        private readonly string $threadId,
-        private readonly string $runId
-    ) {
-    }
-
     /**
      * @throws ThreadNotFound
      * @throws InvalidState
@@ -34,13 +28,10 @@ class Cancel extends BaseController
      * @throws ErrorException
      * @noinspection PhpDocRedundantThrowsInspection
      */
-    public function execute(): ThreadRunResponse
+    public function execute(string $threadId, string $runId): ThreadRunResponse
     {
         try {
-            return $this->getClient()->threads()->runs()->cancel(
-                $this->threadId,
-                $this->runId
-            );
+            return $this->getClient()->threads()->runs()->cancel($threadId, $runId);
         } /** @noinspection PhpRedundantCatchClauseInspection */
         catch (ErrorException $exception) {
             if (Str::contains($exception->getMessage(), 'Cannot cancel run with status \'completed\'')) {

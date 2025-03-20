@@ -12,23 +12,17 @@ use SMSkin\LaravelOpenAi\Models\Thread;
 
 class CreateAndRunStreamed extends BaseController
 {
-    public function __construct(
-        private readonly Run $run,
-        private readonly Thread|null $thread,
-    ) {
-    }
-
     /**
      * @throws TransporterException
      * @throws ApiServerHadProcessingError
      * @throws ErrorException
      * @noinspection PhpDocRedundantThrowsInspection
      */
-    public function execute(): StreamResponse
+    public function execute(Run $run, Thread|null $thread): StreamResponse
     {
         try {
             return $this->getClient()->threads()->createAndRunStreamed(
-                $this->prepareData()
+                $this->prepareData($run, $thread)
             );
         } /** @noinspection PhpRedundantCatchClauseInspection */
         catch (ErrorException $exception) {
@@ -36,12 +30,12 @@ class CreateAndRunStreamed extends BaseController
         }
     }
 
-    private function prepareData(): array
+    private function prepareData(Run $run, Thread|null $thread): array
     {
-        $payload = $this->run->toArray();
-        if ($this->thread) {
+        $payload = $run->toArray();
+        if ($thread) {
             $payload = array_merge($payload, [
-                'thread' => $this->thread->toArray(),
+                'thread' => $thread->toArray(),
             ]);
         }
         return $payload;

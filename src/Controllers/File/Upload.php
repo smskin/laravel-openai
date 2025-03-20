@@ -13,12 +13,6 @@ use SMSkin\LaravelOpenAi\Exceptions\InvalidExtension;
 
 class Upload extends BaseController
 {
-    public function __construct(
-        private readonly mixed $resource,
-        private readonly FilePurposeEnum $purpose
-    ) {
-    }
-
     /**
      * @throws InvalidExtension
      * @throws TransporterException
@@ -26,12 +20,12 @@ class Upload extends BaseController
      * @throws ErrorException
      * @noinspection PhpDocRedundantThrowsInspection
      */
-    public function execute(): CreateResponse
+    public function execute(mixed $resource, FilePurposeEnum $purpose): CreateResponse
     {
         try {
             return $this->getClient()->files()->upload([
-                'file' => $this->resource,
-                'purpose' => $this->purpose->value,
+                'file' => $resource,
+                'purpose' => $purpose->value,
             ]);
         } /** @noinspection PhpRedundantCatchClauseInspection */
         catch (ErrorException $exception) {
