@@ -33,4 +33,9 @@ class OpenAi
     {
         return new VectorStore();
     }
+
+    public function audio(): Audio
+    {
+        return new Audio();
+    }
 }
