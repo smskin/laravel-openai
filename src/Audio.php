@@ -3,6 +3,7 @@
 namespace SMSkin\LaravelOpenAi;
 
 use OpenAI\Exceptions\ErrorException;
+use OpenAI\Exceptions\TransporterException;
 use OpenAI\Responses\Audio\TranscriptionResponse;
 use SMSkin\LaravelOpenAi\Controllers\Audio\CreateTranscription;
 use SMSkin\LaravelOpenAi\Enums\LanguageEnum;
@@ -13,6 +14,7 @@ class Audio
     /**
      * @throws ErrorException
      * @throws Exceptions\ApiServerHadProcessingError
+     * @throws TransporterException
      */
     public function transcribe(string $filePath, ModelEnum $model, LanguageEnum|null $language = null, string|null $prompt = null, int|null $temperature = null): TranscriptionResponse
     {

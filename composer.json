@@ -17,8 +17,8 @@
     ],
     "require": {
         "php": "^8.1",
-        "laravel/framework": "^10 || ^11",
-        "openai-php/client": "dev-main"
+        "laravel/framework": "^10 || ^11 || ^12",
+        "openai-php/client": "^0.13"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.62",
